@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-
-// Import the fetchNifty50Data function from your service file
-import { fetchNifty50Data } from '../../stockService'; // Adjust the path as per your file structure
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { fetchNifty50Data } from "./api/stockService";
 
 function App() {
   const [nifty50Data, setNifty50Data] = useState([]);
@@ -16,7 +14,7 @@ function App() {
   const fetchNifty50Stocks = async () => {
     setIsLoading(true);
     try {
-      const data = await fetchNifty50Data(); // Call fetchNifty50Data function
+      const data = await fetchNifty50Data();
       setNifty50Data(data);
     } catch (error) {
       setError(error.message);
@@ -26,17 +24,27 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       <h1>Nifty 50 Stocks</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <ul>
+      <div className="stock-grid">
         {nifty50Data.map((stock) => (
-          <li key={stock.symbol}>
-            <strong>{stock.symbol}</strong>: {stock.name} - {stock.sector}
-          </li>
+          <div key={stock.symbol} className="stock-item">
+            <span className="symbol">{stock.symbol}</span>
+            <span className="sector">{stock.sector}</span>
+            <span className="price">₹{stock.price}</span>
+            <span
+              className={`change ${
+                stock.changePercentage > 0 ? "positive" : "negative"
+              }`}
+            >
+              {stock.changePercentage > 0 ? "+" : ""}
+              {stock.changePercentage}%
+            </span>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
