@@ -8,7 +8,7 @@ def fetch_nifty50_stocks():
         "ICICIBANK.NS", "ICICIBANK.NS", "KOTAKBANK.NS", "BHARTIARTL.NS", "ITC.NS",
         "LT.NS", "SBIN.NS", "BAJFINANCE.NS", "HCLTECH.NS", "ASIANPAINT.NS",
         "MARUTI.NS", "AXISBANK.NS", "WIPRO.NS", "ULTRACEMCO.NS", "NESTLEIND.NS",
-        "TATAMOTORS.NS", "SUNPHARMA.NS", "ONGC.NS", "TITAN.NS", "NTPC.NS"
+        "TATAMOTORS.NS", "SUNPHARMA.NS", "ONGC.NS", "TITAN.NS", "NTPC.NS", "IRFC.NS"
     ]
     stocks_data = []
     for ticker in nifty50_tickers:
