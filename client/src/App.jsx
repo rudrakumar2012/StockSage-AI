@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { fetchNifty50Data } from "./api/stockService";
+import StockGrid from "./components/StockGrid";
 
 function App() {
   const [nifty50Data, setNifty50Data] = useState([]);
@@ -28,23 +29,7 @@ function App() {
       <h1>Nifty 50 Stocks</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <div className="stock-grid">
-        {nifty50Data.map((stock) => (
-          <div key={stock.symbol} className="stock-item">
-            <span className="symbol">{stock.symbol}</span>
-            <span className="sector">{stock.sector}</span>
-            <span className="price">₹{stock.price}</span>
-            <span
-              className={`change ${
-                stock.changePercentage > 0 ? "positive" : "negative"
-              }`}
-            >
-              {stock.changePercentage > 0 ? "+" : ""}
-              {stock.changePercentage}%
-            </span>
-          </div>
-        ))}
-      </div>
+      <StockGrid stocks={nifty50Data} />
     </div>
   );
 }
