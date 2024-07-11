@@ -1,74 +1,108 @@
-/* App.css */
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .stock-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .stock-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-  }
-  
-  .stock-item:hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .symbol {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 5px;
-  }
-  
-  .sector {
-    font-size: 0.9em;
-    color: #666;
-  }
-  
-  .price {
-    font-size: 1.1em;
-    margin-top: auto;
-    margin-bottom: 10px;
-  }
-  
-  .change {
-    font-weight: bold;
-  }
-  
-  .positive {
-    color: green;
-  }
-  
-  .negative {
-    color: red;
-  }
-  
-  .loading-error {
-    text-align: center;
-    color: red;
-    margin-top: 20px;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: left; /* Align left */
+  margin-bottom: 20px;
+}
+
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.stock-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.stock-item:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.symbol {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.sector {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.price {
+  font-size: 1.1em;
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.change {
+  font-weight: bold;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
+
+.loading-error {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #0f172a; /* Dark blue */
+  color: #fed7aa; /* Light yellow */
+  padding: 15px;
+}
+
+.navbar a {
+  color: #fed7aa; /* Light yellow */
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.navbar a:hover {
+  color: white;
+}
+
+.navbar-brand {
+  color: #fed7aa; /* Light yellow */
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.navbar-toggler {
+  background-color: #fed7aa; /* Light yellow */
+  border-color: #fed7aa; /* Light yellow */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-collapse {
+  justify-content: center;
+}

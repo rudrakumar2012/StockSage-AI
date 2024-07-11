@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { fetchNifty50Data } from "./api/stockService";
 import StockGrid from "./components/StockGrid";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
 function App() {
   const [nifty50Data, setNifty50Data] = useState([]);
@@ -28,6 +30,8 @@ function App() {
 
   return (
     <div>
+      <Navbar />
+      <Hero />
       <h1>Nifty 50 Stocks</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
