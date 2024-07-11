@@ -3,6 +3,9 @@ import { fetchNifty50Data } from "./api/stockService";
 import StockGrid from "./components/StockGrid";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Hero2 from "./components/Hero2";
+import Hero3 from "./components/Hero3";
+import Feature from "./components/Feature";
 
 function App() {
   const [nifty50Data, setNifty50Data] = useState([]);
@@ -32,6 +35,9 @@ function App() {
     <div>
       <Navbar />
       <Hero />
+      <Hero2 />
+      <Hero3 />
+      <Feature />
       <h1>Nifty 50 Stocks</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}

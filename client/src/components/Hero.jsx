@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="px-4 pt-5 my-5 text-center border-bottom">
+    <div className="px-4 py-5 my-5 text-center border-bottom">
       <div className="container">
         <div className="overflow-hidden" style={{ maxHeight: "80vh" }}>
           <div className="container px-5">
