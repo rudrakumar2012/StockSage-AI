@@ -8,7 +8,7 @@ const Hero = () => {
           <div className="container px-5">
             <img
               src="/Image-Container.jpg"
-              className="img-fluid border rounded-3 shadow-lg mb-4"
+              className="img-fluid border rounded-5 shadow-lg mb-4"
               alt="Example image"
               loading="lazy"
             />
@@ -29,7 +29,13 @@ const Hero = () => {
                 Using cutting-edge algorithms, we provide accurate and reliable
                 predictions for NSE stocks. Join us and stay ahead.
               </p>
-              <button className="btn btn-primary">Learn more</button>
+              <a
+                className="btn btn-outline-info btn-rounded"
+                data-mdb-ripple-init
+                data-mdb-ripple-color="dark"
+              >
+                Learn more
+              </a>
             </div>
           </div>
         </div>
