@@ -8,5 +8,8 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:5000'
     }
+  },
+  build: {
+    outDir: 'dist', // Ensure the build output is directed to 'dist'
   }
 });
