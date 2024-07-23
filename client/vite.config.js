@@ -6,10 +6,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:5000'
+      '/api': 'http://localhost:5000' // For development
     }
   },
   build: {
-    outDir: 'dist', // Ensure the build output is directed to 'dist'
+    outDir: 'dist'
+  },
+  define: {
+    'process.env': {
+      NODE_ENV: '"production"'
+    }
   }
 });
