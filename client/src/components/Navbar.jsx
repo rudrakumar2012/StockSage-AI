@@ -23,7 +23,7 @@ const Navbar = () => {
           id="navbarsExample11"
         >
           <a className="navbar-brand col-lg-3 me-0" href="/">
-            Stock Saarthi
+            StockSage AI
           </a>
           <ul className="navbar-nav col-lg-6 justify-content-lg-center">
             <li className="nav-item">
