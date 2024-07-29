@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://stock-sage-ai.vercel.app/' // For development
+      '/api': 'https://stocksage-ai.onrender.com/' // For development
     }
   },
   build: {
