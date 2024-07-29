@@ -99,6 +99,10 @@ async function runPythonScriptAndSaveToDatabase() {
 runPythonScriptAndSaveToDatabase();
 setInterval(runPythonScriptAndSaveToDatabase, 300000); // Every 5 minutes
 
+app.get("/", (req, res) => {
+  res.json({ message: "Server is running!" });
+})
+
 // Fetch Nifty 50 data from database route
 app.get("/api/nifty50", async (req, res) => {
   try {
