@@ -19,7 +19,7 @@ const pool = new Pool({
 // Function to run Python script and retrieve data
 function runPythonScript() {
   return new Promise((resolve, reject) => {
-    const python = spawn("python", [
+    const python = spawn("python3", [
       path.join(__dirname, "fetch_nifty50_data.py"),
     ]);
 
