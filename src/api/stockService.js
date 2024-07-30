@@ -1,7 +1,7 @@
 // stockService.js
 export async function fetchNifty50Data() {
   try {
-    const response = await fetch("/api/nifty50");
+    const response = await fetch("https://stocksage-ai.onrender.com/api/nifty50");
     if (!response.ok) {
       throw new Error("Failed to fetch Nifty 50 data");
     }
