@@ -41,7 +41,7 @@ const StockGrid = () => {
     return <div>No data available</div>;
   }
 
-  const indices = ["All", "Nifty50", "NiftyMidcap50", "NiftySmallcap50"];
+  const indices = ["All", "Nifty50", "NiftyMidcap50", "NiftySmallcap50", "NiftyNext50"];
 
   const filteredStocks = selectedIndex === "All"
     ? Object.values(stockData).flat()
