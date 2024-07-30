@@ -20,7 +20,7 @@ const pool = new Pool({
 function runPythonScript() {
   return new Promise((resolve, reject) => {
     const python = spawn("python3", [
-      path.join(__dirname, "fetch_nifty50_data.py"),
+      path.join(__dirname, "nifty_stocks_fetcher.py"), // Updated Python script name
     ]);
 
     let data = "";
@@ -59,19 +59,19 @@ async function saveStockData(stocks) {
       );
 
       if (existingStock.rows.length > 0) {
-        // Symbol exists, update price and change percentage
+        // Symbol exists, update price, change percentage, and index
         await client.query(
           `UPDATE stocks 
-           SET price = $1, change_percentage = $2
-           WHERE symbol = $3`,
-          [stock.price, stock.changePercentage, stock.symbol]
+           SET price = $1, change_percentage = $2, index = $3
+           WHERE symbol = $4`,
+          [stock.price, stock.changePercentage, stock.index, stock.symbol]
         );
       } else {
         // Symbol does not exist, insert new record
         await client.query(
-          `INSERT INTO stocks (symbol, sector, price, change_percentage)
-           VALUES ($1, $2, $3, $4)`,
-          [stock.symbol, stock.sector, stock.price, stock.changePercentage]
+          `INSERT INTO stocks (symbol, sector, price, change_percentage, index)
+           VALUES ($1, $2, $3, $4, $5)`,
+          [stock.symbol, stock.sector, stock.price, stock.changePercentage, stock.index]
         );
       }
     }
@@ -103,16 +103,25 @@ app.get("/", (req, res) => {
   res.json({ message: "Server is running!" });
 })
 
-// Fetch Nifty 50 data from database route
-app.get("/api/nifty50", async (req, res) => {
+// Fetch stock data from database route with optional index filter
+app.get("/api/stocks", async (req, res) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM stocks");
+    const { index } = req.query;
+    let query = "SELECT * FROM stocks";
+    const queryParams = [];
+
+    if (index) {
+      query += " WHERE index = $1";
+      queryParams.push(index);
+    }
+
+    const { rows } = await pool.query(query, queryParams);
     res.json(rows);
   } catch (error) {
-    console.error("Error fetching Nifty 50 data from database:", error);
+    console.error("Error fetching stock data from database:", error);
     res
       .status(500)
-      .json({ error: "Failed to fetch Nifty 50 data from database" });
+      .json({ error: "Failed to fetch stock data from database" });
   }
 });
 

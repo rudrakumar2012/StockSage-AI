@@ -1,13 +1,13 @@
-// stockService.js
-export async function fetchNifty50Data() {
+import axios from "axios";
+
+const api_url = process.env.API_URL;
+
+export const fetchStockData = async () => {
   try {
-    const response = await fetch("https://stocksage-ai.onrender.com/api/nifty50");
-    if (!response.ok) {
-      throw new Error("Failed to fetch Nifty 50 data");
-    }
-    return await response.json(); // Parse the JSON response
+    const response = await axios.get(`${api_url}/stocks`);
+    return response.data;
   } catch (error) {
-    console.error("Error fetching Nifty 50 data:", error);
+    console.error("Error fetching stock data:", error);
     throw error;
   }
-}
+};
