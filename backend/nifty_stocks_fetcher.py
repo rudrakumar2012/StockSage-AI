@@ -1,6 +1,11 @@
 import yfinance as yf
 import json
 import sys
+import warnings
+
+# Suppress all warnings before importing yfinance
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 def fetch_nifty_stocks():
     nifty_stocks = {
