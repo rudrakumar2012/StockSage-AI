@@ -7,6 +7,9 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+# Specific suppression for the 'unit' keyword warning in TimedeltaIndex
+warnings.filterwarnings("ignore", message="The 'unit' keyword in TimedeltaIndex construction is deprecated and will be removed in a future version. Use pd.to_timedelta instead.")
+
 def fetch_nifty_stocks():
     nifty_stocks = {
         "Nifty50": [
