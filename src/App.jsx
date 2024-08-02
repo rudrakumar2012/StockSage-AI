@@ -7,6 +7,7 @@ import Hero3 from "./components/Hero3";
 import Feature from "./components/Feature";
 import StockGrid from "./components/StockGrid";
 import Insights from "./components/Insights";
+import Pricing from "./components/Pricing";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function Home() {
       <Hero3 />
       <Feature />
       <Insights />
+      <Pricing />
     </div>
   );
 }
