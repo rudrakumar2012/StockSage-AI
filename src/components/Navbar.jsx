@@ -3,10 +3,13 @@ import React from "react";
 const Navbar = () => {
   return (
     <nav
-      className="navbar navbar-expand-lg bg-body-tertiary rounded"
+      className="navbar navbar-expand-lg bg-body-tertiary rounded fixed-top"
       aria-label="Thirteenth navbar example"
     >
       <div className="container-fluid">
+        <a className="navbar-brand d-lg-none" href="/">
+          StockSage AI
+        </a>
         <button
           className="navbar-toggler collapsed"
           type="button"
@@ -22,7 +25,7 @@ const Navbar = () => {
           className="navbar-collapse d-lg-flex collapse"
           id="navbarsExample11"
         >
-          <a className="navbar-brand col-lg-3 me-0" href="/">
+          <a className="navbar-brand d-none d-lg-block" href="/">
             StockSage AI
           </a>
           <ul className="navbar-nav col-lg-6 justify-content-lg-center">

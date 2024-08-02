@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const API_URL = "https://stocksage-ai.onrender.com/api";
+//https://stocksage-ai.onrender.com/api
+
 
 export const fetchStockData = async () => {
   try {

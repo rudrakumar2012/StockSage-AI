@@ -2,18 +2,18 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="px-4 py-5 my-5 text-center border-bottom">
-      <div className="container">
-        <div className="overflow-hidden" style={{ maxHeight: "80vh" }}>
-          <div className="container px-5">
-            <img
-              src="/Image-Container.jpg"
-              className="img-fluid border rounded-5 shadow-lg mb-4"
-              alt="Example image"
-              loading="lazy"
-            />
-          </div>
+    <div className="px-4 pb-5 mb-5 text-center">
+      <div className="overflow-hidden mb-4" style={{ maxHeight: "100vh" }}>
+        <div className="container mt-5">
+          <img
+            src="/Image-Container.jpg"
+            className="img-fluid border rounded-5 shadow-lg w-100 h-100"
+            alt="Example image"
+            loading="lazy"
+          />
         </div>
+      </div>
+      <div className="container">
         <div className="row">
           <div className="col-lg-6 d-flex align-items-center">
             <div className="text-start">
