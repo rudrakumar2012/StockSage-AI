@@ -9,6 +9,7 @@ import StockGrid from "./components/StockGrid";
 import Insights from "./components/Insights";
 import Pricing from "./components/Pricing";
 import Signup from "./components/Signup";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function Home() {
       <Insights />
       <Pricing />
       <Signup />
+      <br />
+      <Footer />
     </div>
   );
 }
