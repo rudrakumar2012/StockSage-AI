@@ -8,6 +8,7 @@ import Feature from "./components/Feature";
 import StockGrid from "./components/StockGrid";
 import Insights from "./components/Insights";
 import Pricing from "./components/Pricing";
+import Signup from "./components/Signup";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function Home() {
       <Feature />
       <Insights />
       <Pricing />
+      <Signup />
     </div>
   );
 }

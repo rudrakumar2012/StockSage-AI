@@ -19,7 +19,7 @@ const Pricing = () => {
         <div className="card-body d-flex flex-column flex-md-row align-items-center justify-content-around">
           <div className="w-100 w-md-50">
             <h1 className="card-title pricing-card-title text-center">
-              $29<small className="text-body-secondary fw-light">/mo</small>
+              $6.99<small className="text-body-secondary fw-light">/mo</small>
             </h1>
             <p className="fs-6 text-body-secondary">Start predicting today.</p>
           </div>
