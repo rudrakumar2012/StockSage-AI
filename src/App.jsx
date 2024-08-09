@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import Hero2 from "./components/Hero2";
 import Hero3 from "./components/Hero3";
 import Feature from "./components/Feature";
-import StockGrid from "./components/StockGrid";
+import Dashboard from "./components/Dashboard";
 import Insights from "./components/Insights";
 import Pricing from "./components/Pricing";
 import Signup from "./components/Signup";
@@ -18,7 +18,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/showdata" element={<StockGrid />} />
+          <Route path="/showdata" element={<Dashboard />} />
         </Routes>
       </div>
     </Router>
