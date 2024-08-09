@@ -125,10 +125,46 @@ def fetch_nifty_stocks():
     
     return stocks_data
 
+def fetch_index_data():
+    indexes = {
+        "Nifty50": "^NSEI",
+        "NiftyMidcap50": "^NSEMDCP50",
+        "NiftySmallcap50": "NIFTYSMLCAP50.NS",
+        "NiftyNext50": "^NSMIDCP"
+    }
+    
+    index_data = []
+    
+    for index_name, ticker in indexes.items():
+        try:
+            stock = yf.Ticker(ticker)
+            info = stock.info
+            history = stock.history(period="1d")
+            current_price = history['Close'].iloc[-1] if not history.empty else None
+            previous_close = info.get('previousClose')
+            change_percentage = ((current_price - previous_close) / previous_close * 100) if current_price and previous_close else None
+            
+            index_data.append({
+                "index_name": index_name,
+                "price": round(current_price, 2) if current_price else 'N/A',
+                "change_percentage": round(change_percentage, 2) if change_percentage is not None else 'N/A'
+            })
+        except Exception as e:
+            print(f"Error fetching data for {ticker}: {str(e)}", file=sys.stderr)
+    
+    return index_data
+
 if __name__ == "__main__":
     try:
-        result = fetch_nifty_stocks()
-        print(json.dumps(result))
+        stocks_data = fetch_nifty_stocks()
+        indexes_data = fetch_index_data()
+        
+        data = {
+            'stocks': stocks_data,
+            'indexes': indexes_data
+        }
+        
+        print(json.dumps(data))
     except Exception as e:
         print(f"Error in main execution: {str(e)}", file=sys.stderr)
-        print(json.dumps([]))  # Return an empty list in case of error
+        print(json.dumps({}))  # Return an empty object in case of error

@@ -13,3 +13,13 @@ export const fetchStockData = async () => {
     throw error;
   }
 };
+
+export const fetchIndexData = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/indexes`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching index data:", error);
+    throw error;
+  }
+};

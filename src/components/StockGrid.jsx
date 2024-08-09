@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { fetchStockData } from "../api/stockService";
+import { fetchStockData, fetchIndexData } from "../api/stockService";
+import Heatmap from "react-heatmap";
 
 const StockGrid = () => {
   const [stockData, setStockData] = useState({});
+  const [indexData, setIndexData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState("All");
@@ -10,15 +12,17 @@ const StockGrid = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchStockData();
-        const groupedData = data.reduce((acc, stock) => {
+        const stockResponse = await fetchStockData();
+        const indexResponse = await fetchIndexData();
+        const groupedStockData = stockResponse.reduce((acc, stock) => {
           if (!acc[stock.index]) {
             acc[stock.index] = [];
           }
           acc[stock.index].push(stock);
           return acc;
         }, {});
-        setStockData(groupedData);
+        setStockData(groupedStockData);
+        setIndexData(indexResponse);
         setIsLoading(false);
       } catch (err) {
         setError(err.message || "Failed to fetch stock data");
@@ -41,60 +45,51 @@ const StockGrid = () => {
     return <div>No data available</div>;
   }
 
-  const indices = ["All", "Nifty50", "NiftyMidcap50", "NiftySmallcap50", "NiftyNext50"];
+  const indices = Object.keys(stockData);
 
   const filteredStocks = selectedIndex === "All"
     ? Object.values(stockData).flat()
     : stockData[selectedIndex] || [];
 
+  const heatmapData = filteredStocks.map((stock) => [
+    stock.symbol,
+    stock.price,
+    stock.change_percentage,
+  ]);
+
   return (
     <div className="container my-5">
       <h1 className="display-6 text-center pt-3">Stock Market Data</h1>
-      <div className="mb-3">
-        <label htmlFor="indexSelect" className="form-label">Select Index:</label>
-        <select
-          id="indexSelect"
-          className="form-select"
-          value={selectedIndex}
-          onChange={(e) => setSelectedIndex(e.target.value)}
-        >
-          {indices.map((index) => (
-            <option key={index} value={index}>{index}</option>
-          ))}
-        </select>
-      </div>
-      <div className="border rounded-3">
-        <table className="table table-striped">
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">Symbol</th>
-              <th scope="col">Index</th>
-              <th scope="col">Sector</th>
-              <th scope="col">Price (₹)</th>
-              <th scope="col">Change (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStocks.map((stock) => (
-              <tr key={stock.symbol}>
-                <td>{stock.symbol}</td>
-                <td>{stock.index}</td>
-                <td>{stock.sector}</td>
-                <td>{stock.price}</td>
-                <td
-                  className={
-                    stock.change_percentage > 0
-                      ? "text-success"
-                      : "text-danger"
-                  }
+      <div className="row">
+        <div className="col-md-3">
+          <h4>Indices:</h4>
+          <ul>
+            {indices.map((index) => (
+              <li key={index}>
+                <button
+                  className={`btn btn-secondary ${selectedIndex === index ? "active" : ""}`}
+                  onClick={() => setSelectedIndex(index)}
                 >
-                  {stock.change_percentage > 0 ? "+" : ""}
-                  {stock.change_percentage}%
-                </td>
-              </tr>
+                  {index}
+                </button>
+              </li>
             ))}
-          </tbody>
-        </table>
+          </ul>
+        </div>
+        <div className="col-md-9">
+          <Heatmap
+            data={heatmapData}
+            xLabels={["Symbol", "Price (₹)", "Change (%)"]}
+            yLabels={filteredStocks.map((stock) => stock.symbol)}
+            cellStyle={(x, y) => {
+              if (x === 2) {
+                return {
+                  background: filteredStocks[y].change_percentage > 0 ? "green" : "red",
+                };
+              }
+            }}
+          />
+        </div>
       </div>
     </div>
   );
