@@ -106,3 +106,16 @@ h1 {
 .navbar-collapse {
   justify-content: center;
 }
+
+button {
+  transition: none; /* Remove the transition effect */
+}
+
+button:active {
+  transform: none; /* Prevent button resizing or shifting on click */
+}
+
+button:focus {
+  box-shadow: none; /* Keep the outline without the shadow */
+  outline: 2px solid #31D2F2; /* Adjust the outline color and width */
+}
