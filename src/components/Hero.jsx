@@ -31,8 +31,6 @@ const Hero = () => {
               </p>
               <a
                 className="btn btn-outline-info btn-rounded"
-                data-mdb-ripple-init
-                data-mdb-ripple-color="dark"
               >
                 Learn more
               </a>

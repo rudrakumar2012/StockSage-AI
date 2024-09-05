@@ -48,8 +48,6 @@ const Navbar = () => {
           <div className="d-lg-flex col-lg-3 justify-content-lg-end">
             <button
               className="btn btn-outline-info btn-rounded"
-              data-mdb-ripple-init
-              data-mdb-ripple-color="dark"
             >
               Sign up
             </button>
