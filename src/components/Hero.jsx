@@ -30,7 +30,7 @@ const Hero = () => {
                 predictions for NSE stocks. Join us and stay ahead.
               </p>
               <a
-                className="btn btn-outline-info btn-rounded"
+                className="button1"
               >
                 Learn more
               </a>

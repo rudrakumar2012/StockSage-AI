@@ -20,7 +20,8 @@ const Insights = () => {
                 <div className="d-grid gap-2 d-md-flex justify-content-md-start px-3">
                   <Link
                     to="/showdata"
-                    className="btn btn-outline-info btn-rounded btn-sm px-4 me-md-2"
+                    className="button1 px-4 me-md-2 py-1"
+                    style={{ fontSize: "0.875rem" }}
                   >
                     Sign Up
                   </Link>
@@ -48,7 +49,8 @@ const Insights = () => {
                 <div className="d-grid gap-2 d-md-flex justify-content-md-start px-3">
                   <Link
                     to="/showdata"
-                    className="btn btn-outline-info btn-rounded btn-sm px-4 me-md-2"
+                    className="button1 px-4 me-md-2 py-1"
+                    style={{ fontSize: "0.875rem" }}
                   >
                     Sign Up
                   </Link>
@@ -81,7 +83,8 @@ const Insights = () => {
                   <div className="d-grid gap-2 d-md-flex justify-content-md-start px-3">
                     <Link
                       to="/showdata"
-                      className="btn btn-outline-info btn-rounded btn-sm px-4 me-md-2"
+                      className="button1 px-4 me-md-2 py-1"
+                      style={{ fontSize: "0.875rem" }}
                     >
                       Sign Up
                     </Link>

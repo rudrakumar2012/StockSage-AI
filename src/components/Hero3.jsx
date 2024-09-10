@@ -15,7 +15,8 @@ const Hero3 = () => {
           <div className="d-grid gap-2 d-md-flex justify-content-md-start">
             <Link
               to="/showdata"
-              className="btn btn-outline-info btn-rounded btn-lg px-4 me-md-2"
+              className="button1 px-4 me-md-2 py-2"
+              style={{ fontSize: "20px" }}
             >
               Get Started
             </Link>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Pricing = () => {
   return (
-    <div className="container px-4 py-5 text-center">
+    <div className="container px-4 py-5 text-center" id="pricing">
       <div className="pricing-header p-3 pb-md-4 mx-auto">
         <h1 className="display-4 fw-normal text-body-emphasis text-center">
           One Plan, All Features

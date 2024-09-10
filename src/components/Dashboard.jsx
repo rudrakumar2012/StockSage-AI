@@ -69,7 +69,7 @@ const Dashboard = () => {
           <ul className="list-group">
             <li className="list-group-item d-flex justify-content-between align-items-center">
               <button
-                className={`btn btn-link ${selectedIndex === "All" ? "fw-bold" : ""}`}
+                className={`button-link ${selectedIndex === "All" ? "fw-bold" : ""}`}
                 onClick={() => setSelectedIndex("All")}
               >
                 All
@@ -80,7 +80,7 @@ const Dashboard = () => {
               return (
                 <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                   <button
-                    className={`btn btn-link ${selectedIndex === index ? "fw-bold" : ""}`}
+                    className={`button-link ${selectedIndex === index ? "fw-bold" : ""}`}
                     onClick={() => setSelectedIndex(index)}
                   >
                     {index}

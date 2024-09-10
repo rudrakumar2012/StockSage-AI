@@ -107,15 +107,55 @@ h1 {
   justify-content: center;
 }
 
-button {
-  transition: none; /* Remove the transition effect */
+.button1 {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid #77DDF7;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #77DDF7;
+  background-color: transparent;
+  background-image: none;
+  border-color: #77DDF7;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-button:active {
-  transform: none; /* Prevent button resizing or shifting on click */
+.button1:hover {
+  color: #fff;
+  background-color: #77DDF7;
+  border-color: #77DDF7;
 }
 
-button:focus {
-  box-shadow: none; /* Keep the outline without the shadow */
-  outline: 2px solid #31D2F2; /* Adjust the outline color and width */
+.button1:focus {
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
+}
+
+.button-link {
+  font-weight: 400;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.button-link:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+.button-link:focus {
+  color: #23527c;
+  text-decoration: underline;
 }

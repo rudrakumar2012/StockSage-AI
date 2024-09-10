@@ -1,4 +1,5 @@
 import React from "react";
+import { HashLink } from 'react-router-hash-link';
 
 const Navbar = () => {
   return (
@@ -7,9 +8,9 @@ const Navbar = () => {
       aria-label="Thirteenth navbar example"
     >
       <div className="container-fluid">
-        <a className="navbar-brand d-lg-none" href="/">
+        <HashLink className="navbar-brand d-lg-none" smooth to="/#">
           StockSage AI
-        </a>
+        </HashLink>
         <button
           className="navbar-toggler collapsed"
           type="button"
@@ -25,29 +26,29 @@ const Navbar = () => {
           className="navbar-collapse d-lg-flex collapse"
           id="navbarsExample11"
         >
-          <a className="navbar-brand d-none d-lg-block" href="/">
+          <HashLink className="navbar-brand d-none d-lg-block" smooth to="/#">
             StockSage AI
-          </a>
+          </HashLink>
           <ul className="navbar-nav col-lg-6 justify-content-lg-center">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <HashLink className="nav-link active" aria-current="page" smooth to="/#">
                 Home
-              </a>
+              </HashLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <HashLink className="nav-link active" aria-current="page" smooth to="/#featured-3">
                 Features
-              </a>
+              </HashLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <HashLink className="nav-link active" aria-current="page" smooth to="/#pricing">
                 Pricing
-              </a>
+              </HashLink>
             </li>
           </ul>
           <div className="d-lg-flex col-lg-3 justify-content-lg-end">
             <button
-              className="btn btn-outline-info btn-rounded"
+              className="button1 px-3 me-md-2"
             >
               Sign up
             </button>
