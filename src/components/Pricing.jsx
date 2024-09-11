@@ -43,7 +43,7 @@ const Pricing = () => {
         <div className="d-grid gap-2 mx-auto mb-3">
           <Link
             to="/showdata"
-            className="btn btn-info btn-rounded btn-lg px-4 text-white"
+            className="buttoninfo px-4"
           >
             Get Started
           </Link>
