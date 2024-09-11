@@ -14,7 +14,7 @@ const Signup = () => {
         <div className="card-body">
           <h1 className="card-title pricing-card-title text-center">Sign up</h1>
           <p>Join Us Now!</p>
-          <button className="btn btn-outline-danger btn-rounded btn-lg px-4 mb-3" style={{ width: '100%' }}>
+          <button className="buttondanger px-4 mb-3" style={{ width: '100%' }}>
             <i className="bi bi-google"></i> Continue with Google
           </button>
           <div className="text-center my-3 d-flex align-items-center">
@@ -30,7 +30,7 @@ const Signup = () => {
             <div className="mb-3">
               <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" style={{ borderColor: '#31D2F2', borderWidth: '2px' }} />
             </div>
-            <button type="submit" className="btn btn-outline-primary btn-rounded btn-lg px-4" style={{ width: '100%' }}>Continue with Email</button>
+            <button type="submit" className="buttonprimary px-4" style={{ width: '100%' }}>Continue with Email</button>
           </form>
         </div>
       </div>

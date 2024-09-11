@@ -1,4 +1,5 @@
 import React from "react";
+import { HashLink } from 'react-router-hash-link';
 import { FaFacebook, FaInstagram, FaTimes } from "react-icons/fa";
 
 const Footer = () => {
@@ -17,9 +18,9 @@ const Footer = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-muted">
+            <HashLink className="nav-link px-2 text-muted" smooth to="/#pricing" aria-current="page">
               Pricing
-            </a>
+            </HashLink>
           </li>
           <li className="nav-item">
             <a href="#" className="nav-link px-2 text-muted">
