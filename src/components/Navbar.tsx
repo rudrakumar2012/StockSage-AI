@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <motion.nav 
       style={{ backgroundColor, paddingBlock: navPadding, borderBottomColor: borderOpacity }}
-      className="fixed top-0 inset-x-0 z-[100] border-b backdrop-blur-md"
+      className="fixed top-0 inset-x-0 z-100 border-b backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">

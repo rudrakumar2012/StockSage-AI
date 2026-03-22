@@ -2,13 +2,22 @@ import type { NextConfig } from "next";
 import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
 
 const nextConfig: NextConfig = {
-  // Use rewrites to trigger the Cloudflare dev platform setup
-  async rewrites() {
-    if (process.env.NODE_ENV === 'development') {
-      // This allows Next.js to "see" your D1 database locally
-      await setupDevPlatform().catch(console.error);
+  // Fixes the 'experimental' warning and stabilizes Drizzle
+  serverExternalPackages: ['drizzle-orm'],
+
+  webpack: (config, { dev, isServer }) => {
+    if (dev && isServer) {
+      // Initialize the Cloudflare D1 bridge only once at startup
+      setupDevPlatform().catch(console.error);
+      
+      // Prevent the compiler from being too aggressive on Windows
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+        ignored: /node_modules/,
+      };
     }
-    return [];
+    return config;
   },
 };
 

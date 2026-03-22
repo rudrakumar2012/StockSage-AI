@@ -1,20 +1,20 @@
-import { getRequestContext } from "@cloudflare/next-on-pages";
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "./schema";
+import { drizzle } from 'drizzle-orm/d1';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 
 export function getDb() {
   try {
     const context = getRequestContext();
     
-    // Check if context or env is missing (common in local proxy)
+    // Fallback check for local development proxy
     if (!context || !context.env || !(context.env as any).DB) {
-      throw new Error("D1 Binding not found");
+      console.warn("⚠️ D1 Database binding not found. Ensure you are using port 8788.");
+      throw new Error("Cloudflare D1 context missing.");
     }
 
-    return drizzle((context.env as any).DB, { schema });
+    return drizzle((context.env as any).DB);
   } catch (error) {
-    console.error("--- Database Connection Error ---");
-    console.error("Make sure you are accessing the site via port 8788, NOT 3000.");
+    // This prevents the "Fatal Panic" by handling the error gracefully
+    console.error("Critical Database Connection Error:", error);
     throw error;
   }
 }

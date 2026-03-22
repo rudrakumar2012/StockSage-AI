@@ -14,7 +14,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-[#050505] text-white pt-32 p-6 lg:p-12 lg:pt-40 relative overflow-hidden">
       {/* Background Ambient Glow to match Homepage */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/5 blur-[120px] rounded-full -z-10" />
+      <div className="absolute top-0 right-0 w-125 h-125 bg-indigo-600/5 blur-[120px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
@@ -38,7 +38,7 @@ export default async function DashboardPage() {
               return (
                 <div 
                   key={idx.id} 
-                  className="bg-zinc-900/30 border border-white/5 p-5 rounded-[2rem] backdrop-blur-xl min-w-[160px] hover:border-white/10 transition-colors"
+                  className="bg-zinc-900/30 border border-white/5 p-5 rounded-[2rem] backdrop-blur-xl min-w-40 hover:border-white/10 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold italic">{idx.indexName}</p>

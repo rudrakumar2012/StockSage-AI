@@ -19,7 +19,7 @@ export default function HomePage() {
     <div ref={containerRef} className="relative min-h-screen bg-[#050505] text-zinc-400 overflow-x-hidden selection:bg-indigo-500/30">
       
       {/* 1. THE LIVE DATA TAPE (SCROLLING TICKER) - Z-INDEX 40 */}
-      <div className="fixed top-[72px] inset-x-0 z-40 py-2.5 bg-indigo-600/5 border-y border-white/5 backdrop-blur-md overflow-hidden pointer-events-none">
+      <div className="fixed top-18 inset-x-0 z-40 py-2.5 bg-indigo-600/5 border-y border-white/5 backdrop-blur-md overflow-hidden pointer-events-none">
         <motion.div 
           animate={{ x: [0, -1000] }}
           transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
@@ -67,7 +67,7 @@ export default function HomePage() {
 
             <h1 className="text-7xl md:text-[140px] font-black tracking-tighter text-white mb-10 italic leading-[0.8] uppercase">
               STOCKSAGE <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-800 not-italic tracking-normal">Intelligence</span>
+              <span className="text-transparent bg-clip-text bg-linear-to-b from-white to-zinc-800 not-italic tracking-normal">Intelligence</span>
             </h1>
 
             <p className="max-w-2xl mx-auto text-xl text-zinc-500 mb-14 font-medium leading-relaxed italic">
@@ -75,7 +75,7 @@ export default function HomePage() {
             </p>
 
             <Link href="/dashboard" className="group relative inline-block">
-              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-indigo-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
               <button className="relative px-12 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-3 transition-transform active:scale-95">
                 Open Terminal <Terminal size={18} strokeWidth={3} />
               </button>
@@ -87,7 +87,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-6 py-40">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-8 group relative p-12 rounded-[4rem] bg-zinc-900/30 border border-white/5 overflow-hidden hover:bg-zinc-900/50 transition-all">
-              <div className="relative z-10 flex flex-col h-full justify-between min-h-[350px]">
+              <div className="relative z-10 flex flex-col h-full justify-between min-h-87.5">
                 <Layers className="text-indigo-400 mb-8" size={40} />
                 <div>
                   <h3 className="text-5xl font-bold text-white mb-6 italic tracking-tighter leading-tight">Neural Layer <br /> Processing</h3>

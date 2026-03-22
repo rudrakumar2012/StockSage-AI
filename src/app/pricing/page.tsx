@@ -31,7 +31,7 @@ export default function PricingPage() {
 
         {/* Tier 2: Institutional (Highlighted) */}
         <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition" />
+          <div className="absolute -inset-1 bg-linear-to-r from-indigo-500 to-cyan-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition" />
           <PricingCard 
             tier="Terminal Pro"
             price="$199"
@@ -55,7 +55,7 @@ function PricingCard({ tier, price, description, features, buttonText, highlight
       </div>
       <p className="text-zinc-500 text-sm mb-8">{description}</p>
       
-      <div className="space-y-4 mb-12 flex-grow">
+      <div className="space-y-4 mb-12 grow">
         {features.map((f: string) => (
           <div key={f} className="flex items-center gap-3 text-zinc-400 text-sm font-medium">
             <Check size={14} className="text-emerald-500" /> {f}
