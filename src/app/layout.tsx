@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar"; // Import your new Navbar
-
-const geist = Geist({ subsets: ["latin"] });
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "StockSage AI",
-  description: "Advanced Market Intelligence",
+  title: "StockSage | Institutional AI Terminal",
+  description: "Next-Generation Quantitative Analytics",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body className={`${geist.className} bg-[#050505] antialiased`}>
-        <Navbar /> {/* This puts the navbar on every page */}
-        <main>{children}</main>
+    <html lang="en" className="scroll-smooth">
+      <body className="bg-[#030303] text-white antialiased">
+        <Navbar />
+        {/* We do NOT put padding here, we put it on the pages so we can control the hero sections */}
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );

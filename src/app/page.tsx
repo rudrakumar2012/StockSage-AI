@@ -1,126 +1,158 @@
-"use client";
+export const runtime = 'nodejs';
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Cpu, Zap, Shield, Layers, Terminal, Activity, Command, ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { ArrowRight, Activity, Globe, Cpu, Sparkles, Network, Lock, Zap, Terminal } from "lucide-react";
 
 export default function HomePage() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
-
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#050505] text-zinc-400 overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-[#030303] text-zinc-200 font-sans selection:bg-indigo-500/30 overflow-hidden relative">
       
-      {/* 1. THE LIVE DATA TAPE (SCROLLING TICKER) - Z-INDEX 40 */}
-      <div className="fixed top-18 inset-x-0 z-40 py-2.5 bg-indigo-600/5 border-y border-white/5 backdrop-blur-md overflow-hidden pointer-events-none">
-        <motion.div 
-          animate={{ x: [0, -1000] }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          className="flex gap-16 whitespace-nowrap px-4"
-        >
-          <TickerItem symbol="AAPL" price="214.32" change="+1.2%" isPos={true} />
-          <TickerItem symbol="TSLA" price="178.10" change="-0.8%" isPos={false} />
-          <TickerItem symbol="NVDA" price="892.45" change="+3.4%" isPos={true} />
-          <TickerItem symbol="BTC" price="68,432" change="+0.5%" isPos={true} />
-          <TickerItem symbol="ETH" price="3,412" change="-1.4%" isPos={false} />
-          {/* Duplicates for seamless loop */}
-          <TickerItem symbol="AAPL" price="214.32" change="+1.2%" isPos={true} />
-          <TickerItem symbol="TSLA" price="178.10" change="-0.8%" isPos={false} />
-        </motion.div>
+      {/* 3D Ambient Glow Backgrounds */}
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/20 blur-[150px] rounded-full z-0 pointer-events-none animate-pulse duration-1000" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-fuchsia-600/10 blur-[150px] rounded-full z-0 pointer-events-none" />
+      
+      {/* HERO SECTION (pt-32 prevents Navbar overlap) */}
+      <section className="relative z-10 max-w-[1600px] mx-auto px-6 pb-24 pt-32 text-center">
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:bg-white/10 transition-colors shadow-[0_0_30px_rgba(99,102,241,0.2)]">
+            <Sparkles className="w-4 h-4 text-indigo-400" />
+            <span className="text-sm font-medium text-zinc-300">StockSage v2.4 Engine Live</span>
+          </div>
+        </div>
+        
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white mb-8 drop-shadow-2xl leading-tight">
+          Smarter <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-fuchsia-400">
+            Investing.
+          </span>
+        </h1>
+        
+        <p className="text-lg md:text-2xl text-zinc-400 font-medium max-w-3xl mx-auto mb-12 leading-relaxed">
+          Unlock institutional-grade market data, powered by advanced AI sentiment models, sub-millisecond execution, and predictive analytics.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <Link href="/dashboard" className="group flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all duration-300">
+            Start Trading Now
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link href="#platform" className="px-8 py-4 bg-white/5 text-white border border-white/10 rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-md">
+            Explore Features
+          </Link>
+        </div>
+      </section>
+
+      {/* LIVE DATA TICKER */}
+      <div className="relative z-10 border-y border-white/5 bg-white/5 backdrop-blur-md overflow-hidden py-4 flex">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-16 font-mono text-sm">
+          {[
+            { sym: "AAPL", price: "182.50", change: "+1.25%" },
+            { sym: "NVDA", price: "875.20", change: "+2.40%" },
+            { sym: "BTC", price: "64,200", change: "-0.50%" },
+            { sym: "SPY", price: "512.40", change: "+0.85%" },
+            { sym: "TSLA", price: "175.30", change: "-1.10%" },
+            { sym: "MSFT", price: "420.55", change: "+0.30%" },
+            { sym: "AMZN", price: "178.20", change: "+1.15%" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <span className="text-white font-bold text-base">{item.sym}</span>
+              <span className="text-zinc-400">${item.price}</span>
+              <span className={`px-2 py-1 rounded-md text-xs font-bold ${item.change.startsWith('+') ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+                {item.change}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <main className="relative z-10">
-        
-        {/* HERO SECTION - PADDED TO PREVENT CRASHING */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-32">
-          <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="relative max-w-5xl">
-            
-            {/* FLOATING LATENCY CHIP - POSITIONED SAFELY */}
-            <motion.div 
-              animate={{ y: [0, -12, 0] }} 
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-12 -left-12 hidden xl:block z-10"
-            >
-              <div className="p-4 bg-zinc-900/90 border border-white/10 rounded-2xl backdrop-blur-3xl shadow-2xl">
-                <div className="flex items-center gap-3 mb-1.5">
-                  <Activity className="text-emerald-500" size={12} />
-                  <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.2em]">Edge_Latency</span>
-                </div>
-                <p className="text-lg font-mono text-white tracking-tighter italic">0.002ms</p>
-              </div>
-            </motion.div>
+      {/* CORE PLATFORM FEATURES */}
+      <section id="platform" className="relative z-10 max-w-[1600px] mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">Built for the Modern Market</h2>
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">Everything you need to analyze, execute, and dominate, packaged in a beautifully intuitive interface.</p>
+        </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-xl mb-12"
-            >
-              <span className="text-[10px] font-black tracking-[0.5em] text-indigo-400 uppercase">System Initialized</span>
-            </motion.div>
-
-            <h1 className="text-7xl md:text-[140px] font-black tracking-tighter text-white mb-10 italic leading-[0.8] uppercase">
-              STOCKSAGE <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-b from-white to-zinc-800 not-italic tracking-normal">Intelligence</span>
-            </h1>
-
-            <p className="max-w-2xl mx-auto text-xl text-zinc-500 mb-14 font-medium leading-relaxed italic">
-              "We don't trade markets. We trade the <span className="text-zinc-200">asymmetry of information</span>."
-            </p>
-
-            <Link href="/dashboard" className="group relative inline-block">
-              <div className="absolute -inset-1 bg-linear-to-r from-indigo-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
-              <button className="relative px-12 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-3 transition-transform active:scale-95">
-                Open Terminal <Terminal size={18} strokeWidth={3} />
-              </button>
-            </Link>
-          </motion.div>
-        </section>
-
-        {/* BENTO ARCHITECTURE */}
-        <section className="max-w-7xl mx-auto px-6 py-40">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="md:col-span-8 group relative p-12 rounded-[4rem] bg-zinc-900/30 border border-white/5 overflow-hidden hover:bg-zinc-900/50 transition-all">
-              <div className="relative z-10 flex flex-col h-full justify-between min-h-87.5">
-                <Layers className="text-indigo-400 mb-8" size={40} />
-                <div>
-                  <h3 className="text-5xl font-bold text-white mb-6 italic tracking-tighter leading-tight">Neural Layer <br /> Processing</h3>
-                  <p className="text-zinc-500 leading-relaxed text-lg max-w-md italic font-medium">
-                    Detecting institutional liquidity gaps using high-density transformer models.
-                  </p>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              icon: <Activity className="w-10 h-10 text-indigo-400 mb-6" />,
+              title: "Real-Time Equities",
+              desc: "Sub-millisecond latency on global equities, ensuring you never miss a critical market movement or price shift.",
+              gradient: "from-indigo-500/20 to-transparent"
+            },
+            {
+              icon: <Cpu className="w-10 h-10 text-fuchsia-400 mb-6" />,
+              title: "AI Sentiment Analysis",
+              desc: "Our neural networks digest thousands of news articles and social feeds per second to predict market shifts.",
+              gradient: "from-fuchsia-500/20 to-transparent"
+            },
+            {
+              icon: <Globe className="w-10 h-10 text-blue-400 mb-6" />,
+              title: "Global Macro Data",
+              desc: "Track global economic health, inflation metrics, and central bank policies in one unified dashboard.",
+              gradient: "from-blue-500/20 to-transparent"
+            }
+          ].map((feature, i) => (
+            <div key={i} className={`group relative overflow-hidden bg-white/5 border border-white/10 rounded-3xl p-10 hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500 backdrop-blur-xl`}>
+              <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0`} />
+              <div className="relative z-10">
+                {feature.icon}
+                <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">{feature.desc}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <div className="md:col-span-4 p-12 rounded-[4rem] bg-zinc-900/30 border border-white/5 flex flex-col justify-end gap-12 group hover:border-emerald-500/30 transition-all">
-               <Zap className="text-emerald-500 group-hover:scale-110 transition-transform" size={56} strokeWidth={1} />
-               <h3 className="text-2xl font-bold text-white italic uppercase tracking-tighter">Sub-10ms <br /> Resolution</h3>
+      {/* NEW SECTION: AI INTELLIGENCE */}
+      <section id="analytics" className="relative z-10 border-t border-white/5 bg-[#050505] py-32">
+        <div className="max-w-[1600px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-fuchsia-500/10 text-fuchsia-400 rounded-full font-bold text-sm mb-6 border border-fuchsia-500/20">
+              <Network className="w-4 h-4" /> Predictive Modeling
+            </div>
+            <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-8 leading-tight">
+              See the future before it <span className="text-fuchsia-400">happens.</span>
+            </h2>
+            <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
+              StockSage doesn't just show you what the market did yesterday. It uses multi-layered machine learning algorithms to map options chains, dark pool prints, and retail sentiment to forecast where liquidity is moving next.
+            </p>
+            <ul className="space-y-4 mb-10">
+              {['Options Flow Tracking', 'Dark Pool Visualization', 'Insider Trading Alerts'].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-lg text-zinc-300 font-medium">
+                  <Zap className="w-5 h-5 text-fuchsia-400" /> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative h-[500px] rounded-3xl bg-gradient-to-br from-zinc-900 to-black border border-white/10 overflow-hidden flex items-center justify-center group">
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+            <div className="w-64 h-64 bg-fuchsia-600/30 blur-[80px] rounded-full absolute group-hover:scale-150 transition-transform duration-1000" />
+            <div className="relative z-10 text-center">
+              <Cpu className="w-24 h-24 text-white/50 mx-auto mb-4 animate-pulse" />
+              <p className="text-zinc-500 font-mono tracking-widest text-sm uppercase">Neural Engine Active</p>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer className="py-20 border-t border-white/5 text-center">
-        <p className="text-[10px] font-black uppercase tracking-[1.5em] text-zinc-900">StockSage — Terminal v2.0</p>
+      {/* FOOTER */}
+      <footer className="relative z-10 border-t border-white/5 bg-[#030303] py-12">
+        <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Terminal className="w-5 h-5 text-indigo-500" />
+            <span className="text-lg font-black tracking-tighter text-white uppercase">StockSage</span>
+          </div>
+          <p className="text-zinc-600 text-sm font-medium">© 2026 StockSage AI Technologies. All rights reserved.</p>
+          <div className="flex items-center gap-6 text-sm font-bold text-zinc-500">
+            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="#" className="hover:text-white transition-colors">Status</Link>
+          </div>
+        </div>
       </footer>
-    </div>
-  );
-}
 
-function TickerItem({ symbol, price, change, isPos }: any) {
-  return (
-    <div className="flex items-center gap-3 font-mono text-[11px]">
-      <span className="text-zinc-600 font-black tracking-widest italic">{symbol}</span>
-      <span className="text-white font-bold">${price}</span>
-      <span className={`px-2 py-0.5 rounded-md text-[9px] font-black ${isPos ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-        {change}
-      </span>
     </div>
   );
 }
