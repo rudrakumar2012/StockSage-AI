@@ -1,17 +1,17 @@
-import { pgTable, serial, varchar, numeric } from "drizzle-orm/pg-core";
+import { sqliteTable, integer, text, real } from "drizzle-orm/sqlite-core";
 
-export const stocks = pgTable("stocks", {
-  id: serial("id").primaryKey(),
-  symbol: varchar("symbol", { length: 50 }).notNull(),
-  indexName: varchar("index_name", { length: 50 }),
-  sector: varchar("sector", { length: 50 }),
-  price: numeric("price", { precision: 10, scale: 2 }),
-  changePercentage: numeric("change_percentage", { precision: 10, scale: 2 }),
+export const stocks = sqliteTable("stocks", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  symbol: text("symbol").notNull(),
+  indexName: text("index_name"),
+  sector: text("sector"),
+  price: real("price"),
+  changePercentage: real("change_percentage"),
 });
 
-export const indexes = pgTable("indexes", {
-  id: serial("id").primaryKey(),
-  indexName: varchar("index_name", { length: 50 }).notNull(),
-  price: numeric("price", { precision: 10, scale: 2 }),
-  changePercentage: numeric("change_percentage", { precision: 10, scale: 2 }),
+export const indexes = sqliteTable("indexes", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  indexName: text("index_name").notNull(),
+  price: real("price"),
+  changePercentage: real("change_percentage"),
 });
