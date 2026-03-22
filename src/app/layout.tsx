@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+
+// Pure, clean, institutional typography
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "StockSage | Institutional AI Terminal",
@@ -14,9 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-[#030303] text-white antialiased">
+      <body className={`${inter.className} bg-[#050505] text-white antialiased selection:bg-indigo-500/30`}>
         <Navbar />
-        {/* We do NOT put padding here, we put it on the pages so we can control the hero sections */}
         <main>
           {children}
         </main>

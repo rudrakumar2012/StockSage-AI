@@ -14,9 +14,9 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-[#030303] text-zinc-100 font-sans p-4 lg:p-8 pt-32 relative overflow-hidden">
       
       {/* Soft Ambient Dashboard Glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-600/10 blur-[150px] rounded-full z-0 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-200 h-200 bg-indigo-600/10 blur-[150px] rounded-full z-0 pointer-events-none" />
 
-      <div className="max-w-[1600px] mx-auto relative z-10">
+      <div className="max-w-400 mx-auto relative z-10">
         
         {/* TERMINAL APP SUB-NAVIGATION */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 border-b border-white/10 pb-6 gap-6">

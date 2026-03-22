@@ -128,3 +128,23 @@
     @apply font-mono;
   }
 }
+
+/* --- THE NEW TICKER ANIMATION --- */
+@layer utilities {
+  @keyframes continuous-ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-ticker {
+    animation: continuous-ticker 30s linear infinite;
+  }
+
+  .ticker-container:hover .animate-ticker {
+    animation-play-state: paused;
+  }
+}
