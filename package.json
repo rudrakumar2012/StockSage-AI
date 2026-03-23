@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev:next": "npx next dev",
-  "dev:python": "python scripts/market_sync.py",
-  "dev": "concurrently -n \"NEXT,PY\" -c \"cyan,green\" \"npm run dev:next\" \"npm run dev:python\"",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
