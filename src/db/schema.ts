@@ -1,17 +1,23 @@
 import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 
-export const indexes = sqliteTable("indexes", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  indexName: text("index_name").notNull(),
-  price: real("price"),
-  changePercentage: real("change_percentage"),
-});
-
 export const stocks = sqliteTable("stocks", {
   id: integer("id").primaryKey({ autoIncrement: true }),
-  symbol: text("symbol").notNull(),
-  indexName: text("index_name"),
+  symbol: text("symbol").notNull().unique(),
+  name: text("name").notNull(),
+  price: real("price").notNull(),
+  changePercentage: real("change_percentage").notNull(),
   sector: text("sector"),
-  price: real("price"),
-  changePercentage: real("change_percentage"),
+});
+
+export const indexes = sqliteTable("indexes", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  indexName: text("index_name").notNull().unique(),
+  price: real("price").notNull(),
+  changePercentage: real("change_percentage").notNull(),
+});
+
+export const syncLogs = sqliteTable("sync_logs", {
+  id: integer("id").primaryKey(),
+  lastSuccess: text("last_success"),
+  status: text("status"),
 });

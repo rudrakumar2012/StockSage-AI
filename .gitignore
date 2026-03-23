@@ -42,6 +42,9 @@ next-env.d.ts
 
 # local database
 local.db
+local.db-journal
+local.db-shm
+local.db-wal
 
 # wrangler state (Cloudflare emulation)
 .wrangler/

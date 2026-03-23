@@ -15,20 +15,20 @@ export default function HomePage() {
       </div>
 
       {/* Ambient Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-150 bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-0 right-0 w-150 h-150 bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none z-0" />
       
       {/* 1. KINETIC HERO SECTION */}
-      <section className="relative z-10 max-w-[1600px] mx-auto px-6 pt-40 pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
+      <section className="relative z-10 max-w-400 mx-auto px-6 pt-40 pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           {/* Left Column: Typography & Action */}
           <div className="relative">
-            <div className="absolute -top-10 left-0 w-full h-px bg-gradient-to-r from-indigo-500 to-transparent animate-reveal-line" />
+            <div className="absolute -top-10 left-0 w-full h-px bg-linear-to-r from-indigo-500 to-transparent animate-reveal-line" />
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mb-8 animate-fade-up">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse-slow"></span>
-              <span className="text-[11px] font-medium tracking-widest text-zinc-400 uppercase tracking-[0.2em]">NSE/BSE V2.4 Connected</span>
+              <span className="text-[11px] font-medium tracking-widest text-zinc-400 uppercase">NSE/BSE V2.4 Connected</span>
             </div>
             
             <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-white mb-6 leading-[1.05] animate-fade-up [animation-delay:100ms]">
@@ -51,7 +51,7 @@ export default function HomePage() {
           
           {/* Right Column: NSE Execution Visual */}
           <div className="hidden lg:block relative group animate-fade-up [animation-delay:400ms]">
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-transparent blur-3xl rounded-full" />
             <div className="relative p-8 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 transition-colors duration-500 group-hover:border-indigo-500/30">
               <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/5">
                 <span className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">Live NSE Tape</span>
@@ -109,7 +109,7 @@ export default function HomePage() {
       </div>
 
       {/* 3. ARCHITECTURE GRID ( NSE Context) */}
-      <section className="relative z-10 max-w-[1600px] mx-auto px-6 py-32 border-b border-white/5">
+      <section className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4 italic">Core Infrastructure</h2>
           <p className="text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
@@ -133,12 +133,12 @@ export default function HomePage() {
       </section>
 
       {/* 4. QUANTITATIVE MODELS ( NSE Focus) */}
-      <section className="relative z-10 max-w-[1600px] mx-auto px-6 py-32 border-b border-white/5">
+      <section className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
-              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6 tracking-tighter">Alpha Scanners</h2>
+              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
               <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Automated scanners for Nifty Options, Midcap Momentum, and Blue-chip Mean Reversion. Your unfair advantage in Dalal Street.</p>
             </div>
             <Link href="/pricing" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
@@ -175,7 +175,7 @@ export default function HomePage() {
 
       {/* 5. FOOTER */}
       <footer className="relative z-10 bg-[#020202] pt-24 pb-8">
-        <div className="max-w-[1600px] mx-auto px-6 mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+        <div className="max-w-400 mx-auto px-6 mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
            {[
             { label: "Execution Latency", value: "< 5ms" },
             { label: "Active Traders", value: "45,000+" },
@@ -189,7 +189,7 @@ export default function HomePage() {
           ))}
         </div>
         
-        <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 pt-8">
+        <div className="max-w-400 mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 pt-8">
           <span className="text-xl font-medium tracking-tight text-white italic">StockSage.</span>
           <p className="text-zinc-600 text-[10px] uppercase tracking-[0.3em] font-mono">STOCKSAGE TRADING SOLUTIONS INDIA PVT LTD. INVESTMENTS IN SECURITIES MARKET ARE SUBJECT TO MARKET RISKS.</p>
         </div>
