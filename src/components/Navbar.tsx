@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Radar, ChevronDown } from "lucide-react";
+import Radar from 'lucide-react/dist/esm/icons/radar';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
 import { useAuth } from '@/context/AuthContext'; // Import useAuth
 import { useRouter, usePathname } from 'next/navigation'; // Added usePathname
 

@@ -2,7 +2,14 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
 import Link from "next/link";
-import { ArrowRight, Activity, Cpu, Shield, Zap, BarChart3, Network, Lock } from "lucide-react";
+import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import Cpu from 'lucide-react/dist/esm/icons/cpu';
+import Shield from 'lucide-react/dist/esm/icons/shield';
+import Zap from 'lucide-react/dist/esm/icons/zap';
+import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
+import Network from 'lucide-react/dist/esm/icons/network';
+import Lock from 'lucide-react/dist/esm/icons/lock';
 import { getMarketData } from "@/db";
 
 export default async function HomePage() {

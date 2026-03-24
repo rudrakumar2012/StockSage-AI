@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Radar, LogOut, ShieldCheck, Zap } from "lucide-react";
+import Radar from 'lucide-react/dist/esm/icons/radar';
+import LogOut from 'lucide-react/dist/esm/icons/log-out';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
+import Zap from 'lucide-react/dist/esm/icons/zap';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 

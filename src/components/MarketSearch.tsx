@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
+import Search from 'lucide-react/dist/esm/icons/search';
 import { useTransition } from "react";
 
 export default function MarketSearch() {

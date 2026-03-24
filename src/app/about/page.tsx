@@ -2,7 +2,10 @@
 export const runtime = 'edge';
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Cpu, Database, Network } from "lucide-react";
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
+import Cpu from 'lucide-react/dist/esm/icons/cpu';
+import Database from 'lucide-react/dist/esm/icons/database';
+import Network from 'lucide-react/dist/esm/icons/network';
 
 export default function AboutPage() {
   return (

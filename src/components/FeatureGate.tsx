@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { Lock } from "lucide-react";
+import Lock from 'lucide-react/dist/esm/icons/lock';
 import Link from "next/link";
 
 interface FeatureGateProps {

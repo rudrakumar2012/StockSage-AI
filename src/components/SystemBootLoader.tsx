@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { DatabaseZap } from "lucide-react";
+import DatabaseZap from 'lucide-react/dist/esm/icons/database-zap';
 
 export default function SystemBootLoader() {
   const router = useRouter();

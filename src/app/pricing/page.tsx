@@ -2,7 +2,7 @@
 export const runtime = 'edge';
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import Check from 'lucide-react/dist/esm/icons/check';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import RazorpayCheckout from "@/components/RazorpayCheckout";
