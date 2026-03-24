@@ -5,7 +5,7 @@ import { db, getMarketData } from "@/db";
 import { syncLogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
-import { ArrowUpRight, ArrowDownRight, ChevronLeft, ChevronRight, Database } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, ChevronLeft, ChevronRight, Database, Zap, Activity } from "lucide-react";
 import MarketSearch from "@/components/MarketSearch";
 import SystemBootLoader from "@/components/SystemBootLoader";
 
@@ -100,11 +100,29 @@ export default async function Dashboard({
         {/* MAIN STOCK GRID WITH RADAR ANIMATION */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.length > 0 ? data.map((stock) => (
-            <div key={stock.id} className="bg-[#050505] border border-white/5 p-8 rounded-3xl hover:bg-zinc-900/10 hover:border-indigo-500/30 transition-all duration-700 group">
-              <div className="flex justify-between items-start mb-14">
+            <div key={stock.id} className="bg-[#050505] border border-white/5 p-8 rounded-3xl hover:bg-zinc-900/10 hover:border-indigo-500/30 transition-all duration-700 group relative overflow-hidden">
+              {stock.aiSignal && stock.aiSignal !== 'NONE' && (
+                <div className="absolute top-0 left-0 w-full h-full bg-indigo-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              )}
+              <div className="flex justify-between items-start mb-14 relative z-10">
                 <div>
+                  {stock.aiSignal && stock.aiSignal !== 'NONE' && (
+                    <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-[9px] font-bold font-mono text-indigo-400 tracking-widest uppercase">
+                      <Zap className="w-3 h-3" />
+                      {stock.aiSignal.replace('_', ' ')} • {stock.aiConfidence}%
+                    </div>
+                  )}
                   <h3 className="text-3xl font-bold tracking-tighter mb-2 uppercase italic leading-none group-hover:text-indigo-400 transition-colors">{stock.symbol}</h3>
-                  <span className="px-3 py-1 bg-white/5 text-[9px] text-zinc-500 font-mono uppercase tracking-widest rounded-full">{stock.sector}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-white/5 text-[9px] text-zinc-500 font-mono uppercase tracking-widest rounded-full">{stock.sector}</span>
+                    <span className={`px-3 py-1 text-[8px] font-black font-mono tracking-widest rounded-full ${
+                      stock.sentimentLabel === 'BULLISH' ? 'bg-emerald-500/10 text-emerald-500' : 
+                      stock.sentimentLabel === 'BEARISH' ? 'bg-rose-500/10 text-rose-500' : 
+                      'bg-white/5 text-zinc-500'
+                    }`}>
+                      AI: {stock.sentimentLabel}
+                    </span>
+                  </div>
                 </div>
                 <div className={`p-3 rounded-full ${stock.changePercentage >= 0 ? 'bg-emerald-500/10' : 'bg-rose-500/10'}`}>
                   {stock.changePercentage >= 0 ? <ArrowUpRight className="w-5 h-5 text-emerald-500" /> : <ArrowDownRight className="w-5 h-5 text-rose-500" />}

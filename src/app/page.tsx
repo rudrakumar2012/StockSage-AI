@@ -12,19 +12,31 @@ export default async function HomePage() {
     sector: "All" 
   });
 
-  // Mock data for the "Execution Visual" to complement DB data
-  const executionData = stocks.slice(0, 4).map((stock, i) => {
+  // Prepare AI predictive data for the "Execution Visual"
+  const executionData = stocks.filter(s => s.aiSignal && s.aiSignal !== 'NONE').slice(0, 4).map((stock, i) => {
     const times = ["11:41:02.104", "11:41:01.882", "11:40:59.001", "11:40:57.210"];
-    const actions = ["BUY", "SELL", "BUY", "BUY"];
-    const sizes = ["1,200", "4,500", "800", "2,000"];
     return {
       time: times[i] || "11:40:00.000",
-      action: actions[i] || "BUY",
+      action: (stock.aiSignal || 'NONE').replace('_', ' '),
+      confidence: `${stock.aiConfidence}%`,
       asset: stock.symbol,
-      size: sizes[i] || "1,000",
       price: `₹${stock.price.toLocaleString('en-IN')}`
     };
   });
+
+  // Fallback to sentiment if no signals are found yet
+  if (executionData.length === 0) {
+    stocks.slice(0, 4).forEach((stock, i) => {
+      const times = ["11:41:02.104", "11:41:01.882", "11:40:59.001", "11:40:57.210"];
+      executionData.push({
+        time: times[i] || "11:40:00.000",
+        action: stock.sentimentLabel || "NEUTRAL",
+        confidence: "N/A",
+        asset: stock.symbol,
+        price: `₹${stock.price.toLocaleString('en-IN')}`
+      });
+    });
+  }
 
   return (
     <div className="min-h-screen bg-[#020202] text-zinc-300 overflow-hidden relative selection:bg-indigo-500/30">
@@ -71,28 +83,31 @@ export default async function HomePage() {
             </div>
           </div>
           
-          {/* Right Column: NSE Execution Visual */}
+          {/* Right Column: AI Sentiment Visual */}
           <div className="hidden lg:block relative group animate-fade-up [animation-delay:400ms]">
             <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-transparent blur-3xl rounded-full" />
             <div className="relative p-8 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 transition-colors duration-500 group-hover:border-indigo-500/30">
               <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/5">
-                <span className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">Live NSE Tape</span>
+                <span className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">Alpha Scanner Radar</span>
                 <div className="flex items-center gap-2">
-                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                   <span className="text-[10px] font-mono text-emerald-500">MARKET OPEN</span>
+                   <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                   <span className="text-[10px] font-mono text-indigo-500">PREDICTIVE CORE ACTIVE</span>
                 </div>
               </div>
-              <div className="space-y-4 font-mono text-[13px]">
+              <div className="space-y-4 font-mono text-sm">
                 {executionData.length > 0 ? executionData.map((row, i) => (
                   <div key={i} className="flex justify-between items-center text-zinc-400 hover:text-white transition-colors cursor-default">
                     <span className="text-zinc-600 w-24">{row.time}</span>
-                    <span className={`w-12 ${row.action === 'BUY' ? 'text-emerald-500' : 'text-zinc-500'}`}>{row.action}</span>
-                    <span className="text-white font-medium w-24">{row.asset}</span>
-                    <span className="text-right w-16">{row.size}</span>
-                    <span className="text-right w-24">{row.price}</span>
+                    <span className={`w-32 font-bold text-xs ${
+                      row.action.includes('BOUNCE') || row.action.includes('MOMENTUM') || row.action === 'BULLISH' ? 'text-emerald-500' : 
+                      row.action.includes('DUMP') || row.action.includes('REVERSION') || row.action === 'BEARISH' ? 'text-rose-500' : 
+                      'text-zinc-500'
+                    }`}>{row.action}</span>
+                    <span className="text-indigo-400 font-medium w-16 text-right text-xs">{row.confidence}</span>
+                    <span className="text-white font-medium w-24 text-right">{row.asset}</span>
                   </div>
                 )) : (
-                  <div className="text-zinc-500 italic text-center py-4">Awaiting execution data...</div>
+                  <div className="text-zinc-500 italic text-center py-4 text-xs">Awaiting predictive data...</div>
                 )}
               </div>
             </div>
@@ -124,10 +139,10 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
           {[
-            { icon: <Zap className="w-5 h-5" />, title: "NSE Direct Pipeline", desc: "Low-latency data fetching directly from NSE/BSE exchange endpoints." },
-            { icon: <Cpu className="w-5 h-5" />, title: "Hindi/Eng Sentiment", desc: "AI engine processing news in English & regional dialects for sentiment." },
-            { icon: <Lock className="w-5 h-5" />, title: "SEBI Compliant Logs", desc: "Architecture designed with regulatory tracking and military-grade encryption." },
-            { icon: <Network className="w-5 h-5" />, title: "Block Deal Radar", desc: "Track institutional FII/DII activity as it happens on the exchange." }
+            { icon: <Zap className="w-5 h-5" />, title: "Live Market Pipeline", desc: "Reliable EOD and intraday data fetching across 115+ top NSE and BSE endpoints." },
+            { icon: <Cpu className="w-5 h-5" />, title: "VADER NLP Sentiment", desc: "AI engine processing financial news headlines for contextual bullish/bearish polarity." },
+            { icon: <Lock className="w-5 h-5" />, title: "LibSQL Architecture", desc: "Local-first, ultra-fast database managed by Drizzle ORM for maximum execution speed." },
+            { icon: <Network className="w-5 h-5" />, title: "Predictive Scanners", desc: "Algorithmic correlation of 14-day RSI, volume spikes, and real-time news sentiment." }
           ].map((feature, i) => (
             <div key={i} className="bg-[#050505] p-10 group hover:bg-[#0a0a0a] transition-colors duration-500 cursor-default relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -146,19 +161,19 @@ export default async function HomePage() {
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
-              <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Automated scanners for Nifty Options, Midcap Momentum, and Blue-chip Mean Reversion. Your unfair advantage in Dalal Street.</p>
+              <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Algorithmic setups cross-referencing RSI, Volume, and NLP Sentiment to find high-probability trades across Dalal Street.</p>
             </div>
-            <Link href="/pricing" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
-              View All Scanners <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Link href="/dashboard" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
+              Launch Scanners <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           
           <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
             {[
-              { name: "Gap-Up Momentum", type: "EQUITIES", risk: "LOW", return: "+18.2%" },
-              { name: "Expiry Gamma Scalp", type: "OPTIONS", risk: "HIGH", return: "+64.8%" },
-              { name: "F&O Arbitrage", type: "DERIVATIVES", risk: "MED", return: "+12.5%" },
-              { name: "SME Power Play", type: "SME LISTINGS", risk: "HIGH", return: "+112.1%" }
+              { name: "Oversold Bounce", type: "RSI < 35 + BULLISH NEWS", risk: "MED", return: "REVERSAL" },
+              { name: "Momentum Spike", type: "VOL > 1.5x + BULLISH NEWS", risk: "HIGH", return: "BREAKOUT" },
+              { name: "Mean Reversion", type: "RSI > 70 + BEARISH NEWS", risk: "MED", return: "PULLBACK" },
+              { name: "Bearish Dump", type: "VOL > 1.3x + BEARISH NEWS", risk: "HIGH", return: "BREAKDOWN" }
             ].map((model, i) => (
               <div key={i} className="bg-[#050505] p-8 flex flex-col justify-between group hover:bg-[#0a0a0a] transition-all duration-500">
                 <div className="flex justify-between items-start mb-12">
@@ -171,8 +186,8 @@ export default async function HomePage() {
                   </span>
                 </div>
                 <div className="flex justify-between items-end">
-                  <span className="text-xs text-zinc-600 font-medium tracking-wide">BACKTESTED ROI</span>
-                  <span className="text-2xl font-light text-white">{model.return}</span>
+                  <span className="text-xs text-zinc-600 font-medium tracking-wide">AI SIGNAL</span>
+                  <span className={`text-xl font-light ${model.return === 'BREAKDOWN' || model.return === 'PULLBACK' ? 'text-rose-500' : 'text-emerald-500'}`}>{model.return}</span>
                 </div>
               </div>
             ))}
@@ -184,10 +199,10 @@ export default async function HomePage() {
       <footer className="relative z-10 bg-[#020202] pt-24 pb-8">
         <div className="max-w-400 mx-auto px-6 mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
            {[
-            { label: "Execution Latency", value: "< 5ms" },
-            { label: "Active Traders", value: "45,000+" },
-            { label: "NSE API Uptime", value: "99.99%" },
-            { label: "Daily Data Vol.", value: "4.2 TB" }
+            { label: "Execution Engine", value: "LibSQL" },
+            { label: "Active Tickers", value: "115+" },
+            { label: "NLP Analysis", value: "VADER" },
+            { label: "Scanners", value: "4 Models" }
           ].map((stat, i) => (
             <div key={i} className="border-t border-white/10 pt-6">
               <p className="text-4xl font-light text-white tracking-tight mb-2">{stat.value}</p>

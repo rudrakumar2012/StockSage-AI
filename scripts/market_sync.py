@@ -56,7 +56,7 @@ def setup_db(conn, nuke=False):
         cursor.execute("DROP TABLE IF EXISTS sync_logs")
         
     cursor.execute("CREATE TABLE IF NOT EXISTS indexes (id INTEGER PRIMARY KEY AUTOINCREMENT, index_name TEXT NOT NULL UNIQUE, price REAL NOT NULL, change_percentage REAL NOT NULL)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS stocks (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL UNIQUE, name TEXT NOT NULL, price REAL NOT NULL, change_percentage REAL NOT NULL, sector TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS stocks (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL UNIQUE, name TEXT NOT NULL, price REAL NOT NULL, change_percentage REAL NOT NULL, sector TEXT, sentiment_score REAL DEFAULT 0, sentiment_label TEXT DEFAULT 'NEUTRAL', ai_signal TEXT DEFAULT 'NONE', ai_confidence REAL DEFAULT 0)")
     cursor.execute("CREATE TABLE IF NOT EXISTS sync_logs (id INTEGER PRIMARY KEY, last_success TEXT, status TEXT)")
     conn.commit()
 

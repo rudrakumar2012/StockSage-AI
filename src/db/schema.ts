@@ -7,6 +7,10 @@ export const stocks = sqliteTable("stocks", {
   price: real("price").notNull(),
   changePercentage: real("change_percentage").notNull(),
   sector: text("sector"),
+  sentimentScore: real("sentiment_score").default(0),
+  sentimentLabel: text("sentiment_label").default("NEUTRAL"),
+  aiSignal: text("ai_signal").default("NONE"),
+  aiConfidence: real("ai_confidence").default(0),
 });
 
 export const indexes = sqliteTable("indexes", {

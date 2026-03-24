@@ -18,8 +18,8 @@ export default function AboutPage() {
       </div>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 mb-40">
-        <AboutCard icon={<Database size={24}/>} title="Data Ingestion" desc="Processing 1.2M events per minute from global exchanges through Cloudflare D1." />
-        <AboutCard icon={<Network size={24}/>} title="Neural Layer" desc="Multi-layered transformer models identifying high-density liquidity zones." />
+        <AboutCard icon={<Database size={24}/>} title="Data Ingestion" desc="Processing real-time EOD data for 115+ top NSE/BSE equities utilizing LibSQL & Drizzle ORM." />
+        <AboutCard icon={<Network size={24}/>} title="AI Neural Layer" desc="VADER NLP combined with 14-day RSI and volume spikes to deliver actionable predictive alpha signals." />
       </div>
     </div>
   );

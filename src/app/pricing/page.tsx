@@ -25,7 +25,7 @@ export default function PricingPage() {
           tier="Retail Pulse"
           price="Free"
           description="Basic monitoring for casual traders."
-          features={["Delayed Market Data", "3 AI Signals / Day", "Basic Sector Heatmaps"]}
+          features={["EOD Market Data", "115+ NSE Tickers", "Basic UI Access"]}
           buttonText="Start Free"
         />
 
@@ -36,7 +36,7 @@ export default function PricingPage() {
             tier="Terminal Pro"
             price="$199"
             description="High-frequency intelligence for professionals."
-            features={["Sub-10ms Real-time Data", "Unlimited AI Signals", "Institutional Flow Tracking", "Priority Edge Execution"]}
+            features={["Live AI Sentiment Tape", "Predictive Alpha Scanners", "VADER NLP Analysis", "LibSQL Sub-10ms Queries"]}
             buttonText="Initialize Pro"
             highlighted={true}
           />
