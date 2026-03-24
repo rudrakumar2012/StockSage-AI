@@ -6,5 +6,5 @@ pages_build_output_dir = ".vercel/output/static"
 [[d1_databases]]
 binding = "DB"
 database_name = "stocksage-db"
-database_id = "default-local-id"
+database_id = "3b0199a4-a2c2-4476-baf3-f14e1cc6976a"
 migrations_dir = "drizzle"
