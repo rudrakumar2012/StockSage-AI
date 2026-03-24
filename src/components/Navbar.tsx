@@ -19,11 +19,11 @@ export default function Navbar() {
 
         {/* EXPANDED NAVIGATION */}
         <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-400">
-          <Link href="#platform" className="hover:text-white flex items-center gap-1 transition-colors">
-            Platform <ChevronDown className="w-4 h-4 text-zinc-500" />
+          <Link href="/about" className="hover:text-white transition-colors">
+            Methodology
           </Link>
-          <Link href="#analytics" className="hover:text-white transition-colors">AI Analytics</Link>
-          <Link href="#infrastructure" className="hover:text-white transition-colors">Infrastructure</Link>
+          <Link href="/#scanners" className="hover:text-white transition-colors">Alpha Scanners</Link>
+          <Link href="/#infrastructure" className="hover:text-white transition-colors">Infrastructure</Link>
           <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
         </div>
 

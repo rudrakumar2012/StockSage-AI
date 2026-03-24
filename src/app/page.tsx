@@ -131,7 +131,7 @@ export default async function HomePage() {
       </div>
 
       {/* 3. ARCHITECTURE GRID ( NSE Context) */}
-      <section className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
+      <section id="infrastructure" className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4 italic">Core Infrastructure</h2>
           <p className="text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
@@ -155,7 +155,7 @@ export default async function HomePage() {
       </section>
 
       {/* 4. QUANTITATIVE MODELS ( NSE Focus) */}
-      <section className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
+      <section id="scanners" className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           <div className="lg:col-span-4 flex flex-col justify-between">
