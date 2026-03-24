@@ -23,7 +23,7 @@ except ImportError:
     print("[ERROR] 'nltk' not found. Please run: pip install nltk")
     sys.exit(1)
 
-DB_PATH = ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/cf484200e53006c67c54974dc28ae4e13cd5680de51b367ebc6f361edd938211.sqlite"
+DB_PATH = os.environ.get("DB_PATH", ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/cf484200e53006c67c54974dc28ae4e13cd5680de51b367ebc6f361edd938211.sqlite")
 
 # Handle termination signals gracefully
 def handle_sigterm(*args):

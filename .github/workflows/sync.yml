@@ -1,0 +1,69 @@
+name: Institutional Terminal Sync
+
+on:
+  schedule:
+    # Run every 12 hours (00:00 and 12:00 UTC)
+    - cron: '0 */12 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yfinance pandas nltk
+          python -m nltk.downloader vader_lexicon
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Sync Production Database
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DATABASE_ID: ${{ secrets.CLOUDFLARE_DATABASE_ID }}
+        run: |
+          # 1. Download the current production database to sync.db
+          # Since D1 backup is usually a .sql or .sqlite, 
+          # we can export it or just run scripts against it via wrangler.
+          # FOR SIMPLICITY: We'll download the latest SQLite file from D1
+          
+          echo "📡 Downloading production database..."
+          wrangler d1 export stocksage-db --remote --output prod_backup.sql
+          
+          # 2. Setup a temporary local DB from the export
+          # We use a temp sqlite file for the python scripts to work on
+          sqlite3 production.sqlite < prod_backup.sql
+          
+          # 3. Run the Python Sync Pipeline
+          echo "🤖 Running AI/Alpha Analytics Pipeline..."
+          DB_PATH="production.sqlite" python scripts/master_sync.py
+          
+          # 4. Generate the update SQL and push it back
+          # We'll use wrangler d1 execute to run the updated data
+          # For a more robust way, we can just replace the whole DB
+          # But for now, we'll just run the sync scripts locally and then
+          # We can use wrangler d1 import to overwrite or execute.
+          
+          # We'll generate a full dump of the updated local sqlite
+          echo ".dump" | sqlite3 production.sqlite > updated_terminal.sql
+          
+          # 5. Push the updated data back to Cloudflare
+          echo "🚀 Uploading updated intelligence to Master Terminal..."
+          # Nuke the remote DB tables and re-import (Warning: This is a heavy sync)
+          wrangler d1 execute stocksage-db --remote --command "DROP TABLE IF EXISTS stocks; DROP TABLE IF EXISTS indexes; DROP TABLE IF EXISTS sync_logs;"
+          wrangler d1 execute stocksage-db --remote --file=updated_terminal.sql

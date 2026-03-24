@@ -6,7 +6,7 @@ from datetime import datetime
 import sys
 import os
 
-DB_PATH = ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/cf484200e53006c67c54974dc28ae4e13cd5680de51b367ebc6f361edd938211.sqlite"
+DB_PATH = os.environ.get("DB_PATH", ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/cf484200e53006c67c54974dc28ae4e13cd5680de51b367ebc6f361edd938211.sqlite")
 
 def calculate_rsi(data, window=14):
     """Calculate the Relative Strength Index (RSI)"""

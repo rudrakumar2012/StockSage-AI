@@ -7,6 +7,7 @@
     "dev:full": "concurrently \"next dev\" \"python scripts/master_sync.py\"",
     "sync": "python scripts/master_sync.py",
     "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint"
   },
