@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
     // Authentication successful - Generate JWT
     const payload = {
       id: user.id,
+      fullName: user.fullName,
       email: user.email,
       subscriptionTier: user.subscriptionTier, // Added tier to token
     };

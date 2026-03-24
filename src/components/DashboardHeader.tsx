@@ -87,8 +87,8 @@ export default function DashboardHeader() {
         </div>
 
         <div className="hidden sm:flex flex-col items-end">
-          <span className="text-[10px] md:text-xs font-medium text-zinc-300">{user?.email?.split('@')[0]}</span>
-          <span className="hidden xl:block text-[10px] font-mono text-zinc-500 uppercase tracking-tighter">Identity Verified</span>
+          <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-tight">{user?.fullName}</span>
+          <span className="text-[9px] md:text-[10px] font-medium text-zinc-500">{user?.email}</span>
         </div>
         
         <div className="h-6 md:h-8 w-px bg-white/10 hidden md:block" />

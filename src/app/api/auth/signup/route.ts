@@ -12,11 +12,11 @@ export const runtime = 'edge';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, password } = body;
+    const { email, password, fullName } = body;
 
     // Basic validation
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+    if (!email || !password || !fullName) {
+      return NextResponse.json({ error: 'Full name, email and password are required' }, { status: 400 });
     }
 
     if (!/\S+@\S+\.\S+/.test(email)) {
@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
 
     // Insert new user into the database
     await db.insert(users).values({
+      fullName,
       email,
       passwordHash: hashedPassword,
       // createdAt and updatedAt will be set by default in schema

@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 // For now, we'll focus on the signup API call and redirect.
 
 export default function SignupPage() {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +27,7 @@ export default function SignupPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, fullName }),
       });
 
       const data = await response.json();
@@ -66,6 +67,19 @@ export default function SignupPage() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
+            <div>
+              <label htmlFor="full-name" className="sr-only">Full Name</label>
+              <input
+                id="full-name"
+                name="fullName"
+                type="text"
+                required
+                className="relative block w-full px-4 py-3 md:py-4 bg-zinc-900/50 border border-white/10 placeholder-zinc-600 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-fuchsia-500/50 focus:border-fuchsia-500/50 transition-all text-sm font-mono tracking-tight"
+                placeholder="FULL NAME"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
             <div>
               <label htmlFor="email-address" className="sr-only">Email address</label>
               <input

@@ -37,6 +37,7 @@ export const syncLogs = pgTable("sync_logs", {
 // New table for user authentication
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
+  fullName: text("full_name").notNull(),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   subscriptionTier: text("subscription_tier").default("FREE"), // FREE or PRO
