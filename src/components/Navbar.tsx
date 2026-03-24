@@ -38,17 +38,17 @@ export default function Navbar() {
         </Link>
 
         {/* EXPANDED NAVIGATION */}
-        <div className="hidden md:flex items-center gap-4 lg:gap-8 text-[10px] lg:text-sm font-medium text-zinc-400">
-          <Link href="/about" className="hover:text-white transition-colors">
+        <div className="flex items-center gap-3 lg:gap-8 text-[9px] md:text-[10px] lg:text-sm font-medium text-zinc-400 overflow-x-auto no-scrollbar max-w-[40%] sm:max-w-none px-2">
+          <Link href="/about" className="hover:text-white transition-colors whitespace-nowrap">
             Methodology
           </Link>
-          <Link href="/#scanners" className="hover:text-white transition-colors">Scanners</Link>
-          <Link href="/#infrastructure" className="hover:text-white transition-colors">Infrastructure</Link>
-          <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
+          <Link href="/#scanners" className="hover:text-white transition-colors whitespace-nowrap">Scanners</Link>
+          <Link href="/#infrastructure" className="hover:text-white transition-colors whitespace-nowrap">Infrastructure</Link>
+          <Link href="/pricing" className="hover:text-white transition-colors whitespace-nowrap">Pricing</Link>
         </div>
 
         {/* ACTION BUTTONS */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-4 ml-auto">
           {!isAuthenticated ? (
             <>
               <Link href="/login" className="hidden sm:block text-xs md:text-sm font-medium text-zinc-400 hover:text-white transition-colors">

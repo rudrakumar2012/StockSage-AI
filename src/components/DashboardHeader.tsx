@@ -61,7 +61,7 @@ export default function DashboardHeader() {
       {/* User Section */}
       <div className="flex items-center gap-3 md:gap-6">
         <div className="flex items-center gap-2 md:gap-4">
-          <div className="hidden sm:flex items-center gap-3 px-3 md:px-4 py-1.5 bg-zinc-900/50 border border-white/5 rounded-full">
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1.5 bg-zinc-900/50 border border-white/5 rounded-full">
             {isPro ? (
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3 h-3 text-emerald-400" />
@@ -86,9 +86,9 @@ export default function DashboardHeader() {
           )}
         </div>
 
-        <div className="hidden xl:flex flex-col items-end">
-          <span className="text-xs font-medium text-zinc-300">{user?.email}</span>
-          <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-tighter">Institutional Identity Verified</span>
+        <div className="hidden sm:flex flex-col items-end">
+          <span className="text-[10px] md:text-xs font-medium text-zinc-300">{user?.email?.split('@')[0]}</span>
+          <span className="hidden xl:block text-[10px] font-mono text-zinc-500 uppercase tracking-tighter">Identity Verified</span>
         </div>
         
         <div className="h-6 md:h-8 w-px bg-white/10 hidden md:block" />

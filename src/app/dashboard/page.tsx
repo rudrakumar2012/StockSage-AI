@@ -119,22 +119,29 @@ export default function Dashboard() {
         </div>
 
         {/* HEADER & SEARCH */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-8 md:gap-12 mb-12 md:mb-16 pb-8 md:pb-12 border-b border-white/5">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tighter italic leading-none">Predictive Core.</h1>
-          <div className="flex flex-col items-start xl:items-end gap-6 w-full xl:w-auto">
-            <MarketSearch />
-            <nav className="flex items-center justify-start xl:justify-end gap-1 bg-zinc-900/30 p-1 md:p-1.5 rounded-xl md:rounded-2xl border border-white/5 backdrop-blur-xl w-full xl:w-auto overflow-x-auto no-scrollbar scroll-smooth">
-              {sectorsList.map((s) => (
-                <button 
-                  key={s} 
-                  onClick={() => handleSectorChange(s)}
-                  disabled={isPending}
-                  className={`px-4 md:px-6 py-1.5 md:py-2 text-[9px] md:text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all whitespace-nowrap ${currentSector === s ? "bg-white text-black shadow-xl scale-105" : "text-zinc-500 hover:text-white hover:bg-white/5"} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                  {s}
-                </button>
-              ))}
-            </nav>
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-6 md:gap-12 mb-12 md:mb-16 pb-8 md:pb-12 border-b border-white/5">
+          <div className="w-full xl:w-auto">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tighter italic leading-none mb-4 xl:mb-0">Predictive Core.</h1>
+          </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-4 w-full xl:w-auto">
+            <div className="flex-1 sm:w-80">
+              <MarketSearch />
+            </div>
+            <div className="relative group min-w-[160px]">
+              <select 
+                value={currentSector}
+                onChange={(e) => handleSectorChange(e.target.value)}
+                disabled={isPending}
+                className="w-full appearance-none bg-zinc-900/40 border border-white/10 rounded-xl px-5 py-3 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 focus:outline-none focus:border-indigo-500/50 transition-all cursor-pointer hover:bg-zinc-800/40"
+              >
+                {sectorsList.map((s) => (
+                  <option key={s} value={s} className="bg-black text-white">
+                    {s.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600 pointer-events-none group-focus-within:text-indigo-400 transition-colors" />
+            </div>
           </div>
         </div>
 
@@ -184,8 +191,8 @@ export default function Dashboard() {
               </div>
             </div>
           )) : (
-            <div className="col-span-full py-20 md:py-32 text-center text-zinc-500 font-mono text-xs uppercase tracking-widest border border-white/5 rounded-[32px] md:rounded-[40px]">
-              {loading ? "Decrypting Node Data..." : "Awaiting Terminal Data..."}
+            <div className="col-span-full py-24 md:py-32 text-center text-zinc-600 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] border border-white/5 rounded-3xl md:rounded-[40px] bg-zinc-900/5">
+              {loading ? "Decrypting Node Data..." : "NO MATCHING TICKERS IN TERMINAL"}
             </div>
           )}
         </div>
