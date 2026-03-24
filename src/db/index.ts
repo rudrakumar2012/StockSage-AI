@@ -1,6 +1,4 @@
 import { drizzle as drizzleD1 } from "drizzle-orm/d1";
-import { drizzle as drizzleLibsql } from "drizzle-orm/libsql";
-import { createClient } from "@libsql/client";
 import * as schema from "./schema";
 import { desc, asc, eq, and, like, sql } from "drizzle-orm";
 
@@ -10,23 +8,33 @@ const getDb = () => {
     return drizzleD1(process.env.DB as any, { schema });
   }
 
-  // 2. LibSQL / Local SQLite (Node.js Dev)
-  const url = process.env.DATABASE_URL || "file:local.db";
-
-  // Prevent LibsqlError in Edge Runtime when DB binding is missing (e.g., during build)
-  if (process.env.NEXT_RUNTIME === "edge" && url.startsWith("file:")) {
+  // 2. Fallback for local development
+  // We use a proxy to avoid importing heavy local drivers in the production bundle
+  if (process.env.NEXT_RUNTIME === "edge") {
     return new Proxy({}, {
       get(target, prop) {
-        if (prop === 'then') return undefined; // Handle potential Promise-like checks
+        if (prop === 'then') return undefined;
         return () => {
-          throw new Error(`Database operation '${String(prop)}' failed: D1 binding 'DB' is missing in Edge Runtime.`);
+          throw new Error(`Database operation '${String(prop)}' failed: D1 binding 'DB' is missing.`);
         };
       }
     }) as any;
   }
 
-  const client = createClient({ url });
-  return drizzleLibsql(client, { schema });
+  // Local Node.js environment (for scripts/master_sync.py etc)
+  try {
+    const { drizzle } = require("drizzle-orm/libsql");
+    const { createClient } = require("@libsql/client");
+    const url = process.env.DATABASE_URL || "file:local.db";
+    const client = createClient({ url });
+    return drizzle(client, { schema });
+  } catch (e) {
+    return new Proxy({}, {
+      get() {
+        return () => { throw new Error("Local DB driver not found. Run npm install."); };
+      }
+    }) as any;
+  }
 };
 
 export const db = getDb();

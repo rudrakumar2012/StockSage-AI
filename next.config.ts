@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Add transpilePackages for large icon and animation libraries to help with tree-shaking
-  transpilePackages: ['lucide-react', 'framer-motion', '@phosphor-icons/react'],
+  transpilePackages: ['lucide-react', 'framer-motion'],
   
   // This tells TypeScript to ignore errors during the 'next build'
   typescript: {
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion', '@phosphor-icons/react'],
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   }
 };
 
