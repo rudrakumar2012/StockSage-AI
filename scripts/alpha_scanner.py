@@ -68,29 +68,29 @@ def analyze_alpha():
                     hist = ticker.history(period="60d")
                 
                 if not hist.empty and len(hist) >= 20:
-                    rsi = calculate_rsi(hist)
-                    current_volume = hist['Volume'].iloc[-1]
-                    avg_volume_20d = hist['Volume'].tail(20).mean()
-                    volume_spike = current_volume / avg_volume_20d if avg_volume_20d > 0 else 1
+                    rsi = float(calculate_rsi(hist))
+                    current_volume = float(hist['Volume'].iloc[-1])
+                    avg_volume_20d = float(hist['Volume'].tail(20).mean())
+                    volume_spike = float(current_volume / avg_volume_20d if avg_volume_20d > 0 else 1)
                     
                     signal = "NONE"
                     confidence = 0.0
                     
                     if rsi < 35 and sentiment_score > -0.1:
                         signal = "OVERSOLD_BOUNCE"
-                        confidence = min(round((40 - rsi) * 2.5 + (sentiment_score * 20), 1), 99.9)
+                        confidence = float(min(round((40 - rsi) * 2.5 + (sentiment_score * 20), 1), 99.9))
                         
                     elif volume_spike > 1.5 and rsi > 55 and rsi < 75 and sentiment_score > 0.1:
                         signal = "MOMENTUM_SPIKE"
-                        confidence = min(round((volume_spike * 10) + (sentiment_score * 30) + 40, 1), 99.9)
+                        confidence = float(min(round((volume_spike * 10) + (sentiment_score * 30) + 40, 1), 99.9))
                         
                     elif rsi > 70 and sentiment_score < 0.1:
                         signal = "MEAN_REVERSION"
-                        confidence = min(round((rsi - 65) * 2.5 - (sentiment_score * 20), 1), 99.9)
+                        confidence = float(min(round((rsi - 65) * 2.5 - (sentiment_score * 20), 1), 99.9))
                         
                     elif volume_spike > 1.3 and rsi < 50 and sentiment_score < -0.1:
                         signal = "BEARISH_DUMP"
-                        confidence = min(round((volume_spike * 15) - (sentiment_score * 40) + 30, 1), 99.9)
+                        confidence = float(min(round((volume_spike * 15) - (sentiment_score * 40) + 30, 1), 99.9))
 
                     cursor.execute(
                         f"UPDATE stocks SET ai_signal = {p}, ai_confidence = {p} WHERE symbol = {p}",

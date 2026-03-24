@@ -143,9 +143,9 @@ def sync_nse(is_startup=False):
                     hist = t.history(period="5d")
                     
                     if not hist.empty and len(hist) >= 2:
-                        curr = round(hist['Close'].iloc[-1], 2)
-                        prev = hist['Close'].iloc[-2]
-                        change = round(((curr - prev) / prev) * 100, 2)
+                        curr = float(round(hist['Close'].iloc[-1], 2))
+                        prev = float(hist['Close'].iloc[-2])
+                        change = float(round(((curr - prev) / prev) * 100, 2))
                         
                         if is_index:
                             if is_pg:
