@@ -7,11 +7,11 @@
     "dev:full": "concurrently \"next dev\" \"python scripts/master_sync.py\"",
     "sync": "python scripts/master_sync.py",
     "build": "next build",
-    "pages:build": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -30,8 +30,6 @@
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
-    "@cloudflare/workers-types": "^4.20260317.1",
     "@libsql/client": "^0.17.2",
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^2.4.6",
@@ -46,7 +44,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "wrangler": "^4.76.0"
+    "typescript": "^5"
   }
 }

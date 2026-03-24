@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
   // 2. Weight Loss for Large Libraries
   transpilePackages: ['lucide-react', 'framer-motion', 'recharts'],
   
-  // 3. Database & Node.js Compatibility
-  serverExternalPackages: ['drizzle-orm', 'better-sqlite3'],
+  // 3. Database Compatibility
+  serverExternalPackages: ['drizzle-orm'],
 
   // 4. Bypass Build Blockers
   typescript: {

@@ -1,58 +1,61 @@
-# Deployment Guide: StockSage-AI
+# Deployment Guide: StockSage-AI (Vercel + Neon)
 
-This guide explains how to host StockSage-AI for free using **Cloudflare Pages** (Frontend/API) and **GitHub Actions** (Background Data Sync).
+This guide explains how to host StockSage-AI for free using **Vercel** (Frontend/API) and **Neon.tech** (PostgreSQL Database).
 
-## 1. Cloudflare Setup (Free)
+## 1. Database Setup (Neon.tech)
 
-### Create D1 Database
-1. Go to your [Cloudflare Dashboard](https://dash.cloudflare.com/).
-2. Navigate to **Workers & Pages > D1**.
-3. Create a new database named `stocksage-db`.
-4. Copy the **Database ID** for later.
-
-### Deploy to Cloudflare Pages
-1. Connect your GitHub repository to Cloudflare Pages.
-2. Use the following build settings:
-   - **Framework preset**: Next.js
-   - **Build command**: `npm run pages:build`
-   - **Build output directory**: `.vercel/output/static`
-3. Add **Environment Variables** in the Pages settings:
-   - `JWT_SECRET`: A long random string.
-   - `NODE_VERSION`: `18` or higher.
-4. In the **Functions** tab, bind your D1 database to the name `DB`.
+### Create PostgreSQL Database
+1. Sign up for a free account at [Neon.tech](https://neon.tech/).
+2. Create a new project (e.g., `StockSage-AI`).
+3. In the **Connection Details** widget, copy the **Connection String** (it starts with `postgresql://...`).
+4. Save this as your `DATABASE_URL`.
 
 ---
 
-## 2. Automated Data Sync (GitHub Actions)
+## 2. Frontend & API Setup (Vercel)
 
-Since Cloudflare Pages doesn't run background Python scripts, we use GitHub Actions to fetch stock data and update the database every 12 hours.
+### Deploy to Vercel
+1. Sign up for [Vercel](https://vercel.com/) and connect your GitHub repository.
+2. Vercel will automatically detect the **Next.js** framework.
+3. Add the following **Environment Variables** in the Vercel project settings:
+   - `DATABASE_URL`: Paste your Neon connection string here.
+   - `JWT_SECRET`: A long random string (e.g., use `openssl rand -base64 32`).
+4. Click **Deploy**. Vercel will build and host your application.
 
-### Get Cloudflare Credentials
-1. **Account ID**: Found on your Cloudflare Dashboard homepage (right sidebar).
-2. **API Token**: 
-   - Go to **My Profile > API Tokens**.
-   - Create a token with **Edit D1** permissions.
-3. **Database ID**: From the D1 database you created.
+---
+
+## 3. Automated Data Sync (GitHub Actions)
+
+Since Next.js on Vercel is serverless, we use GitHub Actions to run our Python scripts and update the Neon database periodically.
 
 ### Add GitHub Secrets
-In your GitHub Repo: **Settings > Secrets and variables > Actions**:
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_DATABASE_ID`
+In your GitHub Repository, go to **Settings > Secrets and variables > Actions** and add:
+- `DATABASE_URL`: Your Neon connection string.
 
 ### How it works
 The included `.github/workflows/sync.yml` will:
-1. Download the production database from Cloudflare.
-2. Run the Python scripts (`market_sync`, `ai_analyzer`, `alpha_scanner`).
-3. Upload the updated database back to Cloudflare.
+1. Set up a Python environment.
+2. Install dependencies (`psycopg2-binary`, `yfinance`, `pandas`, `nltk`).
+3. Run `python scripts/master_sync.py` which connects to Neon and updates the live data.
 
 ---
 
-## 3. Initial Database Setup
-To create the tables in your production database, run this command once locally (after logging in with `npx wrangler login`):
+## 4. Initial Database Setup
+To create the tables in your production database, you can run the migrations once locally:
 
+1. Create a `.env` file locally with your `DATABASE_URL`.
+2. Run the following command:
 ```bash
-npx wrangler d1 execute stocksage-db --remote --file=./drizzle/0003_create_all_tables.sql
+npx drizzle-kit push
+```
+This will sync your local schema directly to your Neon database.
+
+Alternatively, you can run the Python script locally to initialize and populate the data:
+```bash
+# Install dependencies
+pip install psycopg2-binary yfinance pandas nltk
+# Run the sync
+python scripts/master_sync.py
 ```
 
-Your terminal is now live!
+Your terminal is now live on Vercel!

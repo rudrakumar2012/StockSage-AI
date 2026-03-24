@@ -1,4 +1,3 @@
-import sqlite3
 import yfinance as yf
 import pandas as pd
 import time
@@ -6,7 +5,26 @@ from datetime import datetime
 import sys
 import os
 
-DB_PATH = os.environ.get("DB_PATH", ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/cf484200e53006c67c54974dc28ae4e13cd5680de51b367ebc6f361edd938211.sqlite")
+import sqlite3
+
+# Use psycopg2 for PostgreSQL (Neon) if available
+try:
+    import psycopg2
+    HAS_POSTGRES = True
+except ImportError:
+    HAS_POSTGRES = False
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+DB_PATH = os.environ.get("DB_PATH", "local_market.db")
+
+def get_connection():
+    if DATABASE_URL and HAS_POSTGRES:
+        return psycopg2.connect(DATABASE_URL)
+    else:
+        return sqlite3.connect(DB_PATH)
+
+def get_placeholder():
+    return "%s" if DATABASE_URL and HAS_POSTGRES else "?"
 
 def calculate_rsi(data, window=14):
     """Calculate the Relative Strength Index (RSI)"""
@@ -14,7 +32,6 @@ def calculate_rsi(data, window=14):
     up = delta.clip(lower=0)
     down = -1 * delta.clip(upper=0)
     
-    # Calculate exponentially weighted moving average
     ema_up = up.ewm(com=window-1, adjust=False).mean()
     ema_down = down.ewm(com=window-1, adjust=False).mean()
     
@@ -24,8 +41,9 @@ def calculate_rsi(data, window=14):
 
 def analyze_alpha():
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_connection()
         cursor = conn.cursor()
+        p = get_placeholder()
         
         cursor.execute("SELECT symbol, sentiment_score FROM stocks")
         stocks = cursor.fetchall()
@@ -42,7 +60,6 @@ def analyze_alpha():
             try:
                 print(f"  -> Scanning {symbol}...", end=" ", flush=True)
                 
-                # Fetch 60 days to ensure enough data for 20-day MA and 14-day RSI
                 ticker = yf.Ticker(f"{symbol}.NS")
                 hist = ticker.history(period="60d")
                 
@@ -51,41 +68,32 @@ def analyze_alpha():
                     hist = ticker.history(period="60d")
                 
                 if not hist.empty and len(hist) >= 20:
-                    # Calculate Technicals
                     rsi = calculate_rsi(hist)
                     current_volume = hist['Volume'].iloc[-1]
                     avg_volume_20d = hist['Volume'].tail(20).mean()
                     volume_spike = current_volume / avg_volume_20d if avg_volume_20d > 0 else 1
                     
-                    # Logic Rules for Alpha Scanners
                     signal = "NONE"
                     confidence = 0.0
                     
-                    # 1. Oversold Bounce (RSI very low + Positive/Neutral News)
                     if rsi < 35 and sentiment_score > -0.1:
                         signal = "OVERSOLD_BOUNCE"
-                        # Closer to 0 RSI = higher confidence
                         confidence = min(round((40 - rsi) * 2.5 + (sentiment_score * 20), 1), 99.9)
                         
-                    # 2. Breakout / Momentum Spike (High volume + Bullish News + Rising RSI)
                     elif volume_spike > 1.5 and rsi > 55 and rsi < 75 and sentiment_score > 0.1:
                         signal = "MOMENTUM_SPIKE"
                         confidence = min(round((volume_spike * 10) + (sentiment_score * 30) + 40, 1), 99.9)
                         
-                    # 3. Overbought Reversion (RSI very high + Bearish/Neutral News)
                     elif rsi > 70 and sentiment_score < 0.1:
                         signal = "MEAN_REVERSION"
-                        # Closer to 100 RSI = higher confidence
                         confidence = min(round((rsi - 65) * 2.5 - (sentiment_score * 20), 1), 99.9)
                         
-                    # 4. Bearish Breakdown (Dumping volume + Bearish News)
                     elif volume_spike > 1.3 and rsi < 50 and sentiment_score < -0.1:
                         signal = "BEARISH_DUMP"
                         confidence = min(round((volume_spike * 15) - (sentiment_score * 40) + 30, 1), 99.9)
 
-                    # Update Database
                     cursor.execute(
-                        "UPDATE stocks SET ai_signal = ?, ai_confidence = ? WHERE symbol = ?",
+                        f"UPDATE stocks SET ai_signal = {p}, ai_confidence = {p} WHERE symbol = {p}",
                         (signal, confidence, symbol)
                     )
                     conn.commit()

@@ -1,26 +1,11 @@
-import { drizzle } from "drizzle-orm/d1";
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from "./schema";
-import { desc, asc, eq, and, like, sql } from "drizzle-orm";
+import { desc, asc, eq, and, like, sql, count } from "drizzle-orm";
 
-// Minimal DB getter to keep bundle size small
-const getDb = () => {
-  if (process.env.DB) {
-    return drizzle(process.env.DB as any, { schema });
-  }
-
-  // Fallback Proxy for build time / edge without binding
-  // This prevents the bundler from pulling in heavy SQLite drivers
-  return new Proxy({}, {
-    get(_, prop) {
-      if (prop === 'then') return undefined;
-      return () => {
-        throw new Error(`D1 Database binding "DB" not found.`);
-      };
-    }
-  }) as any;
-};
-
-export const db = getDb();
+// Initialize Neon client
+const sql_client = neon(process.env.DATABASE_URL!);
+export const db = drizzle(sql_client, { schema });
 
 // Optimized helper functions
 export async function getHeroMarketData() {
@@ -37,24 +22,31 @@ export async function getMarketData(params: {
   query?: string;
 }) {
   const offset = (params.page - 1) * params.limit;
-  let qb = db.select().from(schema.stocks).$dynamic();
   
+  // Create base filters
   const filters = [];
   if (params.sector !== "All") filters.push(eq(schema.stocks.sector, params.sector));
   if (params.query) filters.push(like(schema.stocks.symbol, `%${params.query}%`));
-  if (filters.length > 0) qb = qb.where(and(...filters));
 
   const order = params.sort === "asc" 
     ? asc(schema.stocks.changePercentage) 
     : desc(schema.stocks.changePercentage);
   
+  // Count query
+  let countQuery = db.select({ count: count() }).from(schema.stocks);
+  if (filters.length > 0) countQuery = countQuery.where(and(...filters)) as any;
+
+  // Data query
+  let dataQuery = db.select().from(schema.stocks).limit(params.limit).offset(offset).orderBy(order);
+  if (filters.length > 0) dataQuery = dataQuery.where(and(...filters)) as any;
+
   const [data, allIndexes, countResult] = await Promise.all([
-    qb.limit(params.limit).offset(offset).orderBy(order),
+    dataQuery,
     db.select().from(schema.indexes),
-    db.run(sql`SELECT COUNT(*) as count FROM stocks`)
+    countQuery
   ]);
 
-  const totalCount = Number(countResult.rows[0].count);
+  const totalCount = Number(countResult[0].count);
   return { 
     data, 
     allIndexes, 
