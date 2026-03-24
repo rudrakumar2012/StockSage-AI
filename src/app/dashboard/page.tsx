@@ -9,6 +9,7 @@ import ArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right';
 import ArrowDownRight from 'lucide-react/dist/esm/icons/arrow-down-right';
 import ChevronLeft from 'lucide-react/dist/esm/icons/chevron-left';
 import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
 import Database from 'lucide-react/dist/esm/icons/database';
 import Zap from 'lucide-react/dist/esm/icons/zap';
 import Activity from 'lucide-react/dist/esm/icons/activity';
