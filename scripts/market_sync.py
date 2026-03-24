@@ -92,7 +92,15 @@ def sync_nse(is_startup=False):
                             cursor.execute("INSERT OR REPLACE INTO indexes (index_name, price, change_percentage) VALUES (?, ?, ?)", (display_name, curr, change))
                         else:
                             sec = SECTOR_MAP.get(base_ticker, "NSE Equities")
-                            cursor.execute("INSERT OR REPLACE INTO stocks (symbol, name, price, change_percentage, sector) VALUES (?, ?, ?, ?, ?)", (base_ticker, base_ticker, curr, change, sec))
+                            # Use ON CONFLICT to update only price/change and preserve AI brain data
+                            cursor.execute("""
+                                INSERT INTO stocks (symbol, name, price, change_percentage, sector) 
+                                VALUES (?, ?, ?, ?, ?)
+                                ON CONFLICT(symbol) DO UPDATE SET 
+                                    price = excluded.price,
+                                    change_percentage = excluded.change_percentage,
+                                    sector = excluded.sector
+                            """, (base_ticker, base_ticker, curr, change, sec))
                         
                         print(f"[OK] ₹{curr} ({change}%)", flush=True)
                         success = True

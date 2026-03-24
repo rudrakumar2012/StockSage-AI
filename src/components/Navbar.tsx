@@ -1,7 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { Radar, ChevronDown } from "lucide-react";
+import { useAuth } from '@/context/AuthContext'; // Import useAuth
+import { useRouter, usePathname } from 'next/navigation'; // Added usePathname
 
 export default function Navbar() {
+  const { isAuthenticated, logout, user, isLoading } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login'); // Redirect to login after logout
+  };
+
+  // Prevent rendering until auth state is determined to avoid UI flicker
+  // OR hide Navbar on dashboard
+  if (isLoading || pathname === '/dashboard') {
+    return null; 
+  }
+
   return (
     // Floating Pill Design: top-6, rounded-full, heavy shadow
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
@@ -29,14 +48,30 @@ export default function Navbar() {
 
         {/* ACTION BUTTONS */}
         <div className="flex items-center gap-4">
-          <Link href="/login" className="hidden md:block text-sm font-medium text-zinc-400 hover:text-white transition-colors">
-            Sign In
-          </Link>
-          <Link href="/dashboard" className="px-5 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:scale-105 animate-glow transition-all duration-300">
-            Launch Terminal
-          </Link>
+          {!isAuthenticated ? (
+            <>
+              <Link href="/login" className="hidden md:block text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+                Sign In
+              </Link>
+              <Link href="/login" className="px-5 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:scale-105 animate-glow transition-all duration-300">
+                Get Started Free {/* Changed from Launch Terminal to align with pricing/signup flow */}
+              </Link>
+            </>
+          ) : (
+            <>
+              {/* User Info might be displayed here, e.g., user.email */}
+              <Link href="/dashboard" className="hidden md:block text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+                Dashboard
+              </Link>
+              <button 
+                onClick={handleLogout} 
+                className="px-5 py-2.5 bg-gray-700 text-white rounded-full font-bold text-sm hover:scale-105 transition-all duration-300"
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
-
       </nav>
     </div>
   );

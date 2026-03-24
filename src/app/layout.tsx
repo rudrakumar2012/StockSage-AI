@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { AuthProvider } from '@/context/AuthContext'; // Import AuthProvider
 
 // Pure, clean, institutional typography
 const inter = Inter({ subsets: ["latin"] });
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} bg-[#050505] text-white antialiased selection:bg-indigo-500/30`}>
-        <Navbar />
-        <main>
-          {children}
-        </main>
+        <AuthProvider> {/* Wrap with AuthProvider */}
+          <Navbar />
+          <main>
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

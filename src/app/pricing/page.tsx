@@ -1,8 +1,22 @@
 "use client";
 import { motion } from "framer-motion";
-import { Check, Shield, Zap, Globe } from "lucide-react";
+import { Check } from "lucide-react";
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
+import RazorpayCheckout from "@/components/RazorpayCheckout";
 
 export default function PricingPage() {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleFreeStart = () => {
+    if (isAuthenticated) {
+      router.push('/dashboard');
+    } else {
+      router.push('/login');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] pt-40 px-6 pb-20">
       <div className="max-w-3xl mx-auto text-center mb-20">
@@ -26,27 +40,41 @@ export default function PricingPage() {
           price="Free"
           description="Basic monitoring for casual traders."
           features={["EOD Market Data", "115+ NSE Tickers", "Basic UI Access"]}
-          buttonText="Start Free"
-        />
+        >
+          <button 
+            onClick={handleFreeStart}
+            className="w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all bg-zinc-800 text-white hover:bg-zinc-700"
+          >
+            Start Free
+          </button>
+        </PricingCard>
 
         {/* Tier 2: Institutional (Highlighted) */}
         <div className="relative group">
           <div className="absolute -inset-1 bg-linear-to-r from-indigo-500 to-cyan-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition" />
           <PricingCard 
             tier="Terminal Pro"
-            price="$199"
+            price="₹199"
             description="High-frequency intelligence for professionals."
             features={["Live AI Sentiment Tape", "Predictive Alpha Scanners", "VADER NLP Analysis", "LibSQL Sub-10ms Queries"]}
-            buttonText="Initialize Pro"
             highlighted={true}
-          />
+          >
+            <RazorpayCheckout />
+          </PricingCard>
         </div>
       </div>
     </div>
   );
 }
 
-function PricingCard({ tier, price, description, features, buttonText, highlighted = false }: any) {
+function PricingCard({
+  tier,
+  price,
+  description,
+  features,
+  children,
+  highlighted = false
+}: any) {
   return (
     <div className={`h-full p-10 rounded-[2.8rem] border ${highlighted ? 'bg-[#080808] border-white/10' : 'bg-zinc-900/10 border-white/5'} flex flex-col`}>
       <h3 className="text-indigo-400 font-mono tracking-[0.3em] uppercase mb-2 text-xs">{tier}</h3>
@@ -63,9 +91,7 @@ function PricingCard({ tier, price, description, features, buttonText, highlight
         ))}
       </div>
 
-      <button className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${highlighted ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-800 text-white hover:bg-zinc-700'}`}>
-        {buttonText}
-      </button>
+      {children}
     </div>
   );
 }
