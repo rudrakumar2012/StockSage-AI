@@ -68,7 +68,10 @@ def analyze_alpha():
                     hist = ticker.history(period="60d")
                 
                 if not hist.empty and len(hist) >= 20:
+                    # Clean data and calculate RSI
+                    hist['Close'] = hist['Close'].ffill()
                     rsi = float(calculate_rsi(hist))
+                    
                     current_volume = float(hist['Volume'].iloc[-1])
                     avg_volume_20d = float(hist['Volume'].tail(20).mean())
                     volume_spike = float(current_volume / avg_volume_20d if avg_volume_20d > 0 else 1)
@@ -76,21 +79,27 @@ def analyze_alpha():
                     signal = "NONE"
                     confidence = 0.0
                     
-                    if rsi < 35 and sentiment_score > -0.1:
+                    # Logic for signals (relaxed slightly for better coverage)
+                    if rsi < 38 and sentiment_score > -0.15:
                         signal = "OVERSOLD_BOUNCE"
                         confidence = float(min(round((40 - rsi) * 2.5 + (sentiment_score * 20), 1), 99.9))
                         
-                    elif volume_spike > 1.5 and rsi > 55 and rsi < 75 and sentiment_score > 0.1:
+                    elif volume_spike > 1.4 and rsi > 50 and rsi < 78 and sentiment_score > 0.05:
                         signal = "MOMENTUM_SPIKE"
-                        confidence = float(min(round((volume_spike * 10) + (sentiment_score * 30) + 40, 1), 99.9))
+                        confidence = float(min(round((volume_spike * 10) + (sentiment_score * 30) + 35, 1), 99.9))
                         
-                    elif rsi > 70 and sentiment_score < 0.1:
+                    elif rsi > 68 and sentiment_score < 0.15:
                         signal = "MEAN_REVERSION"
                         confidence = float(min(round((rsi - 65) * 2.5 - (sentiment_score * 20), 1), 99.9))
                         
-                    elif volume_spike > 1.3 and rsi < 50 and sentiment_score < -0.1:
+                    elif volume_spike > 1.2 and rsi < 45 and sentiment_score < -0.05:
                         signal = "BEARISH_DUMP"
-                        confidence = float(min(round((volume_spike * 15) - (sentiment_score * 40) + 30, 1), 99.9))
+                        confidence = float(min(round((volume_spike * 15) - (sentiment_score * 40) + 25, 1), 99.9))
+                    
+                    # New: Trend following signal
+                    elif rsi > 55 and rsi < 65 and sentiment_score > 0:
+                        signal = "TRENDING_UP"
+                        confidence = float(min(round(50 + (sentiment_score * 50), 1), 85.0))
 
                     cursor.execute(
                         f"UPDATE stocks SET ai_signal = {p}, ai_confidence = {p} WHERE symbol = {p}",
@@ -98,11 +107,8 @@ def analyze_alpha():
                     )
                     conn.commit()
                     
-                    if signal != "NONE":
-                        color = "\033[92m" if "BOUNCE" in signal or "MOMENTUM" in signal else "\033[91m"
-                        print(f"[{color}{signal}\033[0m] Confidence: {confidence}% (RSI: {round(rsi, 1)}, Vol: {round(volume_spike, 1)}x)", flush=True)
-                    else:
-                        print("[\033[90mNO CLEAR SIGNAL\033[0m]", flush=True)
+                    color = "\033[92m" if signal != "NONE" and ("UP" in signal or "BOUNCE" in signal or "MOMENTUM" in signal) else "\033[91m" if signal != "NONE" else "\033[90m"
+                    print(f"[{color}{signal}\033[0m] RSI: {round(rsi,1)}, Vol: {round(volume_spike,1)}x, Sent: {sentiment_score}", flush=True)
                 else:
                     print("[\033[90mINSUFFICIENT DATA\033[0m]", flush=True)
                     

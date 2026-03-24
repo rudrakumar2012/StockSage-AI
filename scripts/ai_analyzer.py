@@ -91,7 +91,7 @@ def analyze_stocks():
                         sentiment = sia.polarity_scores(full_text)
                         scores.append(sentiment['compound'])
                     
-                    avg_score = sum(scores) / len(scores) if scores else 0
+                    avg_score = float(sum(scores) / len(scores) if scores else 0)
                     label = get_sentiment_label(avg_score)
                     
                     cursor.execute(
@@ -102,7 +102,7 @@ def analyze_stocks():
                     
                     color = "\033[92m" if label == "BULLISH" else "\033[91m" if label == "BEARISH" else "\033[93m"
                     reset = "\033[0m"
-                    print(f"[{color}{label}{reset}] Score: {round(avg_score, 3)}", flush=True)
+                    print(f"[{color}{label}{reset}] Score: {round(avg_score, 3)} ({len(scores)} articles)", flush=True)
                 else:
                     print("[\033[90mNO NEWS\033[0m] Skipping.", flush=True)
                 
