@@ -127,6 +127,9 @@
   html {
     @apply font-mono;
   }
+  button, a, [role="button"] {
+    @apply cursor-pointer;
+  }
 }
 
 /* --- THE NEW TICKER ANIMATION --- */

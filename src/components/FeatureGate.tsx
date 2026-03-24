@@ -9,10 +9,41 @@ interface FeatureGateProps {
   fallback?: React.ReactNode;
 }
 
+import { toast } from "sonner";
+
 export default function FeatureGate({ children, fallback }: FeatureGateProps) {
-  const { user } = useAuth();
+  const { user, token, updateUser } = useAuth();
   
   const isPro = user?.subscriptionTier === 'PRO';
+
+  const handleQuickUpgrade = async () => {
+    if (!token) {
+      toast.error("Please sign in to upgrade");
+      return;
+    }
+
+    const upgradePromise = fetch('/api/auth/upgrade', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        updateUser(data.user);
+        return data.user;
+      }
+      const err = await response.json();
+      throw new Error(err.error || "Upgrade failed");
+    });
+
+    toast.promise(upgradePromise, {
+      loading: 'Unlocking Pro Feature...',
+      success: 'Feature Unlocked. Institutional access granted.',
+      error: (err) => `Unlock Failed: ${err.message}`,
+    });
+  };
 
   if (isPro) {
     return <>{children}</>;
@@ -32,12 +63,12 @@ export default function FeatureGate({ children, fallback }: FeatureGateProps) {
           <Lock className="w-5 h-5 text-indigo-400" />
         </div>
         <p className="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-1">Pro Feature</p>
-        <Link 
-          href="/pricing" 
-          className="text-[9px] font-mono text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-indigo-500/50"
+        <button 
+          onClick={handleQuickUpgrade}
+          className="text-[9px] font-mono text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-indigo-500/50 cursor-pointer"
         >
           Upgrade to Unlock
-        </Link>
+        </button>
       </div>
     </div>
   );

@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:full": "concurrently \"next dev\" \"python scripts/master_sync.py\"",
+    "sync": "python scripts/master_sync.py",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -23,6 +25,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "shadcn": "^4.1.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tw-animate-css": "^1.4.0"
   },

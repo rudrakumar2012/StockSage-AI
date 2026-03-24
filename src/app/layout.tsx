@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Next-Generation Quantitative Analytics",
 };
 
+import { Toaster } from 'sonner';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,6 +27,13 @@ export default function RootLayout({
           <main>
             {children}
           </main>
+          <Toaster 
+            position="top-right" 
+            theme="dark" 
+            toastOptions={{
+              className: "bg-[#0a0a0a] border border-white/10 text-white font-sans",
+            }} 
+          />
         </AuthProvider>
       </body>
     </html>
