@@ -3,6 +3,10 @@ compatibility_date = "2024-03-20"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
 
+[vars]
+NODE_ENV = "production"
+NEXT_TELEMETRY_DISABLED = "1"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "stocksage-db"
