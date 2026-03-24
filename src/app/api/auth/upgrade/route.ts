@@ -5,7 +5,7 @@ import {
 import { db } from '@/db';
 import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 
 export const runtime = 'edge';
 
@@ -19,14 +19,16 @@ export async function POST(req: NextRequest) {
     }
 
     const token = authHeader.split(' ')[1];
-    let decoded: any;
+    let payload: any;
     try {
-      decoded = jwt.verify(token, JWT_SECRET);
+      const secret = new TextEncoder().encode(JWT_SECRET);
+      const { payload: decodedPayload } = await jose.jwtVerify(token, secret);
+      payload = decodedPayload;
     } catch (e) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const userId = decoded.id;
+    const userId = payload.id;
 
     // Update user tier to PRO
     await db.update(users)

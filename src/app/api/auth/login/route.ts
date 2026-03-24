@@ -6,7 +6,7 @@ import { db } from '@/db';
 import { users } from '@/db/schema';
 import { verifyPassword } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 
 export const runtime = 'edge';
 
@@ -46,10 +46,13 @@ export async function POST(req: NextRequest) {
       subscriptionTier: user.subscriptionTier, // Added tier to token
     };
 
-    // Sign the JWT with the secret key. Set an expiration time (e.g., 1 hour)
-    const token = jwt.sign(payload, JWT_SECRET, {
-      expiresIn: '1h', // Token expires in 1 hour
-    });
+    // Sign the JWT with the secret key using jose (edge-compatible)
+    const secret = new TextEncoder().encode(JWT_SECRET);
+    const token = await new jose.SignJWT(payload)
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('1h')
+      .sign(secret);
 
     // Remove password hash from the user object before sending it back
     const { passwordHash, ...userWithoutPassword } = user;
