@@ -10,10 +10,10 @@ export default function PricingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter mb-6 uppercase">
-            System <span className="text-indigo-500">Access</span>
+          <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white mb-6">
+            System <br className="md:hidden" /><span className="text-indigo-500 italic font-light">Access.</span>
           </h1>
-          <p className="text-zinc-500 text-lg">
+          <p className="text-zinc-500 text-lg font-light">
             Choose your data resolution and AI processing tier.
           </p>
         </motion.div>

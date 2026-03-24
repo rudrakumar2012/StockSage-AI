@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Terminal, ChevronDown } from "lucide-react";
+import { Radar, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -10,7 +10,7 @@ export default function Navbar() {
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="p-2 bg-linear-to-br from-indigo-500 to-fuchsia-500 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:scale-110 transition-transform duration-300">
-            <Terminal className="w-4 h-4 text-white" />
+            <Radar className="w-4 h-4 text-white" />
           </div>
           <span className="text-xl font-display font-bold tracking-tight text-white">
             Stock<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-fuchsia-400">Sage</span>

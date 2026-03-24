@@ -8,12 +8,12 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto text-center mb-24">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-7xl font-bold text-white mb-8 italic tracking-tighter"
+          className="text-5xl md:text-7xl font-medium tracking-tight text-white mb-6"
         >
-          Institutional <br /> <span className="text-indigo-500">Methodology</span>
+          Institutional <br className="md:hidden" /><span className="text-indigo-500 italic font-light">Methodology.</span>
         </motion.h1>
-        <p className="text-zinc-500 text-lg leading-relaxed">
-          StockSage-AI doesn't predict "luck." We track the physics of capital flow using edge-based neural processing.
+        <p className="text-zinc-500 text-lg leading-relaxed font-light">
+          StockSage doesn't predict "luck." We track the physics of capital flow using edge-based neural processing.
         </p>
       </div>
 

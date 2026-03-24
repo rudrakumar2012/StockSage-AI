@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Terminal } from "lucide-react";
+import { Radar } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -7,7 +7,7 @@ export default function LoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="p-3 bg-linear-to-br from-indigo-500 to-fuchsia-500 rounded-2xl shadow-[0_0_30px_rgba(99,102,241,0.5)]">
-            <Terminal className="w-8 h-8 text-white" />
+            <Radar className="w-8 h-8 text-white" />
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white tracking-tight italic">
