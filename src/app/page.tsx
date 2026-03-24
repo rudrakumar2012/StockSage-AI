@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 import Link from "next/link";
 import { ArrowRight, Activity, Cpu, Shield, Zap, BarChart3, Network, Lock } from "lucide-react";
