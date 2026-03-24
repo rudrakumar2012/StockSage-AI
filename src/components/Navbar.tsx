@@ -38,35 +38,34 @@ export default function Navbar() {
         </Link>
 
         {/* EXPANDED NAVIGATION */}
-        <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-400">
+        <div className="hidden md:flex items-center gap-4 lg:gap-8 text-[10px] lg:text-sm font-medium text-zinc-400">
           <Link href="/about" className="hover:text-white transition-colors">
             Methodology
           </Link>
-          <Link href="/#scanners" className="hover:text-white transition-colors">Alpha Scanners</Link>
+          <Link href="/#scanners" className="hover:text-white transition-colors">Scanners</Link>
           <Link href="/#infrastructure" className="hover:text-white transition-colors">Infrastructure</Link>
           <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
         </div>
 
         {/* ACTION BUTTONS */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {!isAuthenticated ? (
             <>
-              <Link href="/login" className="hidden md:block text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <Link href="/login" className="hidden sm:block text-xs md:text-sm font-medium text-zinc-400 hover:text-white transition-colors">
                 Sign In
               </Link>
-              <Link href="/login" className="px-5 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:scale-105 animate-glow transition-all duration-300">
-                Get Started Free {/* Changed from Launch Terminal to align with pricing/signup flow */}
+              <Link href="/login" className="px-4 md:px-5 py-2 md:py-2.5 bg-white text-black rounded-full font-bold text-[10px] md:text-sm hover:scale-105 animate-glow transition-all duration-300 whitespace-nowrap">
+                Get Started
               </Link>
             </>
           ) : (
             <>
-              {/* User Info might be displayed here, e.g., user.email */}
-              <Link href="/dashboard" className="hidden md:block text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <Link href="/dashboard" className="hidden sm:block text-xs md:text-sm font-medium text-zinc-400 hover:text-white transition-colors">
                 Dashboard
               </Link>
               <button 
                 onClick={handleLogout} 
-                className="px-5 py-2.5 bg-gray-700 text-white rounded-full font-bold text-sm hover:scale-105 transition-all duration-300"
+                className="px-4 md:px-5 py-2 md:py-2.5 bg-gray-700 text-white rounded-full font-bold text-[10px] md:text-sm hover:scale-105 transition-all duration-300 whitespace-nowrap"
               >
                 Logout
               </button>

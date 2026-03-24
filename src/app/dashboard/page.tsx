@@ -33,42 +33,52 @@ export default function Dashboard() {
   const [isReady, setIsReady] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Use searchParams.get() directly in dependencies to ensure effect runs on change
   const currentSector = searchParams.get("sector") || "All";
   const currentQuery = searchParams.get("query") || "";
   const currentPage = searchParams.get("page") || "1";
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchData() {
       setLoading(true);
       try {
         const response = await fetch(`/api/market?sector=${currentSector}&query=${currentQuery}&page=${currentPage}`);
+        if (!response.ok) throw new Error('Failed to fetch');
         const result = await response.json();
         
-        setData(result.data || []);
-        setAllIndexes(result.allIndexes || []);
-        setTotalPages(result.totalPages || 1);
-        setLog(result.log);
-        setIsReady(result.isReady);
+        if (isMounted) {
+          setData(result.data || []);
+          setAllIndexes(result.allIndexes || []);
+          setTotalPages(result.totalPages || 1);
+          setLog(result.log);
+          setIsReady(result.isReady);
+        }
       } catch (e) {
-        console.error(e);
+        console.error("Fetch error:", e);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
     fetchData();
+    return () => { isMounted = false; };
   }, [currentSector, currentQuery, currentPage]);
 
   const handleSectorChange = (sector: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     params.set("sector", sector);
     params.set("page", "1");
+    // Preserve existing query
+    const query = searchParams.get("query");
+    if (query) params.set("query", query);
+    
     startTransition(() => {
       router.push(`?${params.toString()}`, { scroll: false });
     });
   };
 
-  if (authLoading || (loading && data.length === 0)) {
-    return <div className="min-h-screen bg-black flex items-center justify-center text-zinc-500 font-mono text-xs uppercase tracking-widest">Initialising Terminal...</div>;
+  if (authLoading || (loading && data.length === 0 && !isReady)) {
+    return <div className="min-h-screen bg-black flex items-center justify-center text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] animate-pulse">Initialising Secure Terminal...</div>;
   }
 
   if (!isReady && !loading) {
@@ -78,14 +88,14 @@ export default function Dashboard() {
   const sectorsList = ["All", "Energy", "Technology", "Financial Services", "Consumer", "Infrastructure", "Healthcare", "Automobile", "Metals"];
 
   return (
-    <div className="min-h-screen bg-black text-white pt-32 md:pt-48 pb-20 selection:bg-indigo-500/30 font-sans">
+    <div className="min-h-screen bg-black text-white pt-24 md:pt-48 pb-20 selection:bg-indigo-500/30 font-sans overflow-x-hidden">
       <DashboardHeader />
       
       <div className="max-w-7xl mx-auto px-4 md:px-10">
         
         {/* TOP STATUS BAR */}
-        <div className="mb-8 md:mb-12 flex items-center">
-          <div className="flex items-center gap-3 bg-zinc-900/20 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-white/5 backdrop-blur-md">
+        <div className="mb-8 md:mb-12 flex items-center overflow-x-auto no-scrollbar pb-2">
+          <div className="flex items-center gap-3 bg-zinc-900/20 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-white/5 backdrop-blur-md whitespace-nowrap">
             <Database className="w-3 h-3 text-emerald-500" />
             <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
               Data Baseline: {log?.lastSuccess || 'Live Connection'}
@@ -110,15 +120,16 @@ export default function Dashboard() {
 
         {/* HEADER & SEARCH */}
         <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-8 md:gap-12 mb-12 md:mb-16 pb-8 md:pb-12 border-b border-white/5">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tighter italic leading-none">Predictive Core.</h1>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tighter italic leading-none">Predictive Core.</h1>
           <div className="flex flex-col items-start xl:items-end gap-6 w-full xl:w-auto">
             <MarketSearch />
-            <nav className="flex flex-wrap items-center justify-start xl:justify-end gap-1 bg-zinc-900/30 p-1 md:p-1.5 rounded-xl md:rounded-2xl border border-white/5 backdrop-blur-xl w-full xl:w-auto overflow-x-auto no-scrollbar">
+            <nav className="flex items-center justify-start xl:justify-end gap-1 bg-zinc-900/30 p-1 md:p-1.5 rounded-xl md:rounded-2xl border border-white/5 backdrop-blur-xl w-full xl:w-auto overflow-x-auto no-scrollbar scroll-smooth">
               {sectorsList.map((s) => (
                 <button 
                   key={s} 
                   onClick={() => handleSectorChange(s)}
-                  className={`px-4 md:px-6 py-1.5 md:py-2 text-[9px] md:text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all whitespace-nowrap ${currentSector === s ? "bg-white text-black shadow-xl" : "text-zinc-500 hover:text-white"}`}
+                  disabled={isPending}
+                  className={`px-4 md:px-6 py-1.5 md:py-2 text-[9px] md:text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all whitespace-nowrap ${currentSector === s ? "bg-white text-black shadow-xl scale-105" : "text-zinc-500 hover:text-white hover:bg-white/5"} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {s}
                 </button>

@@ -10,10 +10,13 @@ export default function MarketSearch() {
   const [isPending, startTransition] = useTransition();
 
   const handleSearch = (term: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (term) params.set("query", term.toUpperCase());
     else params.delete("query");
     params.set("page", "1");
+    // Preserve current sector if exists
+    const sector = searchParams.get("sector");
+    if (sector) params.set("sector", sector);
 
     startTransition(() => {
       router.push(`?${params.toString()}`, { scroll: false }); // SCROLL FIX
