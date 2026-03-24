@@ -1,0 +1,11 @@
+# Ignore heavy folders so Gemini stays fast
+node_modules/
+.next/
+dist/
+*.db
+*.log
+
+# Focus on your core logic
+scripts/
+src/
+package.json

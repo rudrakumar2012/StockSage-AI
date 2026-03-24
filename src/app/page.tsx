@@ -2,8 +2,30 @@ export const runtime = 'nodejs';
 
 import Link from "next/link";
 import { ArrowRight, Activity, Cpu, Shield, Zap, BarChart3, Network, Lock } from "lucide-react";
+import { getMarketData } from "@/db";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data: stocks, allIndexes } = await getMarketData({ 
+    page: 1, 
+    limit: 10, 
+    sort: "desc", 
+    sector: "All" 
+  });
+
+  // Mock data for the "Execution Visual" to complement DB data
+  const executionData = stocks.slice(0, 4).map((stock, i) => {
+    const times = ["11:41:02.104", "11:41:01.882", "11:40:59.001", "11:40:57.210"];
+    const actions = ["BUY", "SELL", "BUY", "BUY"];
+    const sizes = ["1,200", "4,500", "800", "2,000"];
+    return {
+      time: times[i] || "11:40:00.000",
+      action: actions[i] || "BUY",
+      asset: stock.symbol,
+      size: sizes[i] || "1,000",
+      price: `₹${stock.price.toLocaleString('en-IN')}`
+    };
+  });
+
   return (
     <div className="min-h-screen bg-[#020202] text-zinc-300 overflow-hidden relative selection:bg-indigo-500/30">
       
@@ -61,12 +83,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="space-y-4 font-mono text-[13px]">
-                {[
-                  { time: "11:41:02.104", action: "BUY", asset: "RELIANCE", size: "1,200", price: "₹2,954.20" },
-                  { time: "11:41:01.882", action: "SELL", asset: "HDFCBANK", size: "4,500", price: "₹1,432.10" },
-                  { time: "11:40:59.001", action: "BUY", asset: "TCS", size: "800", price: "₹4,120.55" },
-                  { time: "11:40:57.210", action: "BUY", asset: "INFY", size: "2,000", price: "₹1,610.40" },
-                ].map((row, i) => (
+                {executionData.length > 0 ? executionData.map((row, i) => (
                   <div key={i} className="flex justify-between items-center text-zinc-400 hover:text-white transition-colors cursor-default">
                     <span className="text-zinc-600 w-24">{row.time}</span>
                     <span className={`w-12 ${row.action === 'BUY' ? 'text-emerald-500' : 'text-zinc-500'}`}>{row.action}</span>
@@ -74,7 +91,9 @@ export default function HomePage() {
                     <span className="text-right w-16">{row.size}</span>
                     <span className="text-right w-24">{row.price}</span>
                   </div>
-                ))}
+                )) : (
+                  <div className="text-zinc-500 italic text-center py-4">Awaiting execution data...</div>
+                )}
               </div>
             </div>
           </div>
@@ -84,24 +103,12 @@ export default function HomePage() {
       {/* 2. INFINITE NSE TICKER */}
       <div className="relative z-10 border-b border-white/5 bg-[#050505] py-4 flex overflow-hidden">
         <div className="animate-ticker whitespace-nowrap flex items-center gap-16 font-mono text-sm tracking-widest font-medium w-max">
-          {[
-            { sym: "NIFTY 50", price: "22104.40", change: "+0.45%" },
-            { sym: "SENSEX", price: "72840.50", change: "+0.52%" },
-            { sym: "USD/INR", price: "83.12", change: "+0.01%" },
-            { sym: "NIFTY BANK", price: "46800.20", change: "-0.20%" },
-            { sym: "RELIANCE", price: "2954.20", change: "+1.25%" },
-            { sym: "TCS", price: "4120.55", change: "+0.80%" },
-            { sym: "ZOMATO", price: "182.40", change: "+4.12%" },
-            // Repeat for Seamless Loop
-            { sym: "NIFTY 50", price: "22104.40", change: "+0.45%" },
-            { sym: "SENSEX", price: "72840.50", change: "+0.52%" },
-            { sym: "RELIANCE", price: "2954.20", change: "+1.25%" },
-          ].map((item, i) => (
+          {(allIndexes.length > 0 ? [...allIndexes, ...allIndexes] : []).map((item, i) => (
             <div key={i} className="flex items-center gap-4 cursor-default">
-              <span className="text-white transition-colors hover:text-indigo-400">{item.sym}</span>
-              <span className="text-zinc-600">₹{item.price}</span>
-              <span className={item.change.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'}>
-                {item.change}
+              <span className="text-white transition-colors hover:text-indigo-400">{item.indexName}</span>
+              <span className="text-zinc-600">₹{item.price.toLocaleString('en-IN')}</span>
+              <span className={item.changePercentage >= 0 ? 'text-emerald-500' : 'text-rose-500'}>
+                {item.changePercentage >= 0 ? '+' : ''}{item.changePercentage}%
               </span>
             </div>
           ))}
