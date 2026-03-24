@@ -1,6 +1,6 @@
+"use client";
 export const runtime = 'edge';
 
-"use client";
 import { motion } from "framer-motion";
 import { ShieldCheck, Cpu, Database, Network } from "lucide-react";
 

@@ -1,6 +1,5 @@
-export const runtime = 'edge';
-
 "use client";
+export const runtime = 'edge';
 
 import { db, getMarketData } from "@/db";
 import { syncLogs } from "@/db/schema";
