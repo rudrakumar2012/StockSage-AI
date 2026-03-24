@@ -8,6 +8,8 @@ import { verifyPassword } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
 import jwt from 'jsonwebtoken';
 
+export const runtime = 'edge';
+
 // IMPORTANT: Store JWT_SECRET securely in environment variables (e.g., .env file)
 const JWT_SECRET = process.env.JWT_SECRET || 'a_fallback_super_secret_key_for_development_only';
 

@@ -7,6 +7,8 @@ import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import jwt from 'jsonwebtoken';
 
+export const runtime = 'edge';
+
 const JWT_SECRET = process.env.JWT_SECRET || 'a_fallback_super_secret_key_for_development_only';
 
 export async function POST(req: NextRequest) {

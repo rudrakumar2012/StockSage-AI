@@ -3,6 +3,8 @@ import { getMarketData, db } from "@/db";
 import { syncLogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+export const runtime = 'edge';
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const sector = searchParams.get("sector") || "All";

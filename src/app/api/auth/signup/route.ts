@@ -7,6 +7,8 @@ import { users } from '@/db/schema'; // Assuming users table schema is exported 
 import { hashPassword } from '@/lib/auth'; // Assuming hashPassword is exported from src/lib/auth.ts
 import { sql } from 'drizzle-orm';
 
+export const runtime = 'edge';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
