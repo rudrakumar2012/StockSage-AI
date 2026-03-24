@@ -25,14 +25,14 @@ export default function Navbar() {
   return (
     // Floating Pill Design: top-6, rounded-full, heavy shadow
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-      <nav className="pointer-events-auto w-full max-w-300 border border-white/10 bg-[#0a0a0a]/60 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.6)] rounded-full px-6 py-3 flex justify-between items-center transition-all hover:border-white/20 hover:bg-[#0a0a0a]/80">
+      <nav className="pointer-events-auto w-full max-w-5xl border border-white/10 bg-[#0a0a0a]/60 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.6)] rounded-full px-4 md:px-6 py-2.5 md:py-3 flex justify-between items-center transition-all hover:border-white/20 hover:bg-[#0a0a0a]/80">
         
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="p-2 bg-linear-to-br from-indigo-500 to-fuchsia-500 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:scale-110 transition-transform duration-300">
-            <Radar className="w-4 h-4 text-white" />
+        <Link href="/" className="flex items-center gap-2 md:gap-3 group">
+          <div className="p-1.5 md:p-2 bg-linear-to-br from-indigo-500 to-fuchsia-500 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:scale-110 transition-transform duration-300">
+            <Radar className="w-3.5 md:w-4 h-3.5 md:h-4 text-white" />
           </div>
-          <span className="text-xl font-display font-bold tracking-tight text-white">
+          <span className="text-lg md:text-xl font-display font-bold tracking-tight text-white">
             Stock<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-fuchsia-400">Sage</span>
           </span>
         </Link>

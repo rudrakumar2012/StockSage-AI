@@ -61,8 +61,8 @@ export default async function HomePage() {
       <div className="absolute bottom-0 right-0 w-150 h-150 bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none z-0" />
       
       {/* 1. KINETIC HERO SECTION */}
-      <section className="relative z-10 max-w-400 mx-auto px-6 pt-40 pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-32 md:pt-40 pb-16 md:pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Typography & Action */}
           <div className="relative">
@@ -70,21 +70,21 @@ export default async function HomePage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mb-8 animate-fade-up">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse-slow"></span>
-              <span className="text-[11px] font-medium tracking-widest text-zinc-400 uppercase">NSE/BSE V2.4 Connected</span>
+              <span className="text-[10px] md:text-[11px] font-medium tracking-widest text-zinc-400 uppercase">NSE/BSE V2.4 Connected</span>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-white mb-6 leading-[1.05] animate-fade-up [animation-delay:100ms]">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-6 leading-[1.05] animate-fade-up [animation-delay:100ms]">
               Quantified <br />
               <span className="text-zinc-500 italic font-light">Edge.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-lg leading-relaxed font-light animate-fade-up [animation-delay:200ms]">
+            <p className="text-base md:text-lg lg:text-xl text-zinc-400 mb-10 max-w-lg leading-relaxed font-light animate-fade-up [animation-delay:200ms]">
               The first institutional-grade terminal for Indian retail. Real-time NSE data, AI-driven NIFTY sentiment, and secure LibSQL architecture.
             </p>
             
-            <div className="flex flex-wrap items-center gap-6 animate-fade-up [animation-delay:300ms]">
-              <Link href="/dashboard" className="group relative px-8 py-4 bg-white text-black text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
-                <span className="relative z-10 uppercase tracking-widest">Launch Terminal</span>
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 animate-fade-up [animation-delay:300ms]">
+              <Link href="/dashboard" className="group relative px-6 md:px-8 py-3.5 md:py-4 bg-white text-black text-xs md:text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
+                <span className="relative z-10 uppercase tracking-widest whitespace-nowrap">Launch Terminal</span>
                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-indigo-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
               </Link>
@@ -125,7 +125,7 @@ export default async function HomePage() {
 
       {/* 2. INFINITE NSE TICKER */}
       <div className="relative z-10 border-b border-white/5 bg-[#050505] py-4 flex overflow-hidden">
-        <div className="animate-ticker whitespace-nowrap flex items-center gap-16 font-mono text-sm tracking-widest font-medium w-max">
+        <div className="animate-ticker whitespace-nowrap flex items-center gap-16 font-mono text-xs md:text-sm tracking-widest font-medium w-max">
           {(allIndexes.length > 0 ? [...allIndexes, ...allIndexes] : []).map((item, i) => (
             <div key={i} className="flex items-center gap-4 cursor-default">
               <span className="text-white transition-colors hover:text-indigo-400">{item.indexName}</span>
@@ -139,10 +139,10 @@ export default async function HomePage() {
       </div>
 
       {/* 3. ARCHITECTURE GRID ( NSE Context) */}
-      <section id="infrastructure" className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4 italic">Core Infrastructure</h2>
-          <p className="text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
+      <section id="infrastructure" className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 border-b border-white/5">
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-4 italic">Core Infrastructure</h2>
+          <p className="text-[10px] md:text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
@@ -152,23 +152,23 @@ export default async function HomePage() {
             { icon: <Lock className="w-5 h-5" />, title: "LibSQL Architecture", desc: "Local-first, ultra-fast database managed by Drizzle ORM for maximum execution speed." },
             { icon: <Network className="w-5 h-5" />, title: "Predictive Scanners", desc: "Algorithmic correlation of 14-day RSI, volume spikes, and real-time news sentiment." }
           ].map((feature, i) => (
-            <div key={i} className="bg-[#050505] p-10 group hover:bg-[#0a0a0a] transition-colors duration-500 cursor-default relative overflow-hidden">
+            <div key={i} className="bg-[#050505] p-8 md:p-10 group hover:bg-[#0a0a0a] transition-colors duration-500 cursor-default relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="mb-8 text-zinc-600 group-hover:text-indigo-400 transition-colors duration-300">{feature.icon}</div>
-              <h3 className="text-xl font-medium text-white mb-3 tracking-tight">{feature.title}</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed font-light">{feature.desc}</p>
+              <div className="mb-6 md:mb-8 text-zinc-600 group-hover:text-indigo-400 transition-colors duration-300">{feature.icon}</div>
+              <h3 className="text-lg md:text-xl font-medium text-white mb-3 tracking-tight">{feature.title}</h3>
+              <p className="text-zinc-500 text-xs md:text-sm leading-relaxed font-light">{feature.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* 4. QUANTITATIVE MODELS ( NSE Focus) */}
-      <section id="scanners" className="relative z-10 max-w-400 mx-auto px-6 py-32 border-b border-white/5">
+      <section id="scanners" className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          <div className="lg:col-span-4 flex flex-col justify-between">
+          <div className="lg:col-span-4 flex flex-col justify-between gap-8">
             <div>
-              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
+              <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
               <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Algorithmic setups cross-referencing RSI, Volume, and NLP Sentiment to find high-probability trades across Dalal Street.</p>
             </div>
             <Link href="/dashboard" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
@@ -183,19 +183,19 @@ export default async function HomePage() {
               { name: "Mean Reversion", type: "RSI > 70 + BEARISH NEWS", risk: "MED", return: "PULLBACK" },
               { name: "Bearish Dump", type: "VOL > 1.3x + BEARISH NEWS", risk: "HIGH", return: "BREAKDOWN" }
             ].map((model, i) => (
-              <div key={i} className="bg-[#050505] p-8 flex flex-col justify-between group hover:bg-[#0a0a0a] transition-all duration-500">
-                <div className="flex justify-between items-start mb-12">
+              <div key={i} className="bg-[#050505] p-6 md:p-8 flex flex-col justify-between group hover:bg-[#0a0a0a] transition-all duration-500 min-h-50">
+                <div className="flex justify-between items-start mb-8 md:mb-12">
                   <div>
-                    <span className="text-[10px] font-mono font-medium text-zinc-600 uppercase tracking-widest block mb-2">{model.type}</span>
-                    <h4 className="text-2xl font-medium text-white group-hover:text-indigo-400 transition-colors">{model.name}</h4>
+                    <span className="text-[9px] md:text-[10px] font-mono font-medium text-zinc-600 uppercase tracking-widest block mb-2">{model.type}</span>
+                    <h4 className="text-xl md:text-2xl font-medium text-white group-hover:text-indigo-400 transition-colors">{model.name}</h4>
                   </div>
-                  <span className={`text-[10px] font-mono px-3 py-1 rounded-full border ${model.risk === 'HIGH' ? 'border-rose-900/30 text-rose-500' : 'border-white/10 text-white'}`}>
+                  <span className={`text-[9px] md:text-[10px] font-mono px-2 md:px-3 py-1 rounded-full border ${model.risk === 'HIGH' ? 'border-rose-900/30 text-rose-500' : 'border-white/10 text-white'}`}>
                     {model.risk} RISK
                   </span>
                 </div>
                 <div className="flex justify-between items-end">
-                  <span className="text-xs text-zinc-600 font-medium tracking-wide">AI SIGNAL</span>
-                  <span className={`text-xl font-light ${model.return === 'BREAKDOWN' || model.return === 'PULLBACK' ? 'text-rose-500' : 'text-emerald-500'}`}>{model.return}</span>
+                  <span className="text-[10px] md:text-xs text-zinc-600 font-medium tracking-wide">AI SIGNAL</span>
+                  <span className={`text-lg md:text-xl font-light ${model.return === 'BREAKDOWN' || model.return === 'PULLBACK' ? 'text-rose-500' : 'text-emerald-500'}`}>{model.return}</span>
                 </div>
               </div>
             ))}
@@ -204,8 +204,8 @@ export default async function HomePage() {
       </section>
 
       {/* 5. FOOTER */}
-      <footer className="relative z-10 bg-[#020202] pt-24 pb-8">
-        <div className="max-w-400 mx-auto px-6 mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+      <footer className="relative z-10 bg-[#020202] pt-16 md:pt-24 pb-8">
+        <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-y-16">
            {[
             { label: "Execution Engine", value: "LibSQL" },
             { label: "Active Tickers", value: "115+" },
@@ -213,15 +213,15 @@ export default async function HomePage() {
             { label: "Scanners", value: "4 Models" }
           ].map((stat, i) => (
             <div key={i} className="border-t border-white/10 pt-6">
-              <p className="text-4xl font-light text-white tracking-tight mb-2">{stat.value}</p>
-              <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">{stat.label}</p>
+              <p className="text-2xl md:text-4xl font-light text-white tracking-tight mb-2">{stat.value}</p>
+              <p className="text-[10px] md:text-xs font-medium text-zinc-500 uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
         </div>
         
-        <div className="max-w-400 mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 pt-8">
-          <span className="text-xl font-medium tracking-tight text-white italic">StockSage.</span>
-          <p className="text-zinc-600 text-[10px] uppercase tracking-[0.3em] font-mono">STOCKSAGE TRADING SOLUTIONS INDIA PVT LTD. INVESTMENTS IN SECURITIES MARKET ARE SUBJECT TO MARKET RISKS.</p>
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 pt-8">
+          <span className="text-lg md:text-xl font-medium tracking-tight text-white italic">StockSage.</span>
+          <p className="text-zinc-600 text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono text-center md:text-right">STOCKSAGE TRADING SOLUTIONS INDIA PVT LTD. INVESTMENTS IN SECURITIES MARKET ARE SUBJECT TO MARKET RISKS.</p>
         </div>
       </footer>
 

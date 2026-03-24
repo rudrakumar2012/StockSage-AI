@@ -28,7 +28,7 @@ export default function MarketSearch() {
         placeholder="FILTER BY TICKER..."
         defaultValue={searchParams.get("query") || ""}
         onChange={(e) => handleSearch(e.target.value)}
-        className="w-full bg-zinc-900/40 border border-white/5 rounded-xl py-4 pl-12 text-[10px] font-mono tracking-widest focus:outline-none focus:border-indigo-500/50 transition-all"
+        className="w-full bg-zinc-900/40 border border-white/5 rounded-xl py-3 md:py-4 pl-12 text-[10px] font-mono tracking-widest focus:outline-none focus:border-indigo-500/50 transition-all"
       />
     </div>
   );

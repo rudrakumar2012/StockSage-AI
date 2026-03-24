@@ -48,21 +48,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-gray-800 p-10 rounded-lg shadow-xl">
+    <div className="flex min-h-screen items-center justify-center bg-[#020202] py-12 px-4 sm:px-6 lg:px-8 selection:bg-indigo-500/30">
+      <div className="w-full max-w-md space-y-8 bg-[#0a0a0a] p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl" />
+        
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Sign in to your account
+          <h2 className="mt-6 text-center text-3xl md:text-4xl font-bold tracking-tight text-white italic">
+            Terminal <span className="text-indigo-500 not-italic font-light">Login.</span>
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-400">
-            Or{' '}
-            <Link href="/signup" className="font-medium text-indigo-400 hover:text-indigo-300">
-              create a new account
+          <p className="mt-2 text-center text-xs md:text-sm text-zinc-500 font-light">
+            Enter your institutional credentials or{' '}
+            <Link href="/signup" className="font-medium text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-indigo-500/30">
+              register a new node
             </Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="space-y-4">
             <div>
               <label htmlFor="email-address" className="sr-only">Email address</label>
               <input
@@ -71,8 +73,8 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-gray-700 text-white"
-                placeholder="Email address"
+                className="relative block w-full px-4 py-3 md:py-4 bg-zinc-900/50 border border-white/10 placeholder-zinc-600 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm font-mono tracking-tight"
+                placeholder="EMAIL ADDRESS"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -85,24 +87,24 @@ export default function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-gray-700 text-white"
-                placeholder="Password"
+                className="relative block w-full px-4 py-3 md:py-4 bg-zinc-900/50 border border-white/10 placeholder-zinc-600 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm font-mono tracking-tight"
+                placeholder="PASSWORD"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
-                Forgot password?
+          <div className="flex items-center justify-end">
+            <div className="text-xs">
+              <a href="#" className="font-medium text-zinc-500 hover:text-indigo-400 transition-colors uppercase tracking-widest">
+                Forgot access?
               </a>
             </div>
           </div>
 
           {error && (
-            <div className="bg-red-500 text-white p-3 rounded-md text-center">
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-500 p-3 rounded-xl text-center text-[10px] md:text-xs font-mono uppercase tracking-widest">
               {error}
             </div>
           )}
@@ -110,9 +112,9 @@ export default function LoginPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-3.5 md:py-4 px-4 bg-white text-black text-xs md:text-sm font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-50 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl"
             >
-              Sign in
+              Initialize Node
             </button>
           </div>
         </form>
