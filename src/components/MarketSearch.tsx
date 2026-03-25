@@ -23,7 +23,7 @@ export default function MarketSearch() {
     return () => clearTimeout(timer);
   }, [inputValue]);
 
-  // Perform search when debounced value changes
+  // Perform search when debounced value changes (only)
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
     if (debouncedValue) {
@@ -39,7 +39,8 @@ export default function MarketSearch() {
     startTransition(() => {
       router.push(`?${params.toString()}`, { scroll: false });
     });
-  }, [debouncedValue, searchParams, router, startTransition]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]); // Only trigger on debouncedValue change, not on searchParams
 
   const handleClear = () => {
     setInputValue("");

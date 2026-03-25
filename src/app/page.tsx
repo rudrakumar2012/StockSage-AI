@@ -64,7 +64,7 @@ export default async function HomePage() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4 md:gap-6 animate-fade-up [animation-delay:300ms]">
-              <Link href="/signup" className="group relative px-6 md:px-8 py-3.5 md:py-4 bg-white text-black text-xs md:text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
+              <Link href="/dashboard" className="group relative px-6 md:px-8 py-3.5 md:py-4 bg-white text-black text-xs md:text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
                 <span className="relative z-10 uppercase tracking-widest whitespace-nowrap">Launch Terminal</span>
                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-indigo-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
@@ -152,7 +152,7 @@ export default async function HomePage() {
               <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
               <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Algorithmic setups cross-referencing RSI, Volume, and NLP Sentiment to find high-probability trades across Dalal Street.</p>
             </div>
-            <Link href="/signup" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
+            <Link href="/dashboard" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
               Launch Scanners <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
