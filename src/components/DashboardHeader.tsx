@@ -10,7 +10,23 @@ import { useRouter } from 'next/navigation';
 
 import { toast } from "sonner";
 
-export default function DashboardHeader() {
+interface DashboardHeaderProps {
+  lastUpdated?: string; // ISO timestamp from sync log
+}
+
+// Simple relative time formatter (no dependencies)
+function getRelativeTime(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (diffInSeconds < 60) return 'just now';
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+  return `${Math.floor(diffInSeconds / 86400)}d ago`;
+}
+
+export default function DashboardHeader({ lastUpdated }: DashboardHeaderProps) {
   const { user, logout, updateUser, token } = useAuth();
   const router = useRouter();
 
@@ -57,6 +73,16 @@ export default function DashboardHeader() {
           <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-indigo-500/10 border border-indigo-500/20 rounded text-[9px] font-mono text-indigo-400 uppercase tracking-widest">Terminal</span>
         </span>
       </Link>
+
+      {/* Last Updated Indicator */}
+      {lastUpdated && (
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/5 border border-emerald-500/10 rounded-full">
+          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          <span className="text-[9px] font-mono text-emerald-400/70 uppercase tracking-widest">
+            Updated {getRelativeTime(lastUpdated)}
+          </span>
+        </div>
+      )}
 
       {/* User Section */}
       <div className="flex items-center gap-3 md:gap-6">
