@@ -2,7 +2,7 @@
 
 StockSage-AI is a high-performance, AI-driven stock analysis terminal designed for institutional-grade market intelligence. It combines real-time data fetching, VADER NLP sentiment analysis, and technical alpha scanners into a sleek, "hacker-style" professional interface.
 
-![StockSage Terminal](https://stock-sage-ai-eight.vercel.app/) <!-- Placeholder for a real banner later -->
+Live: https://stock-sage-ai-eight.vercel.app/
 
 ## 🚀 Key Features
 
