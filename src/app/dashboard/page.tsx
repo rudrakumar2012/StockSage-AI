@@ -210,6 +210,48 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-4 mt-12 md:mt-16">
+            <button
+              onClick={() => {
+                const params = new URLSearchParams(searchParams.toString());
+                params.set("page", String(Number(currentPage) - 1));
+                startTransition(() => {
+                  router.push(`?${params.toString()}`, { scroll: false });
+                });
+              }}
+              disabled={Number(currentPage) <= 1 || isPending}
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Prev
+            </button>
+
+            <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono">
+              <span className="text-zinc-500">Page</span>
+              <span className="text-white font-bold">{currentPage}</span>
+              <span className="text-zinc-500">of</span>
+              <span className="text-white font-bold">{totalPages}</span>
+            </div>
+
+            <button
+              onClick={() => {
+                const params = new URLSearchParams(searchParams.toString());
+                params.set("page", String(Number(currentPage) + 1));
+                startTransition(() => {
+                  router.push(`?${params.toString()}`, { scroll: false });
+                });
+              }}
+              disabled={Number(currentPage) >= totalPages || isPending}
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
