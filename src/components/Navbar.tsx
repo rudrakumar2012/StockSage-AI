@@ -113,7 +113,7 @@ export default function Navbar() {
                   <Link href="/login" className="text-lg font-medium text-zinc-400">
                     Sign In
                   </Link>
-                  <Link href="/login" className="w-full py-4 bg-white text-black rounded-2xl font-bold text-center">
+                  <Link href="/signup" className="w-full py-4 bg-white text-black rounded-2xl font-bold text-center">
                     Get Started
                   </Link>
                 </div>

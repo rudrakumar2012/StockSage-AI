@@ -71,13 +71,65 @@ STOCKS = [
 def setup_db(conn, nuke=False):
     cursor = conn.cursor()
     is_pg = DATABASE_URL and HAS_POSTGRES
-    
+
     if nuke:
         print(f"\n[{datetime.now().strftime('%H:%M:%S')}] [SYSTEM] Nuking old database tables...", flush=True)
         cursor.execute("DROP TABLE IF EXISTS indexes")
         cursor.execute("DROP TABLE IF EXISTS stocks")
         cursor.execute("DROP TABLE IF EXISTS sync_logs")
-        cursor.execute("DROP TABLE IF EXISTS users")
+        # NOTE: Users table is NOT dropped - it contains persistent application data
+
+    if is_pg:
+        cursor.execute("CREATE TABLE IF NOT EXISTS indexes (id SERIAL PRIMARY KEY, index_name TEXT NOT NULL UNIQUE, price DOUBLE PRECISION NOT NULL, change_percentage DOUBLE PRECISION NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS stocks (id SERIAL PRIMARY KEY, symbol TEXT NOT NULL UNIQUE, name TEXT NOT NULL, price DOUBLE PRECISION NOT NULL, change_percentage DOUBLE PRECISION NOT NULL, sector TEXT, sentiment_score DOUBLE PRECISION DEFAULT 0, sentiment_label TEXT DEFAULT 'NEUTRAL', ai_signal TEXT DEFAULT 'NONE', ai_confidence DOUBLE PRECISION DEFAULT 0)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS sync_logs (id SERIAL PRIMARY KEY, last_success TEXT, status TEXT)")
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                full_name TEXT NOT NULL,
+                email TEXT NOT NULL UNIQUE,
+                password_hash TEXT NOT NULL,
+                subscription_tier TEXT DEFAULT 'FREE',
+                razorpay_customer_id TEXT,
+                subscription_expiry TIMESTAMP,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        # Ensure full_name column exists (migration for existing deployments)
+        cursor.execute("""
+            DO $$
+            BEGIN
+                IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='users' AND column_name='full_name') THEN
+                    ALTER TABLE users ADD COLUMN full_name TEXT NOT NULL DEFAULT '';
+                END IF;
+            END
+            $$
+        """)
+    else:
+        cursor.execute("CREATE TABLE IF NOT EXISTS indexes (id INTEGER PRIMARY KEY AUTOINCREMENT, index_name TEXT NOT NULL UNIQUE, price REAL NOT NULL, change_percentage REAL NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS stocks (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL UNIQUE, name TEXT NOT NULL, price REAL NOT NULL, change_percentage REAL NOT NULL, sector TEXT, sentiment_score REAL DEFAULT 0, sentiment_label TEXT DEFAULT 'NEUTRAL', ai_signal TEXT DEFAULT 'NONE', ai_confidence REAL DEFAULT 0)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS sync_logs (id INTEGER PRIMARY KEY, last_success TEXT, status TEXT)")
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                full_name TEXT NOT NULL,
+                email TEXT NOT NULL UNIQUE,
+                password_hash TEXT NOT NULL,
+                subscription_tier TEXT DEFAULT 'FREE',
+                razorpay_customer_id TEXT,
+                subscription_expiry INTEGER,
+                created_at INTEGER DEFAULT CURRENT_TIMESTAMP,
+                updated_at INTEGER DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        # Ensure full_name column exists (migration for existing deployments)
+        cursor.execute("PRAGMA table_info(users)")
+        columns = [row[1] for row in cursor.fetchall()]
+        if 'full_name' not in columns:
+            cursor.execute("ALTER TABLE users ADD COLUMN full_name TEXT NOT NULL DEFAULT ''")
+
+    conn.commit()
         
     if is_pg:
         cursor.execute("CREATE TABLE IF NOT EXISTS indexes (id SERIAL PRIMARY KEY, index_name TEXT NOT NULL UNIQUE, price DOUBLE PRECISION NOT NULL, change_percentage DOUBLE PRECISION NOT NULL)")
@@ -86,6 +138,7 @@ def setup_db(conn, nuke=False):
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
+                full_name TEXT NOT NULL,
                 email TEXT NOT NULL UNIQUE,
                 password_hash TEXT NOT NULL,
                 subscription_tier TEXT DEFAULT 'FREE',
@@ -102,6 +155,7 @@ def setup_db(conn, nuke=False):
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                full_name TEXT NOT NULL,
                 email TEXT NOT NULL UNIQUE,
                 password_hash TEXT NOT NULL,
                 subscription_tier TEXT DEFAULT 'FREE',
