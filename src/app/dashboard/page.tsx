@@ -23,17 +23,24 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Dashboard() {
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading, isAuthenticated } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  
+
   const [data, setData] = useState<any[]>([]);
   const [allIndexes, setAllIndexes] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [log, setLog] = useState<any>(null);
   const [isReady, setIsReady] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  // Redirect to signup if not authenticated
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      router.push('/signup?redirect=/dashboard');
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   // Use searchParams.get() directly in dependencies to ensure effect runs on change
   const currentSector = searchParams.get("sector") || "All";

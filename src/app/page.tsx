@@ -10,41 +10,22 @@ import Zap from 'lucide-react/dist/esm/icons/zap';
 import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
 import Network from 'lucide-react/dist/esm/icons/network';
 import Lock from 'lucide-react/dist/esm/icons/lock';
-import { getMarketData } from "@/db";
 
 export default async function HomePage() {
-  const { data: stocks, allIndexes } = await getMarketData({ 
-    page: 1, 
-    limit: 10, 
-    sort: "desc", 
-    sector: "All" 
-  });
+  // Demo/placeholder data for the execution visual (maintains aesthetic without exposing real data)
+  const executionData = [
+    { time: "11:41:02.104", action: "MOMENTUM SPIKE", confidence: "87%", asset: "RELIANCE", price: "₹2,847.50" },
+    { time: "11:41:01.882", action: "OVERSOLD BOUNCE", confidence: "92%", asset: "TCS", price: "₹3,512.25" },
+    { time: "11:40:59.001", action: "TRENDING UP", confidence: "76%", asset: "HDFCBANK", price: "₹1,678.90" },
+    { time: "11:40:57.210", action: "BULLISH", confidence: "N/A", asset: "INFY", price: "₹1,895.75" }
+  ];
 
-  // Prepare AI predictive data for the "Execution Visual"
-  const executionData = stocks.filter(s => s.aiSignal && s.aiSignal !== 'NONE').slice(0, 4).map((stock, i) => {
-    const times = ["11:41:02.104", "11:41:01.882", "11:40:59.001", "11:40:57.210"];
-    return {
-      time: times[i] || "11:40:00.000",
-      action: (stock.aiSignal || 'NONE').replace('_', ' '),
-      confidence: `${stock.aiConfidence}%`,
-      asset: stock.symbol,
-      price: `₹${stock.price.toLocaleString('en-IN')}`
-    };
-  });
-
-  // Fallback to sentiment if no signals are found yet
-  if (executionData.length === 0) {
-    stocks.slice(0, 4).forEach((stock, i) => {
-      const times = ["11:41:02.104", "11:41:01.882", "11:40:59.001", "11:40:57.210"];
-      executionData.push({
-        time: times[i] || "11:40:00.000",
-        action: stock.sentimentLabel || "NEUTRAL",
-        confidence: "N/A",
-        asset: stock.symbol,
-        price: `₹${stock.price.toLocaleString('en-IN')}`
-      });
-    });
-  }
+  // Public index data (these are real market indices - okay to show publicly)
+  const allIndexes = [
+    { indexName: "NIFTY 50", price: 22427.75, changePercentage: 0.85 },
+    { indexName: "BSE SENSEX", price: 73964.20, changePercentage: 0.92 },
+    { indexName: "NIFTY MIDCAP", price: 12256.40, changePercentage: 1.24 }
+  ];
 
   return (
     <div className="min-h-screen bg-[#020202] text-zinc-300 overflow-hidden relative selection:bg-indigo-500/30">
@@ -83,7 +64,7 @@ export default async function HomePage() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4 md:gap-6 animate-fade-up [animation-delay:300ms]">
-              <Link href="/dashboard" className="group relative px-6 md:px-8 py-3.5 md:py-4 bg-white text-black text-xs md:text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
+              <Link href="/signup" className="group relative px-6 md:px-8 py-3.5 md:py-4 bg-white text-black text-xs md:text-sm font-bold overflow-hidden flex items-center gap-2 transition-transform hover:scale-[1.02]">
                 <span className="relative z-10 uppercase tracking-widest whitespace-nowrap">Launch Terminal</span>
                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-indigo-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
@@ -171,7 +152,7 @@ export default async function HomePage() {
               <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">Alpha Scanners</h2>
               <p className="text-zinc-400 mb-8 leading-relaxed font-light italic">Algorithmic setups cross-referencing RSI, Volume, and NLP Sentiment to find high-probability trades across Dalal Street.</p>
             </div>
-            <Link href="/dashboard" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
+            <Link href="/signup" className="group inline-flex items-center gap-2 text-white font-medium text-sm w-fit border-b border-white/20 pb-1 hover:border-white transition-colors">
               Launch Scanners <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
