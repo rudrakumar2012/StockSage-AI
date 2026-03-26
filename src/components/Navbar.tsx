@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Radar from 'lucide-react/dist/esm/icons/radar';
+import Image from "next/image";
 import Menu from 'lucide-react/dist/esm/icons/menu';
 import X from 'lucide-react/dist/esm/icons/x';
 import { useAuth } from '@/context/AuthContext'; 
@@ -41,8 +41,15 @@ export default function Navbar() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 md:gap-3 group shrink-0">
-          <div className="p-1.5 md:p-2 bg-linear-to-br from-indigo-500 to-fuchsia-500 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:scale-110 transition-transform duration-300">
-            <Radar className="w-4 h-4 text-white" />
+          <div className="relative w-8 h-8 md:w-10 md:h-10 shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:scale-110 transition-transform duration-300 rounded-full overflow-hidden">
+            <Image 
+              src="/logo.png" 
+              alt="StockSage Logo" 
+              fill 
+              className="object-cover"
+              sizes="(max-width: 768px) 32px, 40px"
+              priority
+            />
           </div>
           <span className="text-lg md:text-xl font-display font-bold tracking-tight text-white">
             Stock<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-fuchsia-400">Sage</span>
