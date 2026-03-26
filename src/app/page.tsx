@@ -10,6 +10,8 @@ import Zap from 'lucide-react/dist/esm/icons/zap';
 import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
 import Network from 'lucide-react/dist/esm/icons/network';
 import Lock from 'lucide-react/dist/esm/icons/lock';
+import { db } from "@/db";
+import { indexes } from "@/db/schema";
 
 export default async function HomePage() {
   // Demo/placeholder data for the execution visual (maintains aesthetic without exposing real data)
@@ -20,12 +22,8 @@ export default async function HomePage() {
     { time: "11:40:57.210", action: "BULLISH", confidence: "N/A", asset: "INFY", price: "₹1,895.75" }
   ];
 
-  // Public index data (these are real market indices - okay to show publicly)
-  const allIndexes = [
-    { indexName: "NIFTY 50", price: 22427.75, changePercentage: 0.85 },
-    { indexName: "BSE SENSEX", price: 73964.20, changePercentage: 0.92 },
-    { indexName: "NIFTY MIDCAP", price: 12256.40, changePercentage: 1.24 }
-  ];
+  // Fetch real index data from database
+  const allIndexes = await db.select().from(indexes);
 
   return (
     <div className="min-h-screen bg-[#020202] text-zinc-300 overflow-hidden relative selection:bg-indigo-500/30">
