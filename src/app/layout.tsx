@@ -10,6 +10,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "StockSage | Institutional AI Terminal",
   description: "Next-Generation Quantitative Analytics",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 import { Toaster } from 'sonner';
