@@ -66,9 +66,10 @@ src/
 │   ├── dashboard/page.tsx       # Main terminal view (client component, fetches from API)
 │   ├── pricing/page.tsx         # Pricing page
 │   ├── about/page.tsx           # About page
-│   ├── login/page.tsx           # Login form
-│   ├── signup/page.tsx          # Signup form
-│   ├── layout.tsx               # Root layout (dark theme, Inter font)
+│   ├── disclaimer/page.tsx      # Legal disclaimer page (SEBI-safe)
+│   ├── login/page.tsx           # Login form (includes disclaimer acknowledgment)
+│   ├── signup/page.tsx          # Signup form (includes disclaimer acknowledgment)
+│   ├── layout.tsx               # Root layout (dark theme, Inter font, DisclaimerBanner)
 │   ├── page.tsx                 # Landing page (hero, ticker, architecture grid)
 │   ├── globals.css              # Tailwind imports + custom ticker animation
 │   └── ...                      # Other pages
@@ -78,7 +79,8 @@ src/
 │   ├── FeatureGate.tsx          # Subscription-based featurelock
 │   ├── MarketSearch.tsx         # Symbol search component
 │   ├── SystemBootLoader.tsx     # Initialization loading screen
-│   ├── RazorpayCheckout.tsx     # Payment integration
+│   ├── RazorpayCheckout.tsx     # Payment integration (demo mode, labeled)
+│   ├── DisclaimerBanner.tsx     # Site-wide legal disclaimer banner
 │   └── ui/                      # shadcn/ui components (button, etc.)
 ├── context/
 │   └── AuthContext.tsx          # Authentication state provider
@@ -220,6 +222,18 @@ drizzle.config.local.ts         # Local SQLite config
 ## Testing
 
 No test framework is currently configured. Lint is the primary quality check (`npm run lint`).
+
+## Legal & Compliance
+
+- **Disclaimer Banner**: `DisclaimerBanner.tsx` renders a site-wide legal banner at the bottom of every page (added in root layout). States StockSage is educational, not SEBI registered, not investment advice.
+- **Disclaimer Page**: `/disclaimer` route with full legal text covering educational purpose, SEBI status, no investment advice, market risk, data accuracy, and personal responsibility.
+- **Auth Pages**: Both `/login` and `/signup` include a small disclaimer acknowledgment line linking to `/disclaimer`.
+- **RazorpayCheckout**: Clearly labeled as "Demo upgrade · No real payment" — no real payment processing is active yet.
+
+## Monetization & Validation
+
+- `MONETIZATION_STRATEGY.md` — Revenue roadmap (Razorpay subscriptions, broker affiliates, API access) with 8-week implementation plan and legal compliance notes.
+- `VALIDATION_PLAN.md` — Reddit-focused market validation plan with copy-paste posts for r/IndianStreetBets, r/IndiaInvestments, r/StartupsIndia, r/algotrading, and r/SideProject.
 
 ## Areas for Enhancement
 

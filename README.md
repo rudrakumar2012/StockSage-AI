@@ -13,6 +13,10 @@ Live: https://stock-sage-ai-eight.vercel.app/
 - **Subscription Gating**: Built-in FREE and PRO tiers to demonstrate feature-locking and premium access workflows.
 - **Automated Data Pipeline**: A Python-based backend that auto-syncs market intelligence every 12 hours via GitHub Actions.
 
+## ⚠️ Disclaimer
+
+StockSage is an **educational and research platform** for learning stock-market analysis. We do **not** provide investment advice, stock recommendations, or portfolio management services. We are **not SEBI registered**. Past performance is not indicative of future results. Data sourced from public APIs; accuracy not guaranteed. See [/disclaimer](https://stock-sage-ai-eight.vercel.app/disclaimer) for full details.
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 16 (App Router), React 19, Tailwind CSS.
