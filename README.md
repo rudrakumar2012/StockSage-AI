@@ -15,18 +15,18 @@ Live: https://stock-sage-ai-eight.vercel.app/
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15 (App Router), React 19, Tailwind CSS.
-- **Database**: Cloudflare D1 (SQLite) with Drizzle ORM.
+- **Frontend**: Next.js 16 (App Router), React 19, Tailwind CSS.
+- **Database**: Neon PostgreSQL (serverless) with Drizzle ORM.
 - **Auth**: JWT-based secure authentication.
 - **Intelligence**: Python 3.10, YFinance, NLTK (VADER Sentiment), Pandas.
-- **Deployment**: Cloudflare Pages + GitHub Actions.
+- **Deployment**: Vercel + GitHub Actions.
 - **UI Components**: Shadcn UI, Lucide Icons, Sonner Toasts.
 
 ## ⚙️ Architecture
 
 The project uses a **Local-First / Edge-Ready** architecture:
 1. **Next.js API Routes** handle the frontend logic and user management.
-2. **Cloudflare D1** serves as the globally distributed edge database.
+2. **Neon PostgreSQL** serves as the serverless edge database.
 3. **Python Master Sync** runs in a scheduled GitHub Action to fetch live market data, run AI sentiment analysis, and update the production database without downtime.
 
 ## 📥 Getting Started
@@ -52,7 +52,7 @@ npm run dev:full
 
 ## 🌐 Deployment
 
-For instructions on how to host this project for free using Cloudflare Pages and set up the automated data sync, see the [**Deployment Guide (DEPLOY.md)**](./DEPLOY.md).
+For instructions on how to host this project for free using Vercel and Neon and set up the automated data sync, see the [**Deployment Guide (DEPLOY.md)**](./DEPLOY.md).
 
 ## 📄 License
 

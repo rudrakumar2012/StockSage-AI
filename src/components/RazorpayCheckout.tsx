@@ -47,12 +47,17 @@ export default function RazorpayCheckout() {
   };
 
   return (
-    <button 
-      onClick={handleSubscription}
-      disabled={loading}
-      className="w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all bg-white text-black hover:bg-zinc-200 disabled:opacity-50 cursor-pointer"
-    >
-      {loading ? "Processing..." : "Initialize Pro Access"}
-    </button>
+    <div className="space-y-2">
+      <button
+        onClick={handleSubscription}
+        disabled={loading}
+        className="w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all bg-white text-black hover:bg-zinc-200 disabled:opacity-50 cursor-pointer"
+      >
+        {loading ? "Processing..." : "Initialize Pro Access"}
+      </button>
+      <p className="text-[9px] text-zinc-500 font-mono text-center uppercase tracking-[0.1em]">
+        Demo upgrade • No real payment
+      </p>
+    </div>
   );
 }

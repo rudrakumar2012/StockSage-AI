@@ -121,6 +121,13 @@ export default function SignupPage() {
             </div>
           )}
 
+          <div className="text-center">
+            <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.1em] mb-4">
+              By signing up, you acknowledge you have read and understood our{' '}
+              <a href="/disclaimer" className="underline text-zinc-400 hover:text-zinc-300">Disclaimer</a>.
+            </p>
+          </div>
+
           <div>
             <button
               type="submit"

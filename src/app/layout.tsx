@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import DisclaimerBanner from "@/components/DisclaimerBanner";
 import { AuthProvider } from '@/context/AuthContext'; // Import AuthProvider
 
 // Pure, clean, institutional typography
@@ -31,12 +32,13 @@ export default function RootLayout({
           <main>
             {children}
           </main>
-          <Toaster 
-            position="top-right" 
-            theme="dark" 
+          <DisclaimerBanner />
+          <Toaster
+            position="top-right"
+            theme="dark"
             toastOptions={{
               className: "bg-[#0a0a0a] border border-white/10 text-white font-sans",
-            }} 
+            }}
           />
         </AuthProvider>
       </body>
