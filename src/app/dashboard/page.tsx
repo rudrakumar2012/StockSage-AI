@@ -115,10 +115,10 @@ export default function Dashboard() {
         {/* INDEX CARDS */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4 mb-10 md:mb-16">
           {allIndexes.map((idx) => (
-            <div key={idx.id} className="bg-[#050505] border border-white/5 p-3 md:p-4 rounded-xl md:rounded-2xl hover:border-indigo-500/30 transition-all group">
+            <div key={idx.id} className="bg-[#050505] border border-white/5 p-3 md:p-4 rounded-xl md:rounded-2xl hover:border-indigo-500/30 transition-all group min-w-0">
               <p className="text-zinc-600 text-xs font-mono tracking-widest uppercase mb-1 md:mb-2 group-hover:text-zinc-400 transition-colors truncate">{idx.indexName}</p>
-              <div className="flex flex-col">
-                <h2 className="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-indigo-400 transition-colors">₹{idx.price.toLocaleString('en-IN')}</h2>
+              <div className="flex flex-col min-w-0">
+                <h2 className="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-indigo-400 transition-colors truncate">₹{idx.price.toLocaleString('en-IN')}</h2>
                 <span className={`text-xs font-mono font-bold mt-0.5 md:mt-1 ${idx.changePercentage >= 0 ? 'text-emerald-400' : 'text-rose-500'}`}>
                   {idx.changePercentage >= 0 ? '+' : ''}{idx.changePercentage}%
                 </span>

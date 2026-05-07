@@ -124,9 +124,6 @@
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-mono;
-  }
   button, a, [role="button"] {
     @apply cursor-pointer;
   }

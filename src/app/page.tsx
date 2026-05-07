@@ -36,8 +36,8 @@ export default async function HomePage() {
       </div>
 
       {/* Ambient Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-150 bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-0 right-0 w-150 h-150 bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[300px] md:w-[800px] md:h-[600px] bg-indigo-600/10 blur-[80px] md:blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-fuchsia-600/5 blur-[100px] md:blur-[150px] rounded-full pointer-events-none z-0" />
       
       {/* 1. KINETIC HERO SECTION */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-28 md:pt-40 pb-16 md:pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
@@ -211,7 +211,7 @@ export default async function HomePage() {
 
       {/* 5. FOOTER */}
       <footer className="relative z-10 bg-[#020202] pt-16 md:pt-24 pb-8">
-        <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-24 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-y-16">
+        <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-y-16">
            {[
             { label: "Execution Engine", value: "LibSQL" },
             { label: "Active Tickers", value: "115+" },

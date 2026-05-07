@@ -101,11 +101,11 @@ export default function DashboardHeader({ lastUpdated }: DashboardHeaderProps) {
         )}
 
         {/* User Section */}
-        <div className="flex items-center gap-3 md:gap-6">
-          {/* Mobile: Show user name, Desktop: Show name + email */}
-          <div className="flex flex-col items-end">
-            <span className="text-xs md:text-sm font-bold text-white uppercase tracking-tight">{user?.fullName}</span>
-            <span className="hidden sm:block text-xs font-medium text-zinc-500">{user?.email}</span>
+        <div className="flex items-center gap-2 md:gap-6 flex-shrink-0">
+          {/* Mobile: Show user name (truncated), Desktop: Show name + email */}
+          <div className="flex flex-col items-end max-w-[120px] sm:max-w-none">
+            <span className="text-xs md:text-sm font-bold text-white uppercase tracking-tight truncate">{user?.fullName}</span>
+            <span className="hidden sm:block text-xs font-medium text-zinc-500 truncate">{user?.email}</span>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
