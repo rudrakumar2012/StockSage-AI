@@ -97,7 +97,7 @@ export default function Dashboard() {
   const sectorsList = ["All", "Energy", "Technology", "Financial Services", "Consumer", "Infrastructure", "Healthcare", "Automobile", "Metals"];
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24 md:pt-48 pb-20 selection:bg-indigo-500/30 font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white pt-20 md:pt-48 pb-20 selection:bg-indigo-500/30 font-sans overflow-x-hidden">
       <DashboardHeader lastUpdated={log?.lastSuccess || undefined} />
       
       <div className="max-w-7xl mx-auto px-4 md:px-10">
@@ -136,7 +136,7 @@ export default function Dashboard() {
             <div className="flex-1 sm:w-80">
               <MarketSearch />
             </div>
-            <div className="relative group min-w-[160px]">
+            <div className="relative group min-w-0 sm:min-w-[160px]">
               <select 
                 value={currentSector}
                 onChange={(e) => handleSectorChange(e.target.value)}
@@ -223,13 +223,13 @@ export default function Dashboard() {
                 });
               }}
               disabled={Number(currentPage) <= 1 || isPending}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+              className="flex items-center gap-2 px-4 py-3 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all min-h-[44px]"
             >
               <ChevronLeft className="w-4 h-4" />
               Prev
             </button>
 
-            <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono">
+            <div className="flex items-center gap-2 px-4 py-3 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono min-h-[44px]">
               <span className="text-zinc-500">Page</span>
               <span className="text-white font-bold">{currentPage}</span>
               <span className="text-zinc-500">of</span>
@@ -245,7 +245,7 @@ export default function Dashboard() {
                 });
               }}
               disabled={Number(currentPage) >= totalPages || isPending}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+              className="flex items-center gap-2 px-4 py-3 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all min-h-[44px]"
             >
               Next
               <ChevronRight className="w-4 h-4" />

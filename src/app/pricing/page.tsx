@@ -20,7 +20,7 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-32 md:pt-40 px-4 md:px-6 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-40 px-4 md:px-6 pb-20">
       <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

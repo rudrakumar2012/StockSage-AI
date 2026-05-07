@@ -34,7 +34,7 @@ export default function RootLayout({
           </main>
           <DisclaimerBanner />
           <Toaster
-            position="top-right"
+            position="top-center"
             theme="dark"
             toastOptions={{
               className: "bg-[#0a0a0a] border border-white/10 text-white font-sans",

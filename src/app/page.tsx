@@ -40,7 +40,7 @@ export default async function HomePage() {
       <div className="absolute bottom-0 right-0 w-150 h-150 bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none z-0" />
       
       {/* 1. KINETIC HERO SECTION */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-40 md:pt-40 pb-16 md:pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-28 md:pt-40 pb-16 md:pb-20 lg:pt-52 lg:pb-32 border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Typography & Action */}
@@ -86,8 +86,8 @@ export default async function HomePage() {
                   <div key={i} className="flex justify-between items-center text-zinc-400 hover:text-white transition-colors cursor-default">
                     <span className="text-zinc-600 w-24">{row.time}</span>
                     <span className={`w-32 font-bold text-xs ${
-                      row.action.includes('BOUNCE') || row.action.includes('MOMENTUM') || row.action === 'BULLISH' ? 'text-emerald-500' : 
-                      row.action.includes('DUMP') || row.action.includes('REVERSION') || row.action === 'BEARISH' ? 'text-rose-500' : 
+                      row.action.includes('BOUNCE') || row.action.includes('MOMENTUM') || row.action === 'BULLISH' ? 'text-emerald-500' :
+                      row.action.includes('DUMP') || row.action.includes('REVERSION') || row.action === 'BEARISH' ? 'text-rose-500' :
                       'text-zinc-500'
                     }`}>{row.action}</span>
                     <span className="text-indigo-400 font-medium w-16 text-right text-xs">{row.confidence}</span>
@@ -97,6 +97,33 @@ export default async function HomePage() {
                   <div className="text-zinc-500 italic text-center py-4 text-xs">Awaiting predictive data...</div>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Scanner Preview — visible below lg breakpoint */}
+        <div className="lg:hidden mt-8 relative group">
+          <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-transparent blur-3xl rounded-full" />
+          <div className="relative p-6 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-2xl">
+            <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/5">
+              <span className="text-xs font-mono text-zinc-500 tracking-widest uppercase">Alpha Scanner</span>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="text-xs font-mono text-indigo-500">LIVE</span>
+              </div>
+            </div>
+            <div className="space-y-3 font-mono text-sm">
+              {executionData.slice(0, 3).map((row, i) => (
+                <div key={i} className="flex justify-between items-center text-zinc-400">
+                  <span className="text-white font-medium">{row.asset}</span>
+                  <span className={`font-bold text-xs ${
+                    row.action.includes('BOUNCE') || row.action.includes('MOMENTUM') || row.action === 'BULLISH' ? 'text-emerald-500' :
+                    row.action.includes('DUMP') || row.action.includes('REVERSION') || row.action === 'BEARISH' ? 'text-rose-500' :
+                    'text-zinc-500'
+                  }`}>{row.action}</span>
+                  <span className="text-indigo-400 text-xs">{row.confidence}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
