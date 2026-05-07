@@ -49,7 +49,7 @@ export default async function HomePage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mb-8 animate-fade-up">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse-slow"></span>
-              <span className="text-[10px] md:text-[11px] font-medium tracking-widest text-zinc-400 uppercase">NSE/BSE V2.4 Connected</span>
+              <span className="text-xs md:text-sm font-medium tracking-widest text-zinc-400 uppercase">NSE/BSE V2.4 Connected</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-6 leading-[1.05] animate-fade-up [animation-delay:100ms]">
@@ -75,10 +75,10 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-transparent blur-3xl rounded-full" />
             <div className="relative p-8 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 transition-colors duration-500 group-hover:border-indigo-500/30">
               <div className="flex justify-between items-center mb-6 pb-6 border-b border-white/5">
-                <span className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">Alpha Scanner Radar</span>
+                <span className="text-xs font-mono text-zinc-500 tracking-widest uppercase">Alpha Scanner Radar</span>
                 <div className="flex items-center gap-2">
                    <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                   <span className="text-[10px] font-mono text-indigo-500">PREDICTIVE CORE ACTIVE</span>
+                   <span className="text-xs font-mono text-indigo-500">PREDICTIVE CORE ACTIVE</span>
                 </div>
               </div>
               <div className="space-y-4 font-mono text-sm">
@@ -121,7 +121,7 @@ export default async function HomePage() {
       <section id="infrastructure" className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 border-b border-white/5">
         <div className="mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-4 italic">Core Infrastructure</h2>
-          <p className="text-[10px] md:text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
+          <p className="text-xs md:text-sm font-medium text-zinc-500 tracking-[0.2em] uppercase">Built for 1.4 Billion Requests</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
@@ -165,15 +165,15 @@ export default async function HomePage() {
               <div key={i} className="bg-[#050505] p-6 md:p-8 flex flex-col justify-between group hover:bg-[#0a0a0a] transition-all duration-500 min-h-50">
                 <div className="flex justify-between items-start mb-8 md:mb-12">
                   <div>
-                    <span className="text-[9px] md:text-[10px] font-mono font-medium text-zinc-600 uppercase tracking-widest block mb-2">{model.type}</span>
+                    <span className="text-xs font-mono font-medium text-zinc-600 uppercase tracking-widest block mb-2">{model.type}</span>
                     <h4 className="text-xl md:text-2xl font-medium text-white group-hover:text-indigo-400 transition-colors">{model.name}</h4>
                   </div>
-                  <span className={`text-[9px] md:text-[10px] font-mono px-2 md:px-3 py-1 rounded-full border ${model.risk === 'HIGH' ? 'border-rose-900/30 text-rose-500' : 'border-white/10 text-white'}`}>
+                  <span className={`text-xs font-mono px-2 md:px-3 py-1 rounded-full border ${model.risk === 'HIGH' ? 'border-rose-900/30 text-rose-500' : 'border-white/10 text-white'}`}>
                     {model.risk} RISK
                   </span>
                 </div>
                 <div className="flex justify-between items-end">
-                  <span className="text-[10px] md:text-xs text-zinc-600 font-medium tracking-wide">AI SIGNAL</span>
+                  <span className="text-xs text-zinc-600 font-medium tracking-wide">AI SIGNAL</span>
                   <span className={`text-lg md:text-xl font-light ${model.return === 'BREAKDOWN' || model.return === 'PULLBACK' ? 'text-rose-500' : 'text-emerald-500'}`}>{model.return}</span>
                 </div>
               </div>
@@ -193,14 +193,14 @@ export default async function HomePage() {
           ].map((stat, i) => (
             <div key={i} className="border-t border-white/10 pt-6">
               <p className="text-2xl md:text-4xl font-light text-white tracking-tight mb-2">{stat.value}</p>
-              <p className="text-[10px] md:text-xs font-medium text-zinc-500 uppercase tracking-wider">{stat.label}</p>
+              <p className="text-xs md:text-sm font-medium text-zinc-500 uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
         </div>
         
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 pt-8">
           <span className="text-lg md:text-xl font-medium tracking-tight text-white italic">StockSage.</span>
-          <p className="text-zinc-600 text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono text-center md:text-right">STOCKSAGE TRADING SOLUTIONS INDIA PVT LTD. INVESTMENTS IN SECURITIES MARKET ARE SUBJECT TO MARKET RISKS.</p>
+          <p className="text-zinc-600 text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono text-center md:text-right">STOCKSAGE TRADING SOLUTIONS INDIA PVT LTD. INVESTMENTS IN SECURITIES MARKET ARE SUBJECT TO MARKET RISKS.</p>
         </div>
       </footer>
 

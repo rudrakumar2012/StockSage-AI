@@ -62,10 +62,10 @@ export default function FeatureGate({ children, fallback }: FeatureGateProps) {
         <div className="p-3 bg-zinc-900 rounded-full mb-3 border border-white/10 shadow-2xl">
           <Lock className="w-5 h-5 text-indigo-400" />
         </div>
-        <p className="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-1">Pro Feature</p>
-        <button 
+        <p className="text-xs font-bold text-white uppercase tracking-[0.2em] mb-1">Pro Feature</p>
+        <button
           onClick={handleQuickUpgrade}
-          className="text-[9px] font-mono text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-indigo-500/50 cursor-pointer"
+          className="text-xs font-mono text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-indigo-500/50 cursor-pointer min-h-[44px] flex items-center"
         >
           Upgrade to Unlock
         </button>

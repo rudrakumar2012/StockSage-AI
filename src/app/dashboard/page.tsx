@@ -87,7 +87,7 @@ export default function Dashboard() {
   };
 
   if (authLoading || (loading && data.length === 0 && !isReady)) {
-    return <div className="min-h-screen bg-black flex items-center justify-center text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] animate-pulse">Initialising Secure Terminal...</div>;
+    return <div className="min-h-screen bg-black flex items-center justify-center text-zinc-500 font-mono text-xs uppercase tracking-[0.3em] animate-pulse">Initialising Secure Terminal...</div>;
   }
 
   if (!isReady && !loading) {
@@ -106,7 +106,7 @@ export default function Dashboard() {
         <div className="mb-8 md:mb-12 flex items-center overflow-x-auto no-scrollbar pb-2">
           <div className="flex items-center gap-3 bg-zinc-900/20 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-white/5 backdrop-blur-md whitespace-nowrap">
             <Database className="w-3 h-3 text-emerald-500" />
-            <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-400">
               Data Baseline: {log?.lastSuccess || 'Live Connection'}
             </span>
           </div>
@@ -116,10 +116,10 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4 mb-10 md:mb-16">
           {allIndexes.map((idx) => (
             <div key={idx.id} className="bg-[#050505] border border-white/5 p-3 md:p-4 rounded-xl md:rounded-2xl hover:border-indigo-500/30 transition-all group">
-              <p className="text-zinc-600 text-[8px] md:text-[9px] font-mono tracking-widest uppercase mb-1 md:mb-2 group-hover:text-zinc-400 transition-colors truncate">{idx.indexName}</p>
+              <p className="text-zinc-600 text-xs font-mono tracking-widest uppercase mb-1 md:mb-2 group-hover:text-zinc-400 transition-colors truncate">{idx.indexName}</p>
               <div className="flex flex-col">
                 <h2 className="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-indigo-400 transition-colors">₹{idx.price.toLocaleString('en-IN')}</h2>
-                <span className={`text-[9px] md:text-[10px] font-mono font-bold mt-0.5 md:mt-1 ${idx.changePercentage >= 0 ? 'text-emerald-400' : 'text-rose-500'}`}>
+                <span className={`text-xs font-mono font-bold mt-0.5 md:mt-1 ${idx.changePercentage >= 0 ? 'text-emerald-400' : 'text-rose-500'}`}>
                   {idx.changePercentage >= 0 ? '+' : ''}{idx.changePercentage}%
                 </span>
               </div>
@@ -141,7 +141,7 @@ export default function Dashboard() {
                 value={currentSector}
                 onChange={(e) => handleSectorChange(e.target.value)}
                 disabled={isPending}
-                className="w-full appearance-none bg-zinc-900/40 border border-white/10 rounded-xl px-5 py-3 md:py-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 focus:outline-none focus:border-indigo-500/50 transition-all cursor-pointer hover:bg-zinc-800/40"
+                className="w-full appearance-none bg-zinc-900/40 border border-white/10 rounded-xl px-5 py-3 md:py-4 text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 focus:outline-none focus:border-indigo-500/50 transition-all cursor-pointer hover:bg-zinc-800/40"
               >
                 {sectorsList.map((s) => (
                   <option key={s} value={s} className="bg-black text-white">
@@ -168,7 +168,7 @@ export default function Dashboard() {
                     {/* Gated AI Signal */}
                     <FeatureGate fallback={<div className="mb-3 h-5" />}>
                       {stock.aiSignal && stock.aiSignal !== 'NONE' && (
-                        <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-[9px] font-bold font-mono text-indigo-400 tracking-widest uppercase">
+                        <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-xs font-bold font-mono text-indigo-400 tracking-widest uppercase">
                           <Zap className="w-3 h-3" />
                           {stock.aiSignal.replace('_', ' ')} • {stock.aiConfidence}%
                         </div>
@@ -178,11 +178,11 @@ export default function Dashboard() {
                     <h3 className="text-2xl md:text-3xl font-bold tracking-tighter mb-2 uppercase italic leading-none group-hover:text-indigo-400 transition-colors">{stock.symbol}</h3>
 
                     <div className="flex items-center gap-2">
-                      <span className="px-2 md:px-3 py-1 bg-white/5 text-[8px] md:text-[9px] text-zinc-500 font-mono uppercase tracking-widest rounded-full">{stock.sector}</span>
+                      <span className="px-2 md:px-3 py-1 bg-white/5 text-xs text-zinc-500 font-mono uppercase tracking-widest rounded-full">{stock.sector}</span>
 
                       {/* Gated Sentiment Label */}
-                      <FeatureGate fallback={<span className="px-3 py-1 text-[8px] font-black font-mono tracking-widest rounded-full bg-white/5 text-zinc-700 blur-[2px]">AI: LOCKED</span>}>
-                        <span className={`px-2 md:px-3 py-1 text-[8px] font-black font-mono tracking-widest rounded-full ${
+                      <FeatureGate fallback={<span className="px-3 py-1 text-xs font-black font-mono tracking-widest rounded-full bg-white/5 text-zinc-700 blur-[2px]">AI: LOCKED</span>}>
+                        <span className={`px-2 md:px-3 py-1 text-xs font-black font-mono tracking-widest rounded-full ${
                           stock.sentimentLabel === 'BULLISH' ? 'bg-emerald-500/10 text-emerald-500' :
                           stock.sentimentLabel === 'BEARISH' ? 'bg-rose-500/10 text-rose-500' :
                           'bg-white/5 text-zinc-500'
@@ -198,14 +198,14 @@ export default function Dashboard() {
                 </div>
                 <div className="flex justify-between items-end">
                   <p className="text-3xl md:text-4xl font-light tracking-tighter text-zinc-100">₹{stock.price.toLocaleString('en-IN')}</p>
-                  <p className={`text-[10px] md:text-xs font-mono font-black ${stock.changePercentage >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                  <p className={`text-xs font-mono font-black ${stock.changePercentage >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                     {stock.changePercentage > 0 ? '+' : ''}{stock.changePercentage}%
                   </p>
                 </div>
               </div>
             ))
           ) : (
-            <div className="col-span-full py-24 md:py-32 text-center text-zinc-600 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] border border-white/5 rounded-3xl md:rounded-[40px] bg-zinc-900/5">
+            <div className="col-span-full py-24 md:py-32 text-center text-zinc-600 font-mono text-xs uppercase tracking-[0.4em] border border-white/5 rounded-3xl md:rounded-[40px] bg-zinc-900/5">
               NO MATCHING TICKERS IN TERMINAL
             </div>
           )}
@@ -223,13 +223,13 @@ export default function Dashboard() {
                 });
               }}
               disabled={Number(currentPage) <= 1 || isPending}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
             >
               <ChevronLeft className="w-4 h-4" />
               Prev
             </button>
 
-            <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono">
+            <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono">
               <span className="text-zinc-500">Page</span>
               <span className="text-white font-bold">{currentPage}</span>
               <span className="text-zinc-500">of</span>
@@ -245,7 +245,7 @@ export default function Dashboard() {
                 });
               }}
               disabled={Number(currentPage) >= totalPages || isPending}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-900/40 border border-white/10 rounded-full text-xs font-mono uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-zinc-800/40 transition-all"
             >
               Next
               <ChevronRight className="w-4 h-4" />

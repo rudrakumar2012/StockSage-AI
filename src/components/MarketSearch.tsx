@@ -68,7 +68,7 @@ export default function MarketSearch() {
         placeholder="FILTER BY TICKER..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="w-full bg-zinc-900/40 border border-white/5 rounded-xl py-3 md:py-4 pl-12 pr-10 text-[10px] font-mono tracking-widest focus:outline-none focus:border-indigo-500/50 transition-all"
+        className="w-full bg-zinc-900/40 border border-white/5 rounded-xl py-3 md:py-4 pl-12 pr-10 text-xs font-mono tracking-widest focus:outline-none focus:border-indigo-500/50 transition-all"
       />
     </div>
   );

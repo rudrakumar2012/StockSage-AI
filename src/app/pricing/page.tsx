@@ -45,7 +45,7 @@ export default function PricingPage() {
         >
           <button 
             onClick={handleFreeStart}
-            className="w-full py-3.5 md:py-4 rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs transition-all bg-zinc-800 text-white hover:bg-zinc-700"
+            className="w-full py-3.5 md:py-4 rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-xs transition-all bg-zinc-800 text-white hover:bg-zinc-700"
           >
             Start Free
           </button>
@@ -79,7 +79,7 @@ function PricingCard({
 }: any) {
   return (
     <div className={`h-full p-8 md:p-10 rounded-3xl md:rounded-[2.8rem] border ${highlighted ? 'bg-[#080808] border-white/10' : 'bg-zinc-900/10 border-white/5'} flex flex-col`}>
-      <h3 className="text-indigo-400 font-mono tracking-[0.3em] uppercase mb-2 text-[10px] md:text-xs">{tier}</h3>
+      <h3 className="text-indigo-400 font-mono tracking-[0.3em] uppercase mb-2 text-xs">{tier}</h3>
       <div className="text-4xl md:text-5xl font-bold text-white mb-4">
         {price}<span className="text-base md:text-lg text-zinc-600 font-medium">{price !== "Free" && "/mo"}</span>
       </div>

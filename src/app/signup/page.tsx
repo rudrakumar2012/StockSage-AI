@@ -111,18 +111,18 @@ export default function SignupPage() {
           </div>
 
           {error && (
-            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-500 p-3 rounded-xl text-center text-[10px] md:text-xs font-mono uppercase tracking-widest">
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-500 p-3 rounded-xl text-center text-xs font-mono uppercase tracking-widest">
               {error}
             </div>
           )}
           {successMessage && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 p-3 rounded-xl text-center text-[10px] md:text-xs font-mono uppercase tracking-widest">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 p-3 rounded-xl text-center text-xs font-mono uppercase tracking-widest">
               {successMessage}
             </div>
           )}
 
           <div className="text-center">
-            <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.1em] mb-4">
+            <p className="text-xs text-zinc-500 font-mono uppercase tracking-[0.1em] mb-4">
               By signing up, you acknowledge you have read and understood our{' '}
               <a href="/disclaimer" className="underline text-zinc-400 hover:text-zinc-300">Disclaimer</a>.
             </p>

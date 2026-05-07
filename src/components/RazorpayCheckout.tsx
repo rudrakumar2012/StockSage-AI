@@ -55,7 +55,7 @@ export default function RazorpayCheckout() {
       >
         {loading ? "Processing..." : "Initialize Pro Access"}
       </button>
-      <p className="text-[9px] text-zinc-500 font-mono text-center uppercase tracking-[0.1em]">
+      <p className="text-xs text-zinc-500 font-mono text-center uppercase tracking-[0.1em]">
         Demo upgrade • No real payment
       </p>
     </div>

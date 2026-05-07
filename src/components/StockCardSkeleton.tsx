@@ -14,10 +14,10 @@ export default function StockCardSkeleton() {
             <div className="h-8 w-16 bg-white/5 rounded" />
           </h3>
           <div className="flex items-center gap-2">
-            <span className="px-2 md:px-3 py-1 bg-white/5 text-[8px] text-zinc-700 rounded-full">
+            <span className="px-2 md:px-3 py-1 bg-white/5 text-xs text-zinc-700 rounded-full">
               <div className="h-3 w-12 bg-white/5 rounded" />
             </span>
-            <span className="px-2 md:px-3 py-1 text-[8px] font-black rounded-full bg-white/5 text-zinc-700 blur-[2px]">
+            <span className="px-2 md:px-3 py-1 text-xs font-black rounded-full bg-white/5 text-zinc-700 blur-[2px]">
               <div className="h-3 w-16 bg-white/5 rounded" />
             </span>
           </div>

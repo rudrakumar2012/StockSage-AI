@@ -41,14 +41,14 @@ export default function SystemBootLoader() {
         </h2>
         
         <div className="w-full space-y-3 mt-6">
-          <div className="flex justify-between text-[10px] text-zinc-500 uppercase tracking-widest">
+          <div className="flex justify-between text-xs text-zinc-500 uppercase tracking-widest">
             <span>Status</span>
             <span className="text-amber-500 animate-pulse">Building DB{dots}</span>
           </div>
           <div className="h-1 w-full bg-zinc-900 rounded-full overflow-hidden">
             <div className="h-full bg-indigo-500 w-1/2 rounded-full animate-[pulse_1s_ease-in-out_infinite]" />
           </div>
-          <p className="text-center text-[9px] text-zinc-600 uppercase tracking-[0.2em] mt-4">
+          <p className="text-center text-xs text-zinc-600 uppercase tracking-[0.2em] mt-4">
             Fetching fresh YFinance data. Please hold.
           </p>
         </div>
