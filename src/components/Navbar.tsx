@@ -4,27 +4,19 @@ import Link from "next/link";
 import Image from "next/image";
 import Menu from 'lucide-react/dist/esm/icons/menu';
 import X from 'lucide-react/dist/esm/icons/x';
-import { useAuth } from '@/context/AuthContext';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const { isAuthenticated, logout, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    router.push('/login');
-  };
-
-  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  if (isLoading || pathname === '/dashboard') {
+  if (pathname === '/dashboard') {
     return null;
   }
 
@@ -32,7 +24,6 @@ export default function Navbar() {
     { name: "Methodology", href: "/about" },
     { name: "Scanners", href: "/#scanners" },
     { name: "Infrastructure", href: "/#infrastructure" },
-    { name: "Pricing", href: "/pricing" },
   ];
 
   return (
@@ -65,31 +56,12 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* ACTION BUTTONS & MOBILE TOGGLE */}
+        {/* ACTION BUTTONS */}
         <div className="flex items-center gap-2 md:gap-4 ml-auto md:ml-0">
           <div className="hidden md:flex items-center gap-4">
-            {!isAuthenticated ? (
-              <>
-                <Link href="/login" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
-                  Sign In
-                </Link>
-                <Link href="/signup" className="px-6 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:scale-105 transition-all duration-300">
-                  Get Started
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/dashboard" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
-                  Dashboard
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="px-6 py-2.5 bg-zinc-800 text-white rounded-full font-bold text-sm hover:bg-zinc-700 transition-all duration-300"
-                >
-                  Logout
-                </button>
-              </>
-            )}
+            <Link href="/dashboard" className="px-6 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:scale-105 transition-all duration-300">
+              Launch Terminal
+            </Link>
           </div>
 
           {/* MOBILE MENU TOGGLE */}
@@ -102,7 +74,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* MOBILE DROPDOWN — always rendered, transitioned via opacity/transform */}
+        {/* MOBILE DROPDOWN */}
         <div className={`absolute top-[calc(100%+1rem)] left-0 right-0 p-6 bg-[#0a0a0a] border border-white/10 rounded-3xl shadow-2xl md:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
@@ -115,28 +87,9 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="h-px bg-white/5 my-2" />
-            {!isAuthenticated ? (
-              <div className="flex flex-col gap-2">
-                <Link href="/login" className="text-base font-medium text-zinc-400 hover:text-white rounded-xl px-4 py-3 min-h-[44px] flex items-center">
-                  Sign In
-                </Link>
-                <Link href="/signup" className="w-full py-4 bg-white text-black rounded-2xl font-bold text-center min-h-[44px] flex items-center justify-center">
-                  Get Started
-                </Link>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <Link href="/dashboard" className="text-base font-medium text-indigo-400 hover:text-indigo-300 rounded-xl px-4 py-3 min-h-[44px] flex items-center">
-                  Go to Dashboard
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="w-full py-4 bg-zinc-800 text-white rounded-2xl font-bold text-center min-h-[44px] flex items-center justify-center"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
+            <Link href="/dashboard" className="w-full py-4 bg-white text-black rounded-2xl font-bold text-center min-h-[44px] flex items-center justify-center">
+              Launch Terminal
+            </Link>
           </div>
         </div>
       </nav>

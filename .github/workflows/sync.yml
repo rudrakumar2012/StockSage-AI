@@ -1,4 +1,4 @@
-name: Institutional Terminal Sync (Neon)
+name: Terminal Sync (Neon)
 
 on:
   schedule:
@@ -17,16 +17,21 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Cache HuggingFace Model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: finbert-model-v1
+
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install yfinance pandas nltk psycopg2-binary
-          python -m nltk.downloader vader_lexicon
+          pip install yfinance pandas psycopg2-binary transformers torch
 
       - name: Sync Production Database (Neon)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          echo "📡 Syncing production terminal intelligence to Neon..."
+          echo "Syncing terminal intelligence to Neon..."
           python scripts/master_sync.py
-          echo "🚀 Pipeline execution finished. All systems green."
+          echo "Pipeline execution finished."

@@ -6,7 +6,6 @@ import {
   serial,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 
 export const stocks = pgTable("stocks", {
   id: serial("id").primaryKey(),
@@ -15,10 +14,15 @@ export const stocks = pgTable("stocks", {
   price: doublePrecision("price").notNull(),
   changePercentage: doublePrecision("change_percentage").notNull(),
   sector: text("sector"),
-  sentimentScore: doublePrecision("sentiment_score").default(0),
-  sentimentLabel: text("sentiment_label").default("NEUTRAL"),
+  sentimentScore: doublePrecision("sentiment_score"),
+  sentimentLabel: text("sentiment_label").default("NO_DATA"),
   aiSignal: text("ai_signal").default("NONE"),
   aiConfidence: doublePrecision("ai_confidence").default(0),
+  rsi: doublePrecision("rsi").default(0),
+  volume: doublePrecision("volume").default(0),
+  avgVolume: doublePrecision("avg_volume").default(0),
+  volumeSpike: doublePrecision("volume_spike").default(1),
+  lastSignalAt: timestamp("last_signal_at"),
 });
 
 export const indexes = pgTable("indexes", {
@@ -34,15 +38,11 @@ export const syncLogs = pgTable("sync_logs", {
   status: text("status"),
 });
 
-// New table for user authentication
-export const users = pgTable("users", {
+export const signalBacktest = pgTable("signal_backtest", {
   id: serial("id").primaryKey(),
-  fullName: text("full_name").notNull(),
-  email: text("email").notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
-  subscriptionTier: text("subscription_tier").default("FREE"), // FREE or PRO
-  razorpayCustomerId: text("razorpay_customer_id"),
-  subscriptionExpiry: timestamp("subscription_expiry"),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  signalType: text("signal_type").notNull(),
+  winRate: doublePrecision("win_rate").notNull(),
+  totalSignals: integer("total_signals").default(0),
+  correctSignals: integer("correct_signals").default(0),
+  lastBacktestAt: timestamp("last_backtest_at").defaultNow(),
 });
